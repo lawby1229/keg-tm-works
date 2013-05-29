@@ -29,7 +29,12 @@ public class Future {
 
 		LineNumberReader lnr = null;
 		BufferedOutputStream bos_neg = null;
-		BufferedOutputStream bos_pos[] = new BufferedOutputStream[7];
+		BufferedOutputStream both_test = null;
+
+		BufferedOutputStream bos_pos[] = new BufferedOutputStream[6];
+
+		BufferedOutputStream bos_neg_test = null;
+		BufferedOutputStream bos_pos_test = null;
 		try {
 			lnr = getLNR(filename);
 			String line;
@@ -62,37 +67,57 @@ public class Future {
 							}
 						}
 					}
-					// for (int j = 0; j < row.length; j++) {
-					// System.out.print(row[j] + " ");
-					// }
-					// System.out.print("\n");
 					futures.add(row);
 				}
 				line = lnr.readLine();
-				System.out.println(lineNum++);
+				System.out.println("è¯»å–" + lineNum++);
 
 			}
-			String[] output = new String[] { "output_future1",
-					"output_future2", "output_future3", "output_future4",
-					"output_future5", "output_future6", "output_future7" };
-			bos_neg = getBOS("output_future0_neg");
+			System.out.println("æ€»æ•°æ®é‡:" + futures.size());
+
+			String[] output = new String[] { "train_file1", "train_file2",
+					"train_file3", "train_file4", "train_file5", "train_file6" };
+			bos_neg = getBOS("only_neg");
+			both_test = getBOS("both_test_file");
+
 			for (int i = 0; i < bos_pos.length; i++)
 				bos_pos[i] = getBOS(output[i]);
-			int k = 0;
-			for (Double[] future : futures) {
+			int test_pos_line = 0, test_neg_line = 0;
+			for (int k = 0; k < futures.size(); k++) {
+				Double[] future = futures.get(k);
+
 				String line_out = "";
 				for (int i = 0; i < future.length - 1; i++) {
-					if (future[i] > 1000000)
+					if (future[i] > 1000000 || future[i] == 0)
 						continue;
-					line_out = line_out + i + ":" + future[i] + " ";
+					line_out = line_out + (int) (i + 1) + ":" + future[i] + " ";
 				}
-				if (future[future.length - 1] == 1) {
+
+				// åˆ°æ­¤ä¸ºæ­¢ä¿å­˜äº†æ‰€æœ‰è¿™ä¸€è¡Œçš„ç‰¹å¾åˆ°line_outä¸­
+				if (future[future.length - 1] == 1) {// è´Ÿä¾‹å‰7wè¡Œè¿›å…¥æ¯ä¸ªçš„è®­ç»ƒæ•°æ®é›†
 					writeString(bos_neg, "-1 " + line_out + "\n");
+					if (test_neg_line < 79941) {
+						for (int j = 0; j < bos_pos.length - 1; j++)
+							// å‰ä¸ƒä¸‡å¤šä¸ªè´Ÿä¾‹éƒ½ä¼šå»æ¯ä¸ªæ•´ç†çš„æ–‡ä»¶ï¼Œé™¤äº†æœ€åä¸€ä¸ª
+							writeString(bos_pos[j], "-1 " + line_out + "\n");
+						test_neg_line++;
+					} else
+						// å1ä¸‡ä½œä¸ºæµ‹è¯•ç”¨ä¾‹
+						writeString(both_test, "-1 " + line_out + "\n");
 				} else {
-					writeString(bos_pos[(int) (Math.random() * output.length)],
-							"+1 " + line_out + "\n");
+					int j = (int) (Math.random() * (output.length + 1));
+
+					if (j == output.length) {
+						if (test_pos_line > 10000) {
+							System.out.println("æ²¡å†™å…¥" + k);
+							continue;
+						}
+						writeString(both_test, "+1 " + line_out + "\n");
+						test_pos_line++;
+					} else
+						writeString(bos_pos[j], "+1 " + line_out + "\n");
 				}
-				System.out.println(k++);
+				System.out.println("å†™å…¥" + k);
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -100,7 +125,7 @@ public class Future {
 		} finally {
 			try {
 				lnr.close();
-				bos_neg.close();
+				both_test.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -119,7 +144,7 @@ public class Future {
 	}
 
 	/**
-	 * °ïÖú·½·¨,Í¨¹ıf_bĞ´ÈëContentÄÚÈİ
+	 * å¸®åŠ©æ–¹æ³•,é€šè¿‡f_bå†™å…¥Contentå†…å®¹
 	 * 
 	 * @param f_b
 	 * @param Content
@@ -137,7 +162,7 @@ public class Future {
 	}
 
 	/**
-	 * °ïÖú·½·¨,¶ÁÈ¡ÎÄ¼şÁ÷µÄ·â×°
+	 * å¸®åŠ©æ–¹æ³•,è¯»å–æ–‡ä»¶æµçš„å°è£…
 	 * 
 	 * @param Filename
 	 * @return
@@ -158,7 +183,7 @@ public class Future {
 	}
 
 	/**
-	 * °ïÖú·½·¨,Êä³öÊı¾İÁ÷µÄ·â×°
+	 * å¸®åŠ©æ–¹æ³•,è¾“å‡ºæ•°æ®æµçš„å°è£…
 	 * 
 	 * @param Filename
 	 * @return
@@ -190,7 +215,7 @@ public class Future {
 	}
 
 	public static void main(String law[]) {
-		Future f = new Future("F:\\´óÊı¾İ\\ÒÆ¶¯\\Ğ£Ô°ÓÃ»§ÓÃ»§ÕûÌåÇåµ¥\\Ğ£Ô°ÓÃ»§ÓÃ»§ÕûÌåÇåµ¥_no.csv", 1);
+		Future f = new Future("D:\\ç§»åŠ¨åŸå§‹æ•°æ®\\ç§»åŠ¨\\æ ¡å›­ç”¨æˆ·ç”¨æˆ·æ•´ä½“æ¸…å•_no.csv", 1);
 	}
 
 }
