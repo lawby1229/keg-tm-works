@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import ls.*;
+import ls.libsvm.*;
+
 public class Future {
 	HashMap<String, HashMap<String, Double>> GlobolMap = new HashMap<String, HashMap<String, Double>>();
 	HashMap<String, Double> CELL_ID = new HashMap<>();
@@ -133,7 +136,29 @@ public class Future {
 	}
 
 	public static void main(String law[]) {
-		Future f = new Future("D:\\移动原始数据\\移动\\校园用户用户整体清单_no.csv", 3);
+		// Future f = new Future("D:\\移动原始数据\\移动\\校园用户用户整体清单_no.csv", 3);
+
+		// String[] arg0 = { ".\\train_file0", // 存放SVM训练模型用的数据的路径
+		// ".\\mode0" }; // 存放SVM通过训练数据训练出来的模型的路径
+		String[] arg1 = { ".\\train_file1", // 存放SVM训练模型用的数据的路径
+				".\\mode1" }; // 存放SVM通过训练数据训练出来的模型的路径
+		String[] arg2 = { ".\\train_file2", // 存放SVM训练模型用的数据的路径
+				".\\mode2" }; // 存放SVM通过训练数据训练出来的模型的路径
+
+		String[] parg = { ".\\train_file1", // 这个是存放测试数据
+				".\\mode0", // 调用的是训练以后的模型
+				".\\predict0-1-2" }; // 生成的结果的文件的路径
+		System.out.println("........SVM运行开始..........");
+
+		try {
+			// svm_train.main(arg0);
+			svm_train.main(arg1);
+			svm_train.main(arg2);
+			// svm_predict.main(parg);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
