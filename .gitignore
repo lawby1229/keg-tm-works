@@ -1,5 +1,6 @@
 # Disable LF normalization for all files
 *.class
+models
 svm_files
 svm_files_2
 bin

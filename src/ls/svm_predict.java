@@ -14,14 +14,15 @@ public class svm_predict {
 	}
 
 	private static void predict(BufferedReader input, DataOutputStream output,
-			svm_model model, int predict_probability) throws IOException {
+			BufferedOutputStream output_info, svm_model model,
+			int predict_probability) throws IOException {
 		int correct = 0;
 		int total = 0;
 		double error = 0;
 		double sumv = 0, sumy = 0, sumvv = 0, sumyy = 0, sumvy = 0;
 
 		int TP = 0, TN = 0, FP = 0, FN = 0;
-
+		int POS = 0, NEG = 0;
 		int svm_type = svm.svm_get_svm_type(model);
 		int nr_class = svm.svm_get_nr_class(model);
 		double[] prob_estimates = null;
@@ -75,12 +76,16 @@ public class svm_predict {
 				++correct;
 			if (target == 1.0 && v == 1) {
 				TP++;
-			} else if (target == -1 && v == 1) {
-				FP++;
+				POS++;
 			} else if (target == 1 && v == -1) {
 				FN++;
+				POS++;
+			} else if (target == -1 && v == 1) {
+				FP++;
+				NEG++;
 			} else if (target == -1 && v == -1) {
 				TN++;
+				NEG++;
 			}
 			error += (v - target) * (v - target);
 			sumv += v;
@@ -110,6 +115,8 @@ public class svm_predict {
 			double Specificity = (double) TN / (TN + FP);
 			double F_score = 2 * (double) Recall * Accuracy
 					/ (Recall + Accuracy);
+			System.out.print("POS = " + POS + "\n");
+			System.out.print("NEG = " + NEG + "\n");
 			System.out.print("Precision = " + Precision + "\n");
 			System.out.print("Accuracy = " + Accuracy + "\n");
 			System.out.print("Recall = " + Recall + "\n");
@@ -117,6 +124,35 @@ public class svm_predict {
 			System.out.print("F_score = " + F_score + "\n");
 			System.out.print("Accuracy = " + (double) correct / total * 100
 					+ "% (" + correct + "/" + total + ") (classification)\n");
+			try {
+
+				output_info.write(("POS = " + POS + "\n").getBytes());
+				output_info.write(("NEG = " + NEG + "\n").getBytes());
+				output_info.write(("Precision = " + Precision + "\n")
+						.getBytes());
+				output_info.write(("Accuracy = " + Accuracy + "\n").getBytes());
+				output_info.write(("Recall = " + Recall + "\n").getBytes());
+				output_info.write(("Specificity = " + Specificity + "\n")
+						.getBytes());
+				output_info.write(("F_score = " + F_score + "\n").getBytes());
+				output_info
+						.write(("(" + correct + "/" + total + ") (classification)\n")
+								.getBytes());
+				output_info.flush();
+			} catch (IOException ex) {
+				System.out.println(ex);
+			}// TO
+				// File outfile = new File();
+				// FileOutputStream f;
+				// BufferedOutputStream f_b = null;
+				// try {
+				// f = new FileOutputStream(outfile, false);
+				// f_b = new BufferedOutputStream(f);
+				// } catch (FileNotFoundException e) {
+				// // TODO Auto-generated catch block
+				// e.printStackTrace();
+				// }
+
 		}
 	}
 
@@ -151,6 +187,8 @@ public class svm_predict {
 			BufferedReader input = new BufferedReader(new FileReader(argv[i]));
 			DataOutputStream output = new DataOutputStream(
 					new BufferedOutputStream(new FileOutputStream(argv[i + 2])));
+			BufferedOutputStream output_info = new BufferedOutputStream(
+					new FileOutputStream(new File(argv[i + 2] + ".info"), false));
 			svm_model model = svm.svm_load_model(argv[i + 1]);
 			if (predict_probability == 1) {
 				if (svm.svm_check_probability_model(model) == 0) {
@@ -164,9 +202,10 @@ public class svm_predict {
 							.print("Model supports probability estimates, but disabled in prediction.\n");
 				}
 			}
-			predict(input, output, model, predict_probability);
+			predict(input, output, output_info, model, predict_probability);
 			input.close();
 			output.close();
+			output_info.close();
 		} catch (FileNotFoundException e) {
 			exit_with_help();
 		} catch (ArrayIndexOutOfBoundsException e) {

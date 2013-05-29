@@ -56,7 +56,7 @@ public class Future {
 					for (int i = 1; i < elems.length; i++) {
 						if (i != 1 && i != 2 && i != 4 && i != 5) {
 							if (elems[i].equals(""))
-								row[i - 1] = Double.MAX_VALUE;
+								row[i - 1] = new Double(0);
 							else
 								row[i - 1] = Double.parseDouble(elems[i]);
 						} else {
@@ -89,7 +89,7 @@ public class Future {
 
 				String line_out = "";
 				for (int i = 0; i < future.length - 1; i++) {
-					if (future[i] > 1000000 || future[i] == 0)
+					if (future[i] == 0)
 						continue;
 					line_out = line_out + (int) (i + 1) + ":" + future[i] + " ";
 				}
@@ -137,24 +137,53 @@ public class Future {
 
 	public static void main(String law[]) {
 		// Future f = new Future("D:\\移动原始数据\\移动\\校园用户用户整体清单_no.csv", 3);
-
+		String[] arg = { ".\\heart_scale", // 存放SVM训练模型用的数据的路径
+				".\\mode" }; // 存放SVM通过训练数据训练出来的模型的路径
 		// String[] arg0 = { ".\\train_file0", // 存放SVM训练模型用的数据的路径
 		// ".\\mode0" }; // 存放SVM通过训练数据训练出来的模型的路径
-		String[] arg1 = { ".\\train_file1", // 存放SVM训练模型用的数据的路径
-				".\\mode1" }; // 存放SVM通过训练数据训练出来的模型的路径
-		String[] arg2 = { ".\\train_file2", // 存放SVM训练模型用的数据的路径
-				".\\mode2" }; // 存放SVM通过训练数据训练出来的模型的路径
+		// String[] arg1 = { ".\\train_file1", // 存放SVM训练模型用的数据的路径
+		// ".\\mode1" }; // 存放SVM通过训练数据训练出来的模型的路径
+		// String[] arg2 = { ".\\train_file2", // 存放SVM训练模型用的数据的路径
+		// ".\\mode2" }; // 存放SVM通过训练数据训练出来的模型的路径
+//---------------------------------------------------------------------------------------------------
+		String[] parg = { ".\\heart_scale", // 这个是存放测试数据
+				".\\mode", // 调用的是训练以后的模型
+				".\\predict" }; // 生成的结果的文件的路径
 
-		String[] parg = { ".\\train_file1", // 这个是存放测试数据
+		String[] parg0_1 = { ".\\train_file1", // 这个是存放测试数据
 				".\\mode0", // 调用的是训练以后的模型
-				".\\predict0-1-2" }; // 生成的结果的文件的路径
+				".\\predict0_1" }; // 生成的结果的文件的路径
+		String[] parg0_2 = { ".\\train_file2", // 这个是存放测试数据
+				".\\mode0", // 调用的是训练以后的模型
+				".\\predict0_2" }; // 生成的结果的文件的路径
+
+		String[] parg1_0 = { ".\\train_file0", // 这个是存放测试数据
+				".\\mode1", // 调用的是训练以后的模型
+				".\\predict1_0" }; // 生成的结果的文件的路径
+		String[] parg1_2 = { ".\\train_file2", // 这个是存放测试数据
+				".\\mode1", // 调用的是训练以后的模型
+				".\\predict1_2" }; // 生成的结果的文件的路径
+
+		String[] parg2_0 = { ".\\train_file0", // 这个是存放测试数据
+				".\\mode2", // 调用的是训练以后的模型
+				".\\predict2_0" }; // 生成的结果的文件的路径
+		String[] parg2_1 = { ".\\train_file1", // 这个是存放测试数据
+				".\\mode2", // 调用的是训练以后的模型
+				".\\predict2_1" }; // 生成的结果的文件的路径
 		System.out.println("........SVM运行开始..........");
 
 		try {
 			// svm_train.main(arg0);
-			svm_train.main(arg1);
-			svm_train.main(arg2);
-			// svm_predict.main(parg);
+			// svm_train.main(arg1);
+			// svm_train.main(arg2);
+			// svm_predict.main(parg0_1);
+			// svm_predict.main(parg0_2);
+			// svm_predict.main(parg1_0);
+			// svm_predict.main(parg1_2);
+			// svm_predict.main(parg2_0);
+			// svm_predict.main(parg2_1);
+			svm_train.main(arg);
+			svm_predict.main(parg);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
