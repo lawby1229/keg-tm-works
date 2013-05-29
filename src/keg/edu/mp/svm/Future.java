@@ -21,22 +21,22 @@ public class Future {
 	List<String> Labels = new ArrayList<>();
 	List<Double[]> futures = new ArrayList<Double[]>();
 
-	public Future(String filename, int column) {
+	public Future(String filename, int testFileNum) {
 		GlobolMap.put("CELL_ID", CELL_ID);
 		GlobolMap.put("TOWN_ID", TOWN_ID);
 		GlobolMap.put("BRAND", BRAND);
 		GlobolMap.put("PRODUCT_ID", PRODUCT_ID);
 
 		LineNumberReader lnr = null;
-		BufferedOutputStream bos_neg = null;
-		BufferedOutputStream both_test = null;
+		// BufferedOutputStream bos_neg = null;
+		// BufferedOutputStream both_test = null;
 
-		BufferedOutputStream bos_pos[] = new BufferedOutputStream[6];
+		BufferedOutputStream bos_test[] = new BufferedOutputStream[testFileNum];
 
-		BufferedOutputStream bos_neg_test = null;
-		BufferedOutputStream bos_pos_test = null;
+		// BufferedOutputStream bos_neg_test = null;
+		// BufferedOutputStream bos_pos_test = null;
 		try {
-			lnr = getLNR(filename);
+			lnr = FileStaticFunction.getLNR(filename);
 			String line;
 			line = lnr.readLine();
 			int lineNum = 0;
@@ -75,14 +75,12 @@ public class Future {
 			}
 			System.out.println("总数据量:" + futures.size());
 
-			String[] output = new String[] { "train_file1", "train_file2",
-					"train_file3", "train_file4", "train_file5", "train_file6" };
-			bos_neg = getBOS("only_neg");
-			both_test = getBOS("both_test_file");
+			for (int i = 0; i < bos_test.length; i++) {
+				bos_test[i] = FileStaticFunction.getBOS("train_file" + i);
 
-			for (int i = 0; i < bos_pos.length; i++)
-				bos_pos[i] = getBOS(output[i]);
-			int test_pos_line = 0, test_neg_line = 0;
+			}
+			int test_pos_line = 0, test_pos_line_in = 0, test_neg_line = 0;
+
 			for (int k = 0; k < futures.size(); k++) {
 				Double[] future = futures.get(k);
 
@@ -95,27 +93,19 @@ public class Future {
 
 				// 到此为止保存了所有这一行的特征到line_out中
 				if (future[future.length - 1] == 1) {// 负例前7w行进入每个的训练数据集
-					writeString(bos_neg, "-1 " + line_out + "\n");
-					if (test_neg_line < 79941) {
-						for (int j = 0; j < bos_pos.length - 1; j++)
-							// 前七万多个负例都会去每个整理的文件，除了最后一个
-							writeString(bos_pos[j], "-1 " + line_out + "\n");
-						test_neg_line++;
-					} else
-						// 后1万作为测试用例
-						writeString(both_test, "-1 " + line_out + "\n");
-				} else {
-					int j = (int) (Math.random() * (output.length + 1));
 
-					if (j == output.length) {
-						if (test_pos_line > 10000) {
-							System.out.println("没写入" + k);
-							continue;
-						}
-						writeString(both_test, "+1 " + line_out + "\n");
-						test_pos_line++;
-					} else
-						writeString(bos_pos[j], "+1 " + line_out + "\n");
+					int filenum = test_neg_line % testFileNum;
+					FileStaticFunction.writeString(bos_test[filenum], "-1 "
+							+ line_out + "\n");
+					test_neg_line++;
+				} else {
+					if (test_pos_line % 6 == 0) {
+						int filenum = test_pos_line_in % testFileNum;
+						FileStaticFunction.writeString(bos_test[filenum], "+1 "
+								+ line_out + "\n");
+						test_pos_line_in++;
+					}
+					test_pos_line++;
 				}
 				System.out.println("写入" + k);
 			}
@@ -125,7 +115,6 @@ public class Future {
 		} finally {
 			try {
 				lnr.close();
-				both_test.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -143,79 +132,8 @@ public class Future {
 		}
 	}
 
-	/**
-	 * 帮助方法,通过f_b写入Content内容
-	 * 
-	 * @param f_b
-	 * @param Content
-	 */
-	public void writeString(BufferedOutputStream f_b, String Content) {
-		try {
-
-			byte[] b;
-			b = Content.getBytes();
-			f_b.write(b);
-			f_b.flush();
-		} catch (IOException ex) {
-			System.out.println(ex);
-		}// TODO add your handling code here:
-	}
-
-	/**
-	 * 帮助方法,读取文件流的封装
-	 * 
-	 * @param Filename
-	 * @return
-	 */
-	public LineNumberReader getLNR(String Filename) {
-		File infile = new File(Filename);
-		FileInputStream f;
-		LineNumberReader f_b = null;
-		try {
-			f = new FileInputStream(infile);
-			f_b = new LineNumberReader(new InputStreamReader(f));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return f_b;
-	}
-
-	/**
-	 * 帮助方法,输出数据流的封装
-	 * 
-	 * @param Filename
-	 * @return
-	 */
-	public BufferedOutputStream getBOS(String Filename) {
-		File outfile = new File(Filename);
-		FileOutputStream f;
-		BufferedOutputStream f_b = null;
-		try {
-			f = new FileOutputStream(outfile, false);
-			f_b = new BufferedOutputStream(f);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return f_b;
-	}
-
-	public void closeBOS(BufferedOutputStream f_b) {
-
-		try {
-			f_b.flush();
-			f_b.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
 	public static void main(String law[]) {
-		Future f = new Future("D:\\移动原始数据\\移动\\校园用户用户整体清单_no.csv", 1);
+		Future f = new Future("D:\\移动原始数据\\移动\\校园用户用户整体清单_no.csv", 3);
 	}
 
 }
