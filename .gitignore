@@ -1,0 +1,5 @@
+*.class
+*.txt
+*.dat
+.\futures\*
+futures2\*.*
