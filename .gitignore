@@ -1,5 +1,5 @@
+# Disable LF normalization for all files
 *.class
-*.txt
-*.dat
-.\futures\*
-futures2\*.*
+svm_files
+svm_files_2
+bin
