@@ -79,7 +79,7 @@ public class Future {
 			System.out.println("总数据量:" + futures.size());
 
 			for (int i = 0; i < bos_test.length; i++) {
-				bos_test[i] = FileStaticFunction.getBOS("train_file" + i);
+				bos_test[i] = FileStaticFunction.getBOS("train_file_csv" + i);
 
 			}
 			int test_pos_line = 0, test_pos_line_in = 0, test_neg_line = 0;
@@ -89,22 +89,23 @@ public class Future {
 
 				String line_out = "";
 				for (int i = 0; i < future.length - 1; i++) {
-					if (future[i] == 0)
-						continue;
-					line_out = line_out + (int) (i + 1) + ":" + future[i] + " ";
+//					if (future[i] == 0)
+//						continue;
+//					line_out = line_out + (int) (i + 1) + ":" + future[i] + " ";
+					line_out = line_out +","+future[i];
 				}
-
+				
 				// 到此为止保存了所有这一行的特征到line_out中
 				if (future[future.length - 1] == 1) {// 负例前7w行进入每个的训练数据集
 
 					int filenum = test_neg_line % testFileNum;
-					FileStaticFunction.writeString(bos_test[filenum], "-1 "
+					FileStaticFunction.writeString(bos_test[filenum], "-1"
 							+ line_out + "\n");
 					test_neg_line++;
 				} else {
 					if (test_pos_line % 6 == 0) {
 						int filenum = test_pos_line_in % testFileNum;
-						FileStaticFunction.writeString(bos_test[filenum], "+1 "
+						FileStaticFunction.writeString(bos_test[filenum], "+1"
 								+ line_out + "\n");
 						test_pos_line_in++;
 					}
@@ -136,7 +137,7 @@ public class Future {
 	}
 
 	public static void main(String law[]) {
-		// Future f = new Future("D:\\移动原始数据\\移动\\校园用户用户整体清单_no.csv", 3);
+		 Future f = new Future("D:\\移动原始数据\\移动\\校园用户用户整体清单_no.csv", 3);
 		// String[] arg = { ".\\heart_scale", // 存放SVM训练模型用的数据的路径
 		// ".\\mode" }; // 存放SVM通过训练数据训练出来的模型的路径
 		String[] arg0 = { ".\\train_file0", ".\\mode0_L", "-t", "0" };
@@ -182,11 +183,11 @@ public class Future {
 		// };
 		System.out.println("........SVM运行开始..........");
 
-		try {
+//		try {
 //			svm_train.main(arg0);
 			// svm_train.main(arg1);
 			// svm_train.main(arg2);
-			svm_predict.main(parg0_1);
+//			svm_predict.main(parg0_1);
 			// svm_predict.main(parg0_2);
 			// svm_predict.main(parg1_0);
 			// svm_predict.main(parg1_2);
@@ -198,10 +199,10 @@ public class Future {
 			// svm_predict.main(parg01_2);
 			// svm_predict.main(parg12_0);
 			// svm_predict.main(parg02_1);
-		} catch (IOException e) {
+//		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//			e.printStackTrace();
+//		}
 	}
 
 }
