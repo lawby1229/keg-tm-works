@@ -137,10 +137,10 @@ public class Future {
 	}
 
 	public static void main(String law[]) {
-		 Future f = new Future("D:\\移动原始数据\\移动\\校园用户用户整体清单_no.csv", 3);
-		// String[] arg = { ".\\heart_scale", // 存放SVM训练模型用的数据的路径
-		// ".\\mode" }; // 存放SVM通过训练数据训练出来的模型的路径
-		String[] arg0 = { ".\\train_file0", ".\\mode0_L", "-t", "0" };
+//		 Future f = new Future("D:\\移动原始数据\\移动\\校园用户用户整体清单_no.csv", 3);
+		 String[] arg = { ".\\heart_scale", // 存放SVM训练模型用的数据的路径
+		 ".\\mode" ,"-t","0"}; // 存放SVM通过训练数据训练出来的模型的路径 -t是核函数
+//		String[] arg0 = { ".\\train_file0", ".\\mode0_L", "-t", "0" };
 		// String[] arg1 = { ".\\train_file1", // 存放SVM训练模型用的数据的路径
 		// ".\\mode1" }; // 存放SVM通过训练数据训练出来的模型的路径
 		// String[] arg2 = { ".\\train_file2", // 存放SVM训练模型用的数据的路径
@@ -150,13 +150,13 @@ public class Future {
 		// String[] arg12 = { ".\\train_file1", ".\\mode1_l" };
 		// String[] arg02 = { ".\\train_file2", ".\\mode2_l" };
 		// ---------------------------------------------------------------------------------------------------
-		// String[] parg = { ".\\heart_scale", // 这个是存放测试数据
-		// ".\\mode", // 调用的是训练以后的模型
-		// ".\\predict" }; // 生成的结果的文件的路径
+		 String[] parg = { ".\\heart_scale", // 这个是存放测试数据
+		 ".\\mode", // 调用的是训练以后的模型
+		 ".\\predict" }; // 生成的结果的文件的路径
 
-		String[] parg0_1 = { ".\\train_file0", // 这个是存放测试数据
-				".\\mode0_L", // 调用的是训练以后的模型
-				".\\predict0_0_L" }; // 生成的结果的文件的路径
+//		String[] parg0_1 = { ".\\train_file0", // 这个是存放测试数据
+//				".\\mode0_L", // 调用的是训练以后的模型
+//				".\\predict0_0_L" }; // 生成的结果的文件的路径
 		// String[] parg0_2 = { ".\\train_file2", // 这个是存放测试数据
 		// ".\\mode0", // 调用的是训练以后的模型
 		// ".\\predict0_2" }; // 生成的结果的文件的路径
@@ -183,10 +183,12 @@ public class Future {
 		// };
 		System.out.println("........SVM运行开始..........");
 
-//		try {
+		try {
+		svm_train.main(arg);
 //			svm_train.main(arg0);
 			// svm_train.main(arg1);
 			// svm_train.main(arg2);
+		svm_predict.main(parg);
 //			svm_predict.main(parg0_1);
 			// svm_predict.main(parg0_2);
 			// svm_predict.main(parg1_0);
@@ -199,10 +201,10 @@ public class Future {
 			// svm_predict.main(parg01_2);
 			// svm_predict.main(parg12_0);
 			// svm_predict.main(parg02_1);
-//		} catch (IOException e) {
-			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
 	}
 
 }
