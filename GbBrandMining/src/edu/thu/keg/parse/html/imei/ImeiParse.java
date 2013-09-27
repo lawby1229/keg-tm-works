@@ -83,7 +83,8 @@ public class ImeiParse {
 	 * @param resource
 	 *            文件/Url
 	 */
-	public static List<String> test5(String resource) throws Exception {
+	public static List<String> ImeiPraser(String imei) throws Exception {
+		String resource = "http://www.imeidb.com/?imei=" + imei;
 		Parser myParser = new Parser(resource);
 
 		// 设置编码
@@ -121,7 +122,7 @@ public class ImeiParse {
 	 */
 	public static void main(String[] args) throws Exception {
 		System.out
-				.println(test5("http://www.imeidb.com/?imei=013176002530049"));
+				.println(ImeiPraser("http://www.imeidb.com/?imei=013176002530049"));
 
 	}
 }
