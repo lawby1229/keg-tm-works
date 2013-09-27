@@ -35,6 +35,10 @@ public class ImeiPraseImeiInfo {
 		System.out.println("send_data:" + sb.toString());
 		// 尝试发送请求
 		try {
+//			System.getProperties().setProperty("http.proxyHost", "127.0.0.1");
+//
+//			System.getProperties().setProperty("http.proxyPort", "8087");
+
 			u = new URL(url);
 			con = (HttpURLConnection) u.openConnection();
 			con.setRequestMethod("POST");

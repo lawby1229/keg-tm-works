@@ -11,6 +11,7 @@ import org.htmlparser.filters.HasAttributeFilter;
 import org.htmlparser.filters.NotFilter;
 import org.htmlparser.filters.StringFilter;
 import org.htmlparser.filters.TagNameFilter;
+import org.htmlparser.parserapplications.filterbuilder.Filter;
 import org.htmlparser.tags.TableTag;
 import org.htmlparser.util.NodeList;
 
@@ -84,21 +85,16 @@ public class ImeiParse {
 	 *            文件/Url
 	 */
 	public static List<String> ImeiPraser(String imei) throws Exception {
-		String resource = "http://www.imeidb.com/?imei=" + imei;
+		String resource = "http://www.imei.info/?imei=" + imei;
+//		System.out.println(resource);
+		resource = AgentHttp.getHtml(resource);
 		Parser myParser = new Parser(resource);
-
 		// 设置编码
 		myParser.setEncoding("utf-8");
-		String filterStr = "table";
-		String filterStr2 = "td";
-		NodeFilter filterWidth = new HasAttributeFilter("width");
-		NodeFilter filter = new TagNameFilter(filterStr);
-		NodeFilter filter2 = new TagNameFilter(filterStr2);
-		// NodeFilter filter3 = new
-		AndFilter andfilter = new AndFilter(filter2, new NotFilter(filterWidth));
-		NodeList nodeList = myParser.extractAllNodesThatMatch(andfilter);
+		NodeFilter nf = getImeiInfoFilter();
+		NodeList nodeList = myParser.extractAllNodesThatMatch(nf);
 		List<String> result = new ArrayList();
-		for (int i = 0; i < 3 && i < nodeList.size(); i++) {
+		for (int i = 0; i < 2 && i < nodeList.size(); i++) {
 
 			// TableTag tabletag = (TableTag) nodeList.elementAt(i);
 			Node node = nodeList.elementAt(i);
@@ -106,14 +102,39 @@ public class ImeiParse {
 			// System.out.println(node.getText());
 			// System.out.println(node.toHtml());
 			// System.out.println(node.toPlainTextString());
-			result.add(node.toPlainTextString());
+			String brand = node.getLastChild().getText();
+			if (brand.startsWith("we're sorry"))
+				return result;
+			result.add(brand);
 			// System.out.println(node.getFirstChild().toPlainTextString());
-			// System.out.println(node.);
-
-			// System.out.println("==============");
+//			System.out.println(node.getLastChild().getText());
+//			//
+//			System.out.println("==============");
 
 		}
 		return result;
+	}
+
+	private static NodeFilter getImeiDBFilter() {
+		String filterStr = "table";
+		String filterStr2 = "td";
+		NodeFilter filterWidth = new HasAttributeFilter("width");
+		NodeFilter filter = new TagNameFilter(filterStr);
+		NodeFilter filter2 = new TagNameFilter(filterStr2);
+		// NodeFilter filter3 = new
+		AndFilter andfilter = new AndFilter(filter2, new NotFilter(filterWidth));
+		return andfilter;
+	}
+
+	private static NodeFilter getImeiInfoFilter() {
+		String filterStr = "p";
+		String filterStr2 = "td";
+		NodeFilter filterid = new HasAttributeFilter("id", "dane");
+		NodeFilter filter = new TagNameFilter(filterStr);
+		// NodeFilter filter2 = new TagNameFilter(filterStr2);
+		// NodeFilter filter3 = new
+		// AndFilter andfilter = new AndFilter(filter, new NotFilter(filterid));
+		return filter;
 	}
 
 	/*
@@ -121,8 +142,7 @@ public class ImeiParse {
 	 * TestYahoo(); testYahoo.testHtml(); }
 	 */
 	public static void main(String[] args) throws Exception {
-		System.out
-				.println(ImeiPraser("http://www.imeidb.com/?imei=013176002530049"));
+		System.out.println(ImeiPraser("869567010923108"));
 
 	}
 }
