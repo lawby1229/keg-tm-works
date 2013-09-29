@@ -13,14 +13,15 @@ public class AgentHttp {
 		// System.getProperties().setProperty("proxySet", "true");
 		// //如果不设置，只要代理IP和代理端口正确,此项不设置也可以
 
-		System.out.println(getHtml("http://www.imeidb.com/?imei=013176002530049")); // 判断代理是否设置成功
+		System.out
+				.println(getHtml("http://www.imeidb.com/?imei=013176002530049")); // 判断代理是否设置成功
 
 	}
 
 	public static String getHtml(String address) {
-		 System.getProperties().setProperty("http.proxyHost", "127.0.0.1");
-		
-		 System.getProperties().setProperty("http.proxyPort", "8087");
+		System.getProperties().setProperty("http.proxyHost", "127.0.0.1");
+
+		System.getProperties().setProperty("http.proxyPort", "8087");
 
 		StringBuffer html = new StringBuffer();
 
@@ -30,10 +31,22 @@ public class AgentHttp {
 
 			URL url = new URL(address);
 			URLConnection conn = url.openConnection();
-			conn.setRequestProperty(
-					"User-Agent",
-					"Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; GTB5; .NET CLR 2.0.50727; CIBA)");
-
+			switch ((int) (Math.random() * 3)) {
+			case 0:
+				conn.setRequestProperty(
+						"User-Agent",
+						"Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.2; GTB5; .NET CLR 2.0.50727; CIBA)");
+				break;
+			case 1:
+				conn.setRequestProperty(
+						"User-Agent",
+						"Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; GTB5; .NET CLR 2.0.50727; CIBA)");
+				break;
+			case 2:
+				conn.setRequestProperty(
+						"User-Agent",
+						"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; GTB5; .NET CLR 2.0.50727; CIBA)");
+			}
 			BufferedInputStream in = new BufferedInputStream(
 					conn.getInputStream());
 

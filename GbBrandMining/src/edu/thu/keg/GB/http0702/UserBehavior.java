@@ -24,9 +24,9 @@ import edu.thu.keg.provider.impl.OracleProviderImpl;
 public class UserBehavior {
 	public static void main(String age[]) {
 		System.out.println("链接oracle数据路：... ");
-		String sql = "select distinct(imei) from t_gb_cdr_http_0702     where imei is not null and rownum <  10";
+		String sql = "select imei from B9_IMEI_BRANDING ";
 		IDatabaseProvider ssp = null;
-		ssp = OracleProviderImpl.getInstance("bj_gb", "root");
+		ssp = OracleProviderImpl.getInstance("bj_brand", "root");
 		PreparedStatement pstmt = null;
 		String url = "http://www.imei.info/api/checkimei/";
 		Map<String, String> param = new HashMap<String, String>();
@@ -42,13 +42,12 @@ public class UserBehavior {
 			int i = 0;
 			fw = new FileWriter("Imei-brand", true);
 			String imei = null;
-			String type = null;
-			String brand = null;
-			while (rs.next() && i++ < 10) {
+
+			while (rs.next()) {
 				imei = rs.getString(1);
 				List<String> doublekill = ImeiParse.ImeiPraser(imei);
-				while (doublekill.size() > 0
-						&& doublekill.get(0).startsWith(" if you are not")) {
+				while (doublekill==null || (doublekill.size() > 0
+						&& doublekill.get(0).startsWith(" if you are not"))) {
 					System.out.println(i + "正在重试");
 					doublekill = ImeiParse.ImeiPraser(imei);
 				}
@@ -56,8 +55,8 @@ public class UserBehavior {
 					System.out.println(i + ":没有");
 				else {
 					System.out.println(i + ":" + doublekill);
-					fw.write(imei + "," + doublekill.get(0) + ","
-							+ doublekill.get(1) + "\n");
+					fw.write(imei + "," + doublekill.get(0).trim() + ","
+							+ doublekill.get(1).trim() + "\n");
 					fw.flush();
 				}
 				// param.put("imei", rs.getString(1));
@@ -67,6 +66,7 @@ public class UserBehavior {
 				// if (!job.has("error"))
 				// System.out.println(job.getString("model"));
 
+				i++;
 			}
 
 		} catch (Exception e) {
@@ -87,14 +87,6 @@ public class UserBehavior {
 
 	}
 
-	int change() {
-		return 0;
-	}
 }
 
-class Child extends UserBehavior {
 
-	public int change() {
-		return 0;
-	}
-}

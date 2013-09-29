@@ -86,9 +86,12 @@ public class ImeiParse {
 	 */
 	public static List<String> ImeiPraser(String imei) throws Exception {
 		String resource = "http://www.imei.info/?imei=" + imei;
-//		System.out.println(resource);
+		 System.out.println(resource);
 		resource = AgentHttp.getHtml(resource);
+		if (resource == null)
+			return null;
 		Parser myParser = new Parser(resource);
+
 		// 设置编码
 		myParser.setEncoding("utf-8");
 		NodeFilter nf = getImeiInfoFilter();
@@ -107,9 +110,9 @@ public class ImeiParse {
 				return result;
 			result.add(brand);
 			// System.out.println(node.getFirstChild().toPlainTextString());
-//			System.out.println(node.getLastChild().getText());
-//			//
-//			System.out.println("==============");
+			// System.out.println(node.getLastChild().getText());
+			// //
+			// System.out.println("==============");
 
 		}
 		return result;
