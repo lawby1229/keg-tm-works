@@ -7,22 +7,22 @@ import java.net.URL;
 import java.net.URLConnection;
 
 public class AgentHttp {
+	int useragentNum = 0;
 
-	public static void main(String args[]) {
-
+	/**
+	 * 获取address网址的内容字符串
+	 * 
+	 * @param address
+	 * @return
+	 */
+	public String getHtml(String address) {
 		// System.getProperties().setProperty("proxySet", "true");
-		// //如果不设置，只要代理IP和代理端口正确,此项不设置也可以
-
-		System.out
-				.println(getHtml("http://www.imeidb.com/?imei=013176002530049")); // 判断代理是否设置成功
-
-	}
-
-	public static String getHtml(String address) {
-		System.getProperties().setProperty("http.proxyHost", "127.0.0.1");
-
-		System.getProperties().setProperty("http.proxyPort", "8087");
-
+		// System.getProperties().setProperty("http.proxyHost", "127.0.0.1");
+		// System.getProperties().setProperty("http.proxyPort", "8087");
+		System.getProperties()
+				.setProperty(
+						"Cookie",
+						"__qca=P0-45434415-1381594809918; PHPSESSID=4ade2046ec0c40b799653a84f0bd0257; __utma=94995971.1891526951.1381594810.1381681198.1381684353.3; __utmb=94995971.3.10.1381684353; __utmc=94995971; __utmz=94995971.1381594810.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)");
 		StringBuffer html = new StringBuffer();
 
 		String result = null;
@@ -31,7 +31,7 @@ public class AgentHttp {
 
 			URL url = new URL(address);
 			URLConnection conn = url.openConnection();
-			switch ((int) (Math.random() * 3)) {
+			switch (useragentNum++ % 4) {
 			case 0:
 				conn.setRequestProperty(
 						"User-Agent",
@@ -46,7 +46,13 @@ public class AgentHttp {
 				conn.setRequestProperty(
 						"User-Agent",
 						"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; GTB5; .NET CLR 2.0.50727; CIBA)");
+
+			case 3:
+				conn.setRequestProperty(
+						"User-Agent",
+						"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.69 Safari/537.36");
 			}
+
 			BufferedInputStream in = new BufferedInputStream(
 					conn.getInputStream());
 

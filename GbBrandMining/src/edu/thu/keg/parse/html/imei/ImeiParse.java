@@ -86,8 +86,9 @@ public class ImeiParse {
 	 */
 	public static List<String> ImeiPraser(String imei) throws Exception {
 		String resource = "http://www.imei.info/?imei=" + imei;
-		 System.out.println(resource);
-		resource = AgentHttp.getHtml(resource);
+//		System.out.println(resource);
+		AgentHttp agent = new AgentHttp();
+		resource = agent.getHtml(resource);
 		if (resource == null)
 			return null;
 		Parser myParser = new Parser(resource);
