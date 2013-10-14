@@ -20,42 +20,93 @@ import edu.thu.keg.adsl.ConnectNetwork;
 import edu.thu.keg.parse.html.imei.AgentHttp;
 
 public class ScanNumPlan extends Thread {
-	final String UrlNumPlan = "http://www.numberingplans.com/?page=plans&sub=imeinr&alpha_2_input="
-			+ "01" + "&current_page=";
+	final String UrlNumPlanPart1 = "http://www.numberingplans.com/?page=plans&sub=imeinr&alpha_2_input=";
+	final String UrlNumPlanPart2 = "&current_page=";
+
 	AgentHttp agentHttp = new AgentHttp();
 	FileWriter fw = null;
 	boolean reDial = true;
-	String[][] range = new String[17][2];
+	int[][] range = new int[18][2];
 
 	public ScanNumPlan() {
-		try {
-			fw = new FileWriter("Imei-brand", true);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		range[0][0] = "";
-		range[0][1] = "";
+		range[0][0] = 35;
+		range[0][1] = 1401;
+
+		range[1][0] = 44;
+		range[1][1] = 58;
+
+		range[2][0] = 97;
+		range[2][1] = 0;
+
+		range[3][0] = 98;
+		range[3][1] = 3;
+
+		range[4][0] = 99;
+		range[4][1] = 4;
+
+		range[5][0] = 49;
+		range[5][1] = 25;
+
+		range[6][0] = 50;
+		range[6][1] = 9;
+
+		range[7][0] = 51;
+		range[7][1] = 1;
+
+		range[8][0] = 52;
+		range[8][1] = 45;
+
+		range[9][0] = 10;
+		range[9][1] = 1;
+
+		range[10][0] = 33;
+		range[10][1] = 61;
+
+		range[11][0] = 31;
+		range[11][1] = 0;
+
+		range[12][0] = 30;
+		range[12][1] = 1;
+
+		range[13][0] = 91;
+		range[13][1] = 12;
+
+		range[14][0] = 45;
+		range[14][1] = 14;
+
+		range[15][0] = 54;
+		range[15][1] = 1;
+
+		range[16][0] = 86;
+		range[16][1] = 21;
+
+		range[17][0] = 53;
+		range[17][1] = 1;
 	}
 
 	@Override
 	public void run() {
 
 		try {
-
-			for (int i = 152; i <= 155; i++) {
-				ImeiPraser(String.valueOf(i));
-				System.out.println(i);
-				fw.flush();
-				if (reDial) {
-					redial();
-					i--;
-				} else
-					reDial = true;
-				sleep(500);
-
+			for (int i = 0; i < range.length; i++) {
+				System.out.print(i);
+				fw = new FileWriter("Imei-brand_" + range[i][0] + "-"
+						+ range[i][1], true);
+				for (int j = 1; j <= range[i][1]; j++) {
+					ImeiPraser(String.valueOf(range[i][0]), String.valueOf(j));
+					System.out.print(j + ",");
+					fw.flush();
+					if (reDial) {
+						redial();
+						j--;
+					} else
+						reDial = true;
+					sleep(500);
+				}
+				System.out.println();
+				fw.close();
 			}
-			fw.close();
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -63,8 +114,8 @@ public class ScanNumPlan extends Thread {
 
 	}
 
-	public void ImeiPraser(String page) throws Exception {
-		String resource = UrlNumPlan + page;
+	public void ImeiPraser(String searl, String page) throws Exception {
+		String resource = UrlNumPlanPart1 + searl + UrlNumPlanPart2 + page;
 		System.out.println(resource);
 		resource = agentHttp.getHtml(resource);
 		if (resource == null)
@@ -129,11 +180,11 @@ public class ScanNumPlan extends Thread {
 		try {
 			// 断开连接
 			ConnectNetwork.cutAdsl("宽带");
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 			// 再连，分配一个新的IP
 			while (!ConnectNetwork.connAdsl("宽带", "hzhz**********", "******")) {
 				System.out.println("拨号失败，重播中、、、");
-				Thread.sleep(3000);
+				Thread.sleep(1000);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
