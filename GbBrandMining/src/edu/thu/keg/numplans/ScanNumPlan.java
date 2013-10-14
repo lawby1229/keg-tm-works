@@ -16,6 +16,7 @@ import org.htmlparser.filters.NotFilter;
 import org.htmlparser.filters.TagNameFilter;
 import org.htmlparser.util.NodeList;
 
+import edu.thu.keg.adsl.ConnectNetwork;
 import edu.thu.keg.parse.html.imei.AgentHttp;
 
 public class ScanNumPlan extends Thread {
@@ -24,6 +25,7 @@ public class ScanNumPlan extends Thread {
 	AgentHttp agentHttp = new AgentHttp();
 	FileWriter fw = null;
 	boolean reDial = true;
+	String[][] range = new String[17][2];
 
 	public ScanNumPlan() {
 		try {
@@ -32,6 +34,8 @@ public class ScanNumPlan extends Thread {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		range[0][0] = "";
+		range[0][1] = "";
 	}
 
 	@Override
@@ -78,24 +82,24 @@ public class ScanNumPlan extends Thread {
 		// });
 		NodeFilter nf = getNumPlanFilter();
 		NodeList nodeList = myParser.extractAllNodesThatMatch(nf);
-//		System.out.println("过滤出" + nodeList.size());
+		// System.out.println("过滤出" + nodeList.size());
 		int i = 0;
 		for (Node node : nodeList.elementAt(0).getChildren().toNodeArray()) {
 			// TableTag tabletag = (TableTag) nodeList.elementAt(i);
-//			System.out.println("第一个人table&&");
+			// System.out.println("第一个人table&&");
 			if (!node.getText().equals("tr"))
 				continue;
 
 			if (i >= 2 && i <= 11) {
 				reDial = false;
-//				System.out.println("tr个数" + i);
+				// System.out.println("tr个数" + i);
 				int j = 0;
 				String result = "";
 				for (Node tdNode : node.getChildren().toNodeArray()) {
 					if (!tdNode.getText().startsWith("td"))
 						continue;
-//					System.out.println(j + " "
-//							+ tdNode.toPlainTextString().trim());
+					// System.out.println(j + " "
+					// + tdNode.toPlainTextString().trim());
 					result = result + tdNode.toPlainTextString().trim() + ",";
 					j++;
 
@@ -121,12 +125,21 @@ public class ScanNumPlan extends Thread {
 		return andfilter2;
 	}
 
-	private void write(String s) {
-
-	}
-
 	private void redial() {
-		System.out.println("拨号中、、、");
+		try {
+			// 断开连接
+			ConnectNetwork.cutAdsl("宽带");
+			Thread.sleep(1000);
+			// 再连，分配一个新的IP
+			while (!ConnectNetwork.connAdsl("宽带", "hzhz**********", "******")) {
+				System.out.println("拨号失败，重播中、、、");
+				Thread.sleep(3000);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	public static void main(String arg[]) {
