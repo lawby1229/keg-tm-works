@@ -12,7 +12,7 @@ public class ConnectNetwork {
 		Process p = Runtime.getRuntime().exec("cmd /c " + strCmd);
 		StringBuilder sbCmd = new StringBuilder();
 		BufferedReader br = new BufferedReader(new InputStreamReader(
-				p.getInputStream()));
+				p.getInputStream(),"GB2312"));
 		String line;
 		while ((line = br.readLine()) != null) {
 			sbCmd.append(line + "\n");
