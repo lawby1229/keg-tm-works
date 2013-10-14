@@ -19,10 +19,10 @@ public class AgentHttp {
 		// System.getProperties().setProperty("proxySet", "true");
 		// System.getProperties().setProperty("http.proxyHost", "127.0.0.1");
 		// System.getProperties().setProperty("http.proxyPort", "8087");
-		System.getProperties()
-				.setProperty(
-						"Cookie",
-						"__qca=P0-45434415-1381594809918; PHPSESSID=4ade2046ec0c40b799653a84f0bd0257; __utma=94995971.1891526951.1381594810.1381681198.1381684353.3; __utmb=94995971.3.10.1381684353; __utmc=94995971; __utmz=94995971.1381594810.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)");
+//		System.getProperties()
+//				.setProperty(
+//						"Cookie",
+//						"__qca=P0-45434415-1381594809918; PHPSESSID=4ade2046ec0c40b799653a84f0bd0257; __utma=94995971.1891526951.1381594810.1381681198.1381684353.3; __utmb=94995971.3.10.1381684353; __utmc=94995971; __utmz=94995971.1381594810.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)");
 		StringBuffer html = new StringBuffer();
 
 		String result = null;
