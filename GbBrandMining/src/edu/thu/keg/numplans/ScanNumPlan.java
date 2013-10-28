@@ -18,7 +18,11 @@ import org.htmlparser.util.NodeList;
 
 import edu.thu.keg.adsl.ConnectNetwork;
 import edu.thu.keg.parse.html.imei.AgentHttp;
-
+/**
+ * 
+ * @author ybz
+ *
+ */
 public class ScanNumPlan extends Thread {
 	final String UrlNumPlanPart1 = "http://www.numberingplans.com/?page=plans&sub=imeinr&alpha_2_input=";
 	final String UrlNumPlanPart2 = "&current_page=";
