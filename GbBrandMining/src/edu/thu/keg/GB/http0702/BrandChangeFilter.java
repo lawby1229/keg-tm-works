@@ -148,23 +148,31 @@ class ImsiImseiTimeSet {
 	 */
 	public void add(ImsiImseiTime iit) {
 		ImsiImseiTime iitVal = null;
-		for (int i = 0; i < iits.size(); i++) {
-			iitVal = iits.get(i);
-			int j = iitVal.contains(iit);
-			if (j == ImsiImseiTime.BE_COVER_AF) {
+		// for ( int i = 0; i < iits.size(); i++) {
+
+		int i = iits.size() - 1;
+		if (i < 0) {// 第一次添加
+			iits.add(iit);
+			return;
+		}
+		iitVal = iits.get(i);
+		int j = iitVal.contains(iit);
+		if (j == ImsiImseiTime.BE_SEPERATE_AF) {
+			iits.add(iit);
+		} else if (j == ImsiImseiTime.BE_COVER_AF) {
+			saveToBack(iit);
+			return;
+		} else if (j == ImsiImseiTime.BE_OVERLAP_AF) {
+			if (iitVal.length >= iit.length) {
 				saveToBack(iit);
 				return;
-			} else if (j == ImsiImseiTime.BE_OVERLAP_AF) {
-				if (iitVal.length >= iit.length) {
-					saveToBack(iit);
-					return;
-				} else {
-					iits.set(i, iit);
-					saveFromBack();
-				}
+			} else {
+				iits.set(i, iit);
+				saveFromBack();
 			}
 		}
-		iits.add(iit);
+		// }
+
 	}
 
 	public void saveToBack(ImsiImseiTime iit) {
@@ -173,14 +181,16 @@ class ImsiImseiTimeSet {
 
 	public void saveFromBack() {
 		ImsiImseiTime iitBack = null;
-		ImsiImseiTime iit_back_prelast = iits.get(iits.size() - 2);
-		ImsiImseiTime iit_back_last = iits.get(iits.size() - 1);
-		for (int i = 0; i < iits_back.size(); i--) {
+		long preMax = 0, lastMin = Long.MAX_VALUE;
+		if (iits.size() - 2 >= 0)
+			preMax = iits.get(iits.size() - 2).maxReq;
+		lastMin = iits.get(iits.size() - 1).minReq;
+		for (int i = 0; i < iits_back.size(); i++) {
 			iitBack = iits.get(i);
-			if (iit_back_prelast.maxReq < iitBack.minReq
-					&& iitBack.maxReq < iit_back_last.minReq) {
+			if (preMax < iitBack.minReq && iitBack.maxReq < lastMin) {
 				iits.add(iits.size() - 1, iitBack);
-				iit_back_prelast = iitBack;
+				iits_back.remove(i);
+				preMax = iitBack.maxReq;
 			}
 		}
 	}
