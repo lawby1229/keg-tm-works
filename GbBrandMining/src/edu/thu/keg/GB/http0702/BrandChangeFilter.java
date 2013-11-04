@@ -26,7 +26,7 @@ import edu.thu.keg.provider.IDatabaseProvider;
 import edu.thu.keg.provider.impl.OracleProviderImpl;
 
 /**
- * 将数据库中的b11_b4_imsi_imei_minmax_req表中的 imsi用户的imei交集去除，形成前max不小于后min的数据
+ * 将数据库中的b11_b4_imsi_imei_minmax_req表中的 imsi用户的imei交集去除， 形成前max不小于后min的数据
  * 
  * @author Law
  * 
@@ -74,13 +74,14 @@ public class BrandChangeFilter {
 	public static void main(String arg[]) {
 		BrandChangeFilter bcf = new BrandChangeFilter();
 		ResultSet rs = bcf
-				.runsql("select * from b11_b4_imsi_imei_minmax_req where rownum<10 order by imsi,minreq");
+				.runsql("select * from b11_b4_imsi_imei_minmax_req order by imsi,minreq");
 
 		int i = 0;
 		HashMap<String, ImsiImseiTimeSet> iitsHash = new HashMap<>();
 		ImsiImseiTimeSet iitSet = null;
 		try {
 			while (rs.next()) {
+				// 读取数据库里的字段
 				String imsi = rs.getString("IMSI");
 				String imei = rs.getString("IMEI");
 				String minDate = rs.getString("MINREQ");
@@ -109,7 +110,8 @@ public class BrandChangeFilter {
 
 					print = iit.Imsi + "," + iit.Imei + ","
 							+ new TIMESTAMP(iit.minDate).stringValue() + ","
-							+ new TIMESTAMP(iit.maxDate).timestampValue() + "\n";
+							+ new TIMESTAMP(iit.maxDate).timestampValue()
+							+ "\n";
 					fw.write(print);
 				}
 				fw.flush();
@@ -132,9 +134,11 @@ public class BrandChangeFilter {
  */
 class ImsiImseiTimeSet {
 	List<ImsiImseiTime> iits;
+	List<ImsiImseiTime> iits_back;
 
 	public ImsiImseiTimeSet() {
 		iits = new ArrayList<ImsiImseiTime>();
+		iits_back = new ArrayList<ImsiImseiTime>();
 	}
 
 	/**
@@ -146,14 +150,40 @@ class ImsiImseiTimeSet {
 		ImsiImseiTime iitVal = null;
 		for (int i = 0; i < iits.size(); i++) {
 			iitVal = iits.get(i);
-			if (iitVal.contains(iit) > 0) {
-				iits.set(i, iit);
+			int j = iitVal.contains(iit);
+			if (j == ImsiImseiTime.BE_COVER_AF) {
+				saveToBack(iit);
 				return;
+			} else if (j == ImsiImseiTime.BE_OVERLAP_AF) {
+				if (iitVal.length >= iit.length) {
+					saveToBack(iit);
+					return;
+				} else {
+					iits.set(i, iit);
+					saveFromBack();
+				}
 			}
 		}
 		iits.add(iit);
 	}
 
+	public void saveToBack(ImsiImseiTime iit) {
+		iits_back.add(iit);
+	}
+
+	public void saveFromBack() {
+		ImsiImseiTime iitBack = null;
+		ImsiImseiTime iit_back_prelast = iits.get(iits.size() - 2);
+		ImsiImseiTime iit_back_last = iits.get(iits.size() - 1);
+		for (int i = 0; i < iits_back.size(); i--) {
+			iitBack = iits.get(i);
+			if (iit_back_prelast.maxReq < iitBack.minReq
+					&& iitBack.maxReq < iit_back_last.minReq) {
+				iits.add(iits.size() - 1, iitBack);
+				iit_back_prelast = iitBack;
+			}
+		}
+	}
 }
 
 /**
@@ -163,7 +193,13 @@ class ImsiImseiTimeSet {
  * 
  */
 class ImsiImseiTime {
-
+	public final static int UNKONWN = 0;
+	public final static int BE_SEPERATE_AF = 1;
+	public final static int AF_SEPERATE_BE = 2;
+	public final static int BE_COVER_AF = 3;
+	public final static int AF_COVER_BE = 4;
+	public final static int BE_OVERLAP_AF = 5;
+	public final static int AF_OVERLAP_BE = 6;
 	String Imsi;
 	String Imei;
 	String minDate;
@@ -171,6 +207,7 @@ class ImsiImseiTime {
 	Calendar minCT = Calendar.getInstance();
 	Calendar maxCT = Calendar.getInstance();
 	long minReq, maxReq;
+	long length;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	ImsiImseiTime(String imsi, String imei, String minDate, String maxDate) {
@@ -185,6 +222,7 @@ class ImsiImseiTime {
 			maxCT.setTime(sdf.parse(maxDate));
 			minReq = minCT.getTimeInMillis();
 			maxReq = maxCT.getTimeInMillis();
+			length = maxReq - minReq;
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -192,11 +230,22 @@ class ImsiImseiTime {
 	}
 
 	public int contains(ImsiImseiTime iit) {
-		if (minReq < iit.minReq && maxReq > iit.maxReq) {
-			return 1;
+		if (maxReq < iit.minReq) {
+			return BE_SEPERATE_AF;
+		} else if (iit.maxReq < minReq) {
+			return AF_SEPERATE_BE;
+		} else if (minReq < iit.minReq && maxReq > iit.maxReq) {
+			return BE_COVER_AF;
 		} else if (minReq > iit.minReq && maxReq < iit.maxReq) {
-			return -1;
+			return AF_COVER_BE;
+
+		} else if (minReq < iit.minReq && minReq < iit.maxReq
+				&& maxReq < iit.maxReq) {
+			return BE_OVERLAP_AF;
+		} else if (minReq > iit.minReq && minReq < iit.maxReq
+				&& maxReq > iit.maxReq) {
+			return AF_OVERLAP_BE;
 		} else
-			return 0;
+			return UNKONWN;
 	}
 }
