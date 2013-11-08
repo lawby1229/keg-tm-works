@@ -1,42 +1,97 @@
 package edu.thu.keg.GB.http0702.brand.features;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import edu.thu.keg.GB.http0702.brand.iimmfilter.BrandChangeFilter;
 
 public class FeatureExtract {
 
-	HashMap<String, Integer> FeatureMap;
-	List<Lis> Features;
+	final static HashMap<String, Integer> FeatureMap = new HashMap<>();
+	String keys[] = { "查地图", "查消息", "查信息", "管理手机", "逛空间", "看视频", "看新闻", "聊天",
+			"买东西", "拍照", "上人人", "上网", "上微博", "收发邮件", "听音乐", "通信", "玩游戏", "阅读",
+			"照明", "做记录" };
 
-	public FeatureExtract() {
-		FeatureMap = new HashMap<>();
-		String keys[] = { "查地图", "查消息", "查信息", "管理手机", "逛空间", "看视频", "看新闻",
-				"聊天", "买东西", "拍照", "上人人", "上网", "上微博", "收发邮件", "听音乐", "通信",
-				"玩游戏", "阅读", "照明", "做记录" };
+	final static int DIMENSION = 20;
+
+	List<int[]> Features;
+	String tableName = "";
+
+	public FeatureExtract(String tableName) {
+		Features = new ArrayList<int[]>();
+		this.tableName = tableName;
 		for (int i = 0; i < keys.length; i++) {
 			FeatureMap.put(keys[i], i + 1);
 		}
 
 	}
 
-	public static void main(String arg[]) {
-		FeatureExtract fe = new FeatureExtract();
+	public ResultSet getRs() {
 		BrandChangeFilter bcf = new BrandChangeFilter();
-		ResultSet rs = bcf
-				.runsql("select imsi,behavior from B161_IIMM_BEHAVIOR_TAG_G50 order by imsi");
+		ResultSet rs = bcf.runsql("select imsi,behavior from " + tableName
+				+ " order by imsi");
+		return rs;
+	}
+
+	public void writeFeatureToFile(int isPos) {
+		String rowStr = String.valueOf(isPos);
+		FileWriter fw = null;
+		try {
+			fw = new FileWriter(tableName + "_Feature.txt");
+			Iterator<int[]> it = Features.iterator();
+			while (it.hasNext()) {
+				rowStr = String.valueOf(isPos);
+				int row[] = it.next();
+				for (int i = 0; i < row.length; i++) {
+					if (row[i] != 0)
+						rowStr = rowStr + " " + i + ":" + row[i];
+				}
+				fw.write(rowStr + "\n");
+				fw.flush();
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				fw.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public static void main(String arg[]) {
+		FeatureExtract fe = new FeatureExtract("B161_IIMM_BEHAVIOR_TAG_G50");
+		String imsiRow = "";
+		int i = -1;
+		int[] row = null;
+		ResultSet rs = fe.getRs();
 		try {
 			while (rs.next()) {
 				String imsi = rs.getString("IMSI");
 				String behavior = rs.getString("BEHAVIOR");
-
+				// System.out.println(imsi + "," + behavior + " " + imsiRow);
+				if (!imsiRow.equals("imsi")) {
+					imsiRow = imsi;
+					i++;
+					row = new int[FeatureExtract.DIMENSION + 1];
+					fe.Features.add(row);
+				}
+				row[FeatureExtract.FeatureMap.get(behavior)]++;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		fe.writeFeatureToFile(1);
+
 	}
 }
