@@ -14,9 +14,9 @@ import edu.thu.keg.GB.http0702.brand.iimmfilter.BrandChangeFilter;
 public class FeatureExtract {
 
 	final static HashMap<String, Integer> FeatureMap = new HashMap<>();
-	String keys[] = { "查地图", "查消息", "查信息", "管理手机", "逛空间", "看视频", "看新闻", "聊天",
-			"买东西", "拍照", "上人人", "上网", "上微博", "收发邮件", "听音乐", "通信", "玩游戏", "阅读",
-			"照明", "做记录" };
+	final static String keys[] = { "查地图", "查消息", "查信息", "管理手机", "逛空间", "看视频",
+			"看新闻", "聊天", "买东西", "拍照", "上人人", "上网", "上微博", "收发邮件", "听音乐", "通信",
+			"玩游戏", "阅读", "照明", "做记录" };
 
 	final static int DIMENSION = 20;
 
@@ -32,6 +32,38 @@ public class FeatureExtract {
 
 	}
 
+	/**
+	 * 抽取特征值主函数
+	 */
+	public void getFeatures() {
+		String imsiRow = "";
+		int i = -1;
+		int[] row = null;
+		ResultSet rs = getRs();
+		try {
+			while (rs.next()) {
+				String imsi = rs.getString("IMSI");
+				String behavior = rs.getString("BEHAVIOR");
+				// System.out.println(imsi + "," + behavior + " " + imsiRow);
+				if (!imsiRow.equals("imsi")) {
+					imsiRow = imsi;
+					i++;
+					row = new int[FeatureExtract.DIMENSION + 1];
+					Features.add(row);
+				}
+				row[FeatureExtract.FeatureMap.get(behavior)]++;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 得到sql运行结果
+	 * 
+	 * @return
+	 */
 	public ResultSet getRs() {
 		BrandChangeFilter bcf = new BrandChangeFilter();
 		ResultSet rs = bcf.runsql("select imsi,behavior from " + tableName
@@ -39,6 +71,11 @@ public class FeatureExtract {
 		return rs;
 	}
 
+	/**
+	 * 將最後的特征集合写入文件
+	 * 
+	 * @param isPos
+	 */
 	public void writeFeatureToFile(int isPos) {
 		String rowStr = String.valueOf(isPos);
 		FileWriter fw = null;
@@ -70,28 +107,11 @@ public class FeatureExtract {
 
 	public static void main(String arg[]) {
 		FeatureExtract fe = new FeatureExtract("B161_IIMM_BEHAVIOR_TAG_G50");
-		String imsiRow = "";
-		int i = -1;
-		int[] row = null;
-		ResultSet rs = fe.getRs();
-		try {
-			while (rs.next()) {
-				String imsi = rs.getString("IMSI");
-				String behavior = rs.getString("BEHAVIOR");
-				// System.out.println(imsi + "," + behavior + " " + imsiRow);
-				if (!imsiRow.equals("imsi")) {
-					imsiRow = imsi;
-					i++;
-					row = new int[FeatureExtract.DIMENSION + 1];
-					fe.Features.add(row);
-				}
-				row[FeatureExtract.FeatureMap.get(behavior)]++;
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		fe.getFeatures();
 		fe.writeFeatureToFile(1);
+		fe = new FeatureExtract("2");
+		fe.getFeatures();
+		fe.writeFeatureToFile(2);
 
 	}
 }
