@@ -109,11 +109,11 @@ public class FeatureExtract {
 	}
 
 	public static void main(String arg[]) {
-		// FeatureExtract fe = new
-		// FeatureExtract("D17_iimm_behavior_tag_top600");
-		// fe.getFeatures();
-		// fe.writeFeatureToFile(1);
-		FeatureExtract fe = new FeatureExtract("C161_iIMM_behavior_tag_G50");
+		 FeatureExtract fe = new
+		 FeatureExtract("D172_iIMM_bt_without_net_G50");
+		 fe.getFeatures();
+		 fe.writeFeatureToFile(1);
+		 fe = new FeatureExtract("c163_iimm_bt_without_net_G30");
 		fe.getFeatures();
 		fe.writeFeatureToFile(-1);
 
