@@ -45,11 +45,12 @@ public class FeatureExtract {
 				String imsi = rs.getString("IMSI");
 				String behavior = rs.getString("BEHAVIOR");
 				// System.out.println(imsi + "," + behavior + " " + imsiRow);
-				if (!imsiRow.equals("imsi")) {
+				if (!imsiRow.equals(imsi)) {
 					imsiRow = imsi;
 					i++;
 					row = new int[FeatureExtract.DIMENSION + 1];
 					Features.add(row);
+					System.out.println(i);
 				}
 				row[FeatureExtract.FeatureMap.get(behavior)]++;
 			}
@@ -89,9 +90,11 @@ public class FeatureExtract {
 					if (row[i] != 0)
 						rowStr = rowStr + " " + i + ":" + row[i];
 				}
+				System.out.println(rowStr);
 				fw.write(rowStr + "\n");
 				fw.flush();
 			}
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -106,12 +109,13 @@ public class FeatureExtract {
 	}
 
 	public static void main(String arg[]) {
-		FeatureExtract fe = new FeatureExtract("B161_IIMM_BEHAVIOR_TAG_G50");
+		// FeatureExtract fe = new
+		// FeatureExtract("D17_iimm_behavior_tag_top600");
+		// fe.getFeatures();
+		// fe.writeFeatureToFile(1);
+		FeatureExtract fe = new FeatureExtract("C161_iIMM_behavior_tag_G50");
 		fe.getFeatures();
-		fe.writeFeatureToFile(1);
-		fe = new FeatureExtract("2");
-		fe.getFeatures();
-		fe.writeFeatureToFile(2);
+		fe.writeFeatureToFile(-1);
 
 	}
 }
