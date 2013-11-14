@@ -18,7 +18,7 @@ public class FeatureExtract {
 			"看新闻", "聊天", "买东西", "拍照", "上人人", "上网", "上微博", "收发邮件", "听音乐", "通信",
 			"玩游戏", "阅读", "照明", "做记录" };
 
-	final static int DIMENSION = 20;
+	final static int DIMENSION = keys.length;
 
 	List<int[]> Features;
 	String tableName = "";
@@ -109,11 +109,10 @@ public class FeatureExtract {
 	}
 
 	public static void main(String arg[]) {
-		 FeatureExtract fe = new
-		 FeatureExtract("D172_iIMM_bt_without_net_G50");
-		 fe.getFeatures();
-		 fe.writeFeatureToFile(1);
-		 fe = new FeatureExtract("c163_iimm_bt_without_net_G30");
+		FeatureExtract fe = new FeatureExtract("D171_iIMM_behavior_tag_top800");
+		fe.getFeatures();
+		fe.writeFeatureToFile(1);
+		fe = new FeatureExtract("C165_iIMM_BT_WITH_SBRAND_G50");
 		fe.getFeatures();
 		fe.writeFeatureToFile(-1);
 
