@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -43,7 +44,8 @@ public class BrandChangeFilter {
 		// sql =
 		// "select * from b11_b4_imsi_imei_minmax_req order by imsi,minreq";
 		IDatabaseProvider ssp = null;
-		ssp = OracleProviderImpl.getInstance("bj_brand", "root");
+		 ssp = OracleProviderImpl.getInstance("bj_brand", "root");
+//		ssp = OracleProviderImpl.getInstance("keg_liqi", "root");
 		PreparedStatement pstmt = null;
 
 		ResultSet rs = null;
@@ -71,11 +73,8 @@ public class BrandChangeFilter {
 		}
 	}
 
-	public static void main(String arg[]) {
-		BrandChangeFilter bcf = new BrandChangeFilter();
-		ResultSet rs = bcf
-				.runsql("select * from b11_b4_imsi_imei_minmax_req order by imsi,minreq");
-
+	public void featureExtract() {
+		ResultSet rs = runsql("select * from b11_b4_imsi_imei_minmax_req order by imsi,minreq");
 		int i = 0;
 		HashMap<String, ImsiImseiTimeSet> iitsHash = new HashMap<>();
 		ImsiImseiTimeSet iitSet = null;
@@ -121,8 +120,25 @@ public class BrandChangeFilter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			bcf.closeCon();
+			closeCon();
 		}
+	}
+
+	public static void main(String arg[]) {
+		BrandChangeFilter bcf = new BrandChangeFilter();
+		// ResultSet rs = bcf.runsql("select  head_name "
+		// + "from gay_simple_province_headname where province = ? ");
+		// String s = "";
+		// try {
+		// while (rs.next()) {
+		//
+		// System.out.println(rs.getObject(1));
+		// }
+		// } catch (SQLException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+		 bcf.featureExtract();
 	}
 }
 
