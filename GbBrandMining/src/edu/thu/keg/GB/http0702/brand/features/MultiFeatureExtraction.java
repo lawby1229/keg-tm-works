@@ -72,7 +72,7 @@ public class MultiFeatureExtraction {
 	private ResultSet getRs(String tableName) {
 		BrandChangeFilter bcf = new BrandChangeFilter();
 		ResultSet rs = bcf.runsql("select imsi,behavior,brandtype from "
-				+ tableName + " order by imsi");
+				+ tableName + " where behavior != '上网' order by imsi");
 		return rs;
 	}
 
@@ -118,6 +118,9 @@ public class MultiFeatureExtraction {
 	public static void main(String arg[]) {
 		MultiFeatureExtraction app = new MultiFeatureExtraction("F161_EACH_BRAND_G500_TOP1000",
 				"F162_CHANGED_EACH_BRAND");
+	
+		app.getFile(false);
+		app.writeFeatureToFile(false);
 		app.getFile(true);
 		app.writeFeatureToFile(true);
 
