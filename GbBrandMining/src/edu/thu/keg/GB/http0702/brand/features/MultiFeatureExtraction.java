@@ -16,7 +16,7 @@ public class MultiFeatureExtraction {
 	final static String keys[] = { "查地图", "查消息", "查信息", "管理手机", "逛空间", "看视频",
 			"看新闻", "聊天", "买东西", "拍照", "上人人", "上网", "上微博", "收发邮件", "听音乐", "通信",
 			"玩游戏", "阅读", "照明", "做记录" };
-
+	final static int Dimension = keys.length;
 	String trainTable = "";
 	String testTable = "";
 	List<int[]> trainFeatures;
@@ -26,6 +26,7 @@ public class MultiFeatureExtraction {
 		this.trainTable = trainTable;
 		this.testTable = testTable;
 		trainFeatures = new ArrayList<int[]>();
+		testFeatures = new ArrayList<int[]>();
 		for (int i = 0; i < keys.length; i++) {
 			FeatureMap.put(keys[i], i + 1);
 		}
@@ -35,13 +36,15 @@ public class MultiFeatureExtraction {
 		List<int[]> Features;
 		ResultSet rs;
 		if (isTrainFile) {
+			trainFeatures = new ArrayList<int[]>();
 			Features = trainFeatures;
 			rs = getRs(trainTable);
 		} else {
+			testFeatures = new ArrayList<int[]>();
 			Features = testFeatures;
 			rs = getRs(testTable);
 		}
-		Features = new ArrayList<int[]>();
+//		Features = new ArrayList<int[]>();
 		String imsiRow = "";
 		int i = -1;
 		int[] row = null;
@@ -53,12 +56,12 @@ public class MultiFeatureExtraction {
 				if (!imsiRow.equals(imsi)) {
 					imsiRow = imsi;
 					i++;
-					row = new int[FeatureExtract.DIMENSION + 1];
+					row = new int[Dimension+ 1];
 					row[0] = brandtype;
 					Features.add(row);
 					System.out.println(i);
 				}
-				row[FeatureExtract.FeatureMap.get(behavior)]++;
+				row[FeatureMap.get(behavior)]++;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -113,7 +116,8 @@ public class MultiFeatureExtraction {
 	}
 
 	public static void main(String arg[]) {
-		MultiFeatureExtraction app = new MultiFeatureExtraction("", "");
+		MultiFeatureExtraction app = new MultiFeatureExtraction("F161_EACH_BRAND_G500_TOP1000",
+				"F162_CHANGED_EACH_BRAND");
 		app.getFile(true);
 		app.writeFeatureToFile(true);
 
