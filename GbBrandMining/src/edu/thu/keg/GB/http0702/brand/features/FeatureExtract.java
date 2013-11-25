@@ -10,7 +10,12 @@ import java.util.Iterator;
 import java.util.List;
 
 import edu.thu.keg.GB.http0702.brand.iimmfilter.BrandChangeFilter;
-
+/**
+ * 对用户是否换手机进行预测和分析
+ * 其中特征值：用户行为
+ * @author Law
+ *
+ */
 public class FeatureExtract {
 
 	final static HashMap<String, Integer> FeatureMap = new HashMap<>();
