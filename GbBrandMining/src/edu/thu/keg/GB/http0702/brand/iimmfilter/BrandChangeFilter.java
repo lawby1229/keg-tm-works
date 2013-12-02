@@ -22,7 +22,6 @@ import java.util.Map;
 
 import oracle.sql.TIMESTAMP;
 
-import edu.thu.keg.parse.html.imei.ImeiParse;
 import edu.thu.keg.provider.IDatabaseProvider;
 import edu.thu.keg.provider.impl.OracleProviderImpl;
 
