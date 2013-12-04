@@ -56,6 +56,8 @@ public class MultiFeatureHostExtraction {
 					Features.add(row);
 					System.out.println(i);
 				}
+				if (!FeatureMap.containsKey(host))
+					continue;
 				int iKey = (int) FeatureMap.get(host);
 				int iValue = 1;
 				if (row.containsKey(iKey)) {
@@ -71,8 +73,8 @@ public class MultiFeatureHostExtraction {
 
 	private ResultSet getRs(String tableName) {
 		BrandChangeFilter bcf = new BrandChangeFilter();
-		ResultSet rs = bcf.runsql("select imsi,host,brandtype from "
-				+ tableName + " where behavior order by imsi");
+		ResultSet rs = bcf.runsql("select imsi, host, brandtype from "
+				+ tableName + " order by imsi");
 		return rs;
 	}
 
@@ -135,12 +137,12 @@ public class MultiFeatureHostExtraction {
 	public static void main(String arg[]) {
 		// 对多分类的7种手机数据进行分类和预测的特征抽取
 		MultiFeatureHostExtraction app = new MultiFeatureHostExtraction(
-				"Z0_TRAIN_ONE_G500_TOP1000", "Z0_TEST_CHANGED_EACH_BRAND");
-		app.loadHostDimension("", "");
-		app.getFile(false);
-		app.writeFeatureToFile(false);
-		app.getFile(true);
-		app.writeFeatureToFile(true);
+				"z1_train_one_g500_top1000", "Z21_TEST_HOST_IN_TRAIN");
+		app.loadHostDimension("host", "Z21_TEST_HOST_IN_TRAIN");
+//		app.getFile(false);
+//		app.writeFeatureToFile(false);
+		 app.getFile(true);
+		 app.writeFeatureToFile(true);
 
 	}
 }
