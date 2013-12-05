@@ -66,7 +66,7 @@ public class AgentHttp {
 
 				while (bytesRead >= 0) {
 
-					inputLine = new String(buf, 0, bytesRead, "utf-8");
+					inputLine = new String(buf, 0, bytesRead, "GB2312");
 
 					html.append(inputLine);
 
