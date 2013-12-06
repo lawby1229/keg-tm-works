@@ -10,13 +10,16 @@ import java.util.Iterator;
 import java.util.List;
 
 import edu.thu.keg.GB.http0702.brand.iimmfilter.BrandChangeFilter;
+
 /**
- * 对多分类的7种手机数据进行分类和预测的特征抽取
- * 其中特征值：用户行为
+ * 对多分类的7种手机数据进行分类和预测的特征抽取 其中
+ * 特征值：用户行为
+ * 标签：手机属于的集合
+ * 
  * @author Law
- *
+ * 
  */
-public class MultiFeatureExtraction {
+public class MultiBehavirToMobileSetFeatExtra {
 	final static HashMap<String, Integer> FeatureMap = new HashMap<>();
 	final static String keys[] = { "查地图", "查消息", "查信息", "管理手机", "逛空间", "看视频",
 			"看新闻", "聊天", "买东西", "拍照", "上人人", "上网", "上微博", "收发邮件", "听音乐", "通信",
@@ -27,7 +30,7 @@ public class MultiFeatureExtraction {
 	List<int[]> trainFeatures;
 	List<int[]> testFeatures;
 
-	public MultiFeatureExtraction(String trainTable, String testTable) {
+	public MultiBehavirToMobileSetFeatExtra(String trainTable, String testTable) {
 		this.trainTable = trainTable;
 		this.testTable = testTable;
 		trainFeatures = new ArrayList<int[]>();
@@ -49,7 +52,7 @@ public class MultiFeatureExtraction {
 			Features = testFeatures;
 			rs = getRs(testTable);
 		}
-//		Features = new ArrayList<int[]>();
+		// Features = new ArrayList<int[]>();
 		String imsiRow = "";
 		int i = -1;
 		int[] row = null;
@@ -57,11 +60,11 @@ public class MultiFeatureExtraction {
 			while (rs.next()) {
 				String imsi = rs.getString("IMSI");
 				String behavior = rs.getString("BEHAVIOR");
-				int brandtype = rs.getInt("BRANDTYPE");
+				int brandtype = rs.getInt("MOBILESET");
 				if (!imsiRow.equals(imsi)) {
 					imsiRow = imsi;
 					i++;
-					row = new int[Dimension+ 1];
+					row = new int[Dimension + 1];
 					row[0] = brandtype;
 					Features.add(row);
 					System.out.println(i);
@@ -76,7 +79,7 @@ public class MultiFeatureExtraction {
 
 	private ResultSet getRs(String tableName) {
 		BrandChangeFilter bcf = new BrandChangeFilter();
-		ResultSet rs = bcf.runsql("select imsi,behavior,brandtype from "
+		ResultSet rs = bcf.runsql("select imsi,behavior,mobileset from "
 				+ tableName + " where behavior != '上网' order by imsi");
 		return rs;
 	}
@@ -93,7 +96,7 @@ public class MultiFeatureExtraction {
 		}
 		FileWriter fw = null;
 		try {
-			fw = new FileWriter(tableName + "_Feature.txt");
+			fw = new FileWriter(tableName + "_Feature_MobileSet.txt");
 			while (it.hasNext()) {
 				String rowStr = "";
 				int row[] = it.next();
@@ -121,10 +124,10 @@ public class MultiFeatureExtraction {
 	}
 
 	public static void main(String arg[]) {
-		//对多分类的7种手机数据进行分类和预测的特征抽取
-		MultiFeatureExtraction app = new MultiFeatureExtraction("Z0_TRAIN_ONE_G500_TOP1000",
-				"Z0_TEST_CHANGED_EACH_BRAND");
-	
+		// 对多分类的7种手机数据进行分类和预测的特征抽取
+		MultiBehaviorToBrandFeatExtra app = new MultiBehaviorToBrandFeatExtra(
+				"Z0_TRAIN_ONE_G500_TOP1000", "Z0_TEST_CHANGED_EACH_BRAND");
+
 		app.getFile(false);
 		app.writeFeatureToFile(false);
 		app.getFile(true);

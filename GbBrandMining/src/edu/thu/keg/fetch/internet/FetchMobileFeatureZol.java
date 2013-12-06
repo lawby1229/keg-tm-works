@@ -1,5 +1,8 @@
 package edu.thu.keg.fetch.internet;
 
+/**
+ * 从ZOL网址上抽取手机型号的特征，比如：屏幕大小，待机时间等
+ */
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,6 +18,7 @@ import org.htmlparser.filters.TagNameFilter;
 import org.htmlparser.util.NodeList;
 
 import edu.thu.keg.adsl.ConnectNetwork;
+import edu.thu.keg.adsl.StringFunc;
 import edu.thu.keg.parse.html.imei.AgentHttp;
 
 public class FetchMobileFeatureZol extends Thread {
@@ -25,10 +29,10 @@ public class FetchMobileFeatureZol extends Thread {
 	FileWriter fw = null;
 	boolean reDial = true;
 
-	public FetchMobileFeatureZol() {
+	public FetchMobileFeatureZol(String outputFile) {
 		Version = new ArrayList<String>();
 		try {
-			fw = new FileWriter("型号参数.csv", false);
+			fw = new FileWriter(outputFile, false);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -40,9 +44,9 @@ public class FetchMobileFeatureZol extends Thread {
 
 		try {
 
-			for (int i = 1; i <= Version.size(); i++) {
+			for (int i = 0; i < Version.size(); i++) {
 
-				MobileVersionPraser(Version.get(i).replaceAll(" ", "+"), "");
+				MobileVersionPraser(Version.get(i), "");
 				fw.flush();
 				// if (reDial) {
 				// redial();
@@ -63,7 +67,8 @@ public class FetchMobileFeatureZol extends Thread {
 	}
 
 	public void MobileVersionPraser(String searl, String page) throws Exception {
-		String resource = UrlZolHost + UrlZolParams + searl;
+		String resource = UrlZolHost + UrlZolParams
+				+ searl.replaceAll(" ", "+");
 		System.out.println(resource);
 		resource = agentHttp.getHtml(resource);
 		System.out.println(" 得到返回资源");
@@ -86,31 +91,46 @@ public class FetchMobileFeatureZol extends Thread {
 		nodeList = nodeList.extractAllNodesThatMatch(new HasAttributeFilter(
 				"class", "intro"), true);
 		String title = "", param = "";
-
+		int maxLCSlen = -1;
+		int maxIndex = -1;
+		NodeList nodeListSub = null;
 		for (int i = 0; i < nodeList.size(); i++) {
-			result = searl;
+			// result = searl;
 			Node node = nodeList.elementAt(i);
-			NodeList nodeListSub = node.getChildren();
+			nodeListSub = node.getChildren();
+			// 抽取标题即手机名称
 			NodeList nodeList_Class_Title = nodeListSub
 					.extractAllNodesThatMatch(new HasAttributeFilter("class",
 							"title"), true);
 			Node nodeSubTitle = nodeList_Class_Title.elementAt(0);
+			title = nodeSubTitle.toPlainTextString();
 			System.out.println(nodeSubTitle.toPlainTextString());
-			result = result + "," + nodeSubTitle.toPlainTextString();
-			NodeList nodeList_Tag_li = nodeListSub.extractAllNodesThatMatch(
-					new TagNameFilter("li"), true);
-			for (int j = 0; j < nodeList_Tag_li.size(); j++) {
-				Node nodeSubLi = nodeList_Tag_li.elementAt(j);
-				// System.out.println(nodeSubLi.toPlainTextString());
-				result = result + "," + nodeSubLi.toPlainTextString();
+			// result = result + "," + nodeSubTitle.toPlainTextString();
+			int LCSlen = StringFunc.getLCSlenth(searl, title);
+			if (LCSlen > maxLCSlen) {
+				result = searl;
+				result = result + "," + title;
+				maxIndex = i;
+				maxLCSlen = LCSlen;
 			}
-			// System.out.println(nodeListSub.elementAt(1).toPlainTextString());
-			// System.out.println(nodeListSub.elementAt(2).toPlainTextString());
-			// System.out.println(nodeListSub.elementAt(3).toPlainTextString());
-			fw.write(result + "\n");
-			System.out.println(result);
-			System.out.println("============================================");
 		}
+		nodeListSub = nodeList.elementAt(maxIndex).getChildren();
+		// 过滤参数
+		NodeList nodeList_Tag_li = nodeListSub.extractAllNodesThatMatch(
+				new TagNameFilter("li"), true);
+		for (int j = 0; j < nodeList_Tag_li.size(); j++) {
+			Node nodeSubLi = nodeList_Tag_li.elementAt(j);
+			// System.out.println(nodeSubLi.toPlainTextString());
+			param = nodeSubLi.toPlainTextString();
+			result = result + "," + nodeSubLi.toPlainTextString();
+		}
+		// System.out.println(nodeListSub.elementAt(1).toPlainTextString());
+		// System.out.println(nodeListSub.elementAt(2).toPlainTextString());
+		// System.out.println(nodeListSub.elementAt(3).toPlainTextString());
+		fw.write(result + "\n");
+		System.out.println(result);
+		System.out.println("============================================");
+
 	}
 
 	private NodeFilter getZolFilter() {
@@ -127,9 +147,9 @@ public class FetchMobileFeatureZol extends Thread {
 
 	}
 
-	public String[] loadMobileVersion() {
+	public String[] loadMobileVersion(String file) {
 		try {
-			FileReader fr = new FileReader("手机型号/手机型号.csv");
+			FileReader fr = new FileReader(file);
 			LineNumberReader lnr = new LineNumberReader(fr);
 			String line = lnr.readLine();
 			line = lnr.readLine();
@@ -166,16 +186,8 @@ public class FetchMobileFeatureZol extends Thread {
 	}
 
 	public static void main(String arg[]) {
-		FetchMobileFeatureZol fmfz = new FetchMobileFeatureZol();
-		fmfz.loadMobileVersion();
+		FetchMobileFeatureZol fmfz = new FetchMobileFeatureZol("型号参数.csv");
+		fmfz.loadMobileVersion("手机型号/手机型号.csv");
 		fmfz.start();
-		// try {
-		// fmfz.MobileVersionPraser(
-		// "philips xenium 9@9++".replaceAll(" ", "+"), "");
-		// } catch (Exception e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-
 	}
 }
