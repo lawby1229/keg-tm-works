@@ -97,7 +97,8 @@ public class MultiBehavirToMobileSetFeatExtra {
 		}
 		FileWriter fw = null;
 		try {
-			fw = new FileWriter(tableName + "_Feature_MobileSet.txt");
+			fw = new FileWriter(tableName + "_MobileSet_Base_Behavior_" + tag
+					+ ".txt");
 			while (it.hasNext()) {
 				String rowStr = "";
 				int row[] = it.next();
@@ -131,7 +132,24 @@ public class MultiBehavirToMobileSetFeatExtra {
 		// "Z0_TRAIN_ONE_G500_TOP1000", "Z0_TEST_CHANGED_EACH_BRAND");
 		MultiBehavirToMobileSetFeatExtra app = new MultiBehavirToMobileSetFeatExtra(
 				"Z3_TRAIN_ONE_G500T1K_ADDFUNC", "Z31_TEST_BASE_BEHAVIOR", "C3");
-
+		app.getFile(false);
+		app.writeFeatureToFile(false);
+		app.getFile(true);
+		app.writeFeatureToFile(true);
+		app = new MultiBehavirToMobileSetFeatExtra(
+				"Z3_TRAIN_ONE_G500T1K_ADDFUNC", "Z31_TEST_BASE_BEHAVIOR", "C4");
+		app.getFile(false);
+		app.writeFeatureToFile(false);
+		app.getFile(true);
+		app.writeFeatureToFile(true);
+		app = new MultiBehavirToMobileSetFeatExtra(
+				"Z3_TRAIN_ONE_G500T1K_ADDFUNC", "Z31_TEST_BASE_BEHAVIOR", "C5");
+		app.getFile(false);
+		app.writeFeatureToFile(false);
+		app.getFile(true);
+		app.writeFeatureToFile(true);
+		app = new MultiBehavirToMobileSetFeatExtra(
+				"Z3_TRAIN_ONE_G500T1K_ADDFUNC", "Z31_TEST_BASE_BEHAVIOR", "C6");
 		app.getFile(false);
 		app.writeFeatureToFile(false);
 		app.getFile(true);
