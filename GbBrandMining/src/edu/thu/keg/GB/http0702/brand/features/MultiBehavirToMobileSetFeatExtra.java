@@ -12,9 +12,7 @@ import java.util.List;
 import edu.thu.keg.GB.http0702.brand.iimmfilter.BrandChangeFilter;
 
 /**
- * 对多分类的7种手机数据进行分类和预测的特征抽取 其中
- * 特征值：用户行为
- * 标签：手机属于的集合
+ * 对多分类的7种手机数据进行分类和预测的特征抽取 其中 特征值：用户行为 标签：手机属于的集合
  * 
  * @author Law
  * 
@@ -27,12 +25,15 @@ public class MultiBehavirToMobileSetFeatExtra {
 	final static int Dimension = keys.length;
 	String trainTable = "";
 	String testTable = "";
+	String tag = "";
 	List<int[]> trainFeatures;
 	List<int[]> testFeatures;
 
-	public MultiBehavirToMobileSetFeatExtra(String trainTable, String testTable) {
+	public MultiBehavirToMobileSetFeatExtra(String trainTable,
+			String testTable, String tag) {
 		this.trainTable = trainTable;
 		this.testTable = testTable;
+		this.tag = tag;
 		trainFeatures = new ArrayList<int[]>();
 		testFeatures = new ArrayList<int[]>();
 		for (int i = 0; i < keys.length; i++) {
@@ -46,11 +47,11 @@ public class MultiBehavirToMobileSetFeatExtra {
 		if (isTrainFile) {
 			trainFeatures = new ArrayList<int[]>();
 			Features = trainFeatures;
-			rs = getRs(trainTable);
+			rs = getRs(trainTable, tag);
 		} else {
 			testFeatures = new ArrayList<int[]>();
 			Features = testFeatures;
-			rs = getRs(testTable);
+			rs = getRs(testTable, tag);
 		}
 		// Features = new ArrayList<int[]>();
 		String imsiRow = "";
@@ -60,7 +61,7 @@ public class MultiBehavirToMobileSetFeatExtra {
 			while (rs.next()) {
 				String imsi = rs.getString("IMSI");
 				String behavior = rs.getString("BEHAVIOR");
-				int brandtype = rs.getInt("MOBILESET");
+				int brandtype = rs.getInt(tag);
 				if (!imsiRow.equals(imsi)) {
 					imsiRow = imsi;
 					i++;
@@ -77,10 +78,10 @@ public class MultiBehavirToMobileSetFeatExtra {
 		}
 	}
 
-	private ResultSet getRs(String tableName) {
+	private ResultSet getRs(String tableName, String tag) {
 		BrandChangeFilter bcf = new BrandChangeFilter();
-		ResultSet rs = bcf.runsql("select imsi,behavior,mobileset from "
-				+ tableName + " where behavior != '上网' order by imsi");
+		ResultSet rs = bcf.runsql("select imsi,behavior," + tag + " from "
+				+ tableName + " order by imsi");
 		return rs;
 	}
 
@@ -125,8 +126,11 @@ public class MultiBehavirToMobileSetFeatExtra {
 
 	public static void main(String arg[]) {
 		// 对多分类的7种手机数据进行分类和预测的特征抽取
-		MultiBehaviorToBrandFeatExtra app = new MultiBehaviorToBrandFeatExtra(
-				"Z0_TRAIN_ONE_G500_TOP1000", "Z0_TEST_CHANGED_EACH_BRAND");
+		// MultiBehaviorToBrandFeatExtra app = new
+		// MultiBehaviorToBrandFeatExtra(
+		// "Z0_TRAIN_ONE_G500_TOP1000", "Z0_TEST_CHANGED_EACH_BRAND");
+		MultiBehavirToMobileSetFeatExtra app = new MultiBehavirToMobileSetFeatExtra(
+				"Z3_TRAIN_ONE_G500T1K_ADDFUNC", "Z31_TEST_BASE_BEHAVIOR", "C3");
 
 		app.getFile(false);
 		app.writeFeatureToFile(false);
