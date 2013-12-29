@@ -11,24 +11,26 @@ import java.util.Iterator;
 import java.util.List;
 
 import edu.thu.keg.GB.http0702.brand.iimmfilter.BrandChangeFilter;
+
 /**
- * 对多分类的7种手机数据进行分类和预测的特征抽取 其中
- * 特征值：用户上网所经历的HOST网址
- * 标签：手机的品牌
+ * 对多分类的7种手机数据进行分类和预测的特征抽取 其中 特征值：用户上网所经历的HOST网址 标签：手机的品牌
  * 
  * @author Law
  * 
  */
-public class MultiHostToBrandFeatExtra {
+public class MultiHostToFeatureExtra {
 	final static HashMap<String, Integer> FeatureMap = new HashMap<>();
 	String trainTable = "";
 	String testTable = "";
+	String tag;
 	List<HashMap<Integer, Integer>> trainFeatures;
 	List<HashMap<Integer, Integer>> testFeatures;
 
-	public MultiHostToBrandFeatExtra(String trainTable, String testTable) {
+	public MultiHostToFeatureExtra(String trainTable, String testTable,
+			String tag) {
 		this.trainTable = trainTable;
 		this.testTable = testTable;
+		this.tag = tag;
 		trainFeatures = new ArrayList<HashMap<Integer, Integer>>();
 		testFeatures = new ArrayList<HashMap<Integer, Integer>>();
 
@@ -54,7 +56,7 @@ public class MultiHostToBrandFeatExtra {
 			while (rs.next()) {
 				String imsi = rs.getString("IMSI");
 				String host = rs.getString("HOST");
-				int brandtype = rs.getInt("BRANDTYPE");
+				int brandtype = rs.getInt(tag);
 				if (!imsiRow.equals(imsi)) {
 					imsiRow = imsi;
 					i++;
@@ -80,7 +82,7 @@ public class MultiHostToBrandFeatExtra {
 
 	private ResultSet getRs(String tableName) {
 		BrandChangeFilter bcf = new BrandChangeFilter();
-		ResultSet rs = bcf.runsql("select imsi, host, brandtype from "
+		ResultSet rs = bcf.runsql("select imsi, host, " + tag + " from "
 				+ tableName + " order by imsi");
 		return rs;
 	}
@@ -97,7 +99,7 @@ public class MultiHostToBrandFeatExtra {
 		}
 		FileWriter fw = null;
 		try {
-			fw = new FileWriter(tableName + "_Feature.txt");
+			fw = new FileWriter(tableName + "_Feature_" + tag + ".txt");
 			while (it.hasNext()) {
 				String rowStr = "";
 				HashMap<Integer, Integer> row = it.next();
@@ -143,13 +145,43 @@ public class MultiHostToBrandFeatExtra {
 
 	public static void main(String arg[]) {
 		// 对多分类的7种手机数据进行分类和预测的特征抽取
-		MultiHostToBrandFeatExtra app = new MultiHostToBrandFeatExtra(
-				"z1_train_one_g500_top1000", "Z21_TEST_HOST_IN_TRAIN");
-		app.loadHostDimension("host", "Z21_TEST_HOST_IN_TRAIN");
-//		app.getFile(false);
-//		app.writeFeatureToFile(false);
-		 app.getFile(true);
-		 app.writeFeatureToFile(true);
+//		MultiHostToBrandFeatExtra app = new MultiHostToBrandFeatExtra(
+//				"z1_train_one_g500_top1000", "Z21_TEST_HOST_IN_TRAIN");
+//		app.loadHostDimension("host", "Z21_TEST_HOST_IN_TRAIN");
+		// app.getFile(false);
+		// app.writeFeatureToFile(false);
+//		
+//		app.getFile(true);
+//		app.writeFeatureToFile(true);
 
+		MultiHostToFeatureExtra app = new MultiHostToFeatureExtra(
+				"Z3_TRAIN_ONE_G500T1K_ADDFUNC", "Z31_TEST_BASE_BEHAVIOR", "C3");
+		app.loadHostDimension("host", "Z3_TRAIN_ONE_G500T1K_ADDFUNC");
+		app.getFile(false);
+		app.writeFeatureToFile(false);
+		app.getFile(true);
+		app.writeFeatureToFile(true);
+		app = new MultiHostToFeatureExtra(
+				"Z3_TRAIN_ONE_G500T1K_ADDFUNC", "Z31_TEST_BASE_BEHAVIOR", "C4");
+		app.loadHostDimension("host", "Z3_TRAIN_ONE_G500T1K_ADDFUNC");
+		app.getFile(false);
+		app.writeFeatureToFile(false);
+		app.getFile(true);
+		app.writeFeatureToFile(true);
+		app = new MultiHostToFeatureExtra(
+				"Z3_TRAIN_ONE_G500T1K_ADDFUNC", "Z31_TEST_BASE_BEHAVIOR", "C5");
+		app.loadHostDimension("host", "Z3_TRAIN_ONE_G500T1K_ADDFUNC");
+		app.getFile(false);
+		app.writeFeatureToFile(false);
+		app.getFile(true);
+		app.writeFeatureToFile(true);
+		app = new MultiHostToFeatureExtra(
+				"Z3_TRAIN_ONE_G500T1K_ADDFUNC", "Z31_TEST_BASE_BEHAVIOR", "C6");
+		app.loadHostDimension("host", "Z3_TRAIN_ONE_G500T1K_ADDFUNC");
+		app.getFile(false);
+		app.writeFeatureToFile(false);
+		app.getFile(true);
+		app.writeFeatureToFile(true);
+		
 	}
 }
