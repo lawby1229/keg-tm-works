@@ -131,25 +131,25 @@ public class MultiBehavirToMobileSetFeatExtra {
 		// MultiBehaviorToBrandFeatExtra(
 		// "Z0_TRAIN_ONE_G500_TOP1000", "Z0_TEST_CHANGED_EACH_BRAND");
 		MultiBehavirToMobileSetFeatExtra app = new MultiBehavirToMobileSetFeatExtra(
-				"Z3_TRAIN_ONE_G500T1K_ADDFUNC", "Z31_TEST_BASE_BEHAVIOR", "C3");
+				"X3_TRAIN_ONE_G500T1K_ADDFUNC", "X31_TEST_BASE_BEHAVIOR", "C3");
 		app.getFile(false);
 		app.writeFeatureToFile(false);
 		app.getFile(true);
 		app.writeFeatureToFile(true);
 		app = new MultiBehavirToMobileSetFeatExtra(
-				"Z3_TRAIN_ONE_G500T1K_ADDFUNC", "Z31_TEST_BASE_BEHAVIOR", "C4");
+				"X3_TRAIN_ONE_G500T1K_ADDFUNC", "X31_TEST_BASE_BEHAVIOR", "C4");
 		app.getFile(false);
 		app.writeFeatureToFile(false);
 		app.getFile(true);
 		app.writeFeatureToFile(true);
 		app = new MultiBehavirToMobileSetFeatExtra(
-				"Z3_TRAIN_ONE_G500T1K_ADDFUNC", "Z31_TEST_BASE_BEHAVIOR", "C5");
+				"X3_TRAIN_ONE_G500T1K_ADDFUNC", "X31_TEST_BASE_BEHAVIOR", "C5");
 		app.getFile(false);
 		app.writeFeatureToFile(false);
 		app.getFile(true);
 		app.writeFeatureToFile(true);
 		app = new MultiBehavirToMobileSetFeatExtra(
-				"Z3_TRAIN_ONE_G500T1K_ADDFUNC", "Z31_TEST_BASE_BEHAVIOR", "C6");
+				"X3_TRAIN_ONE_G500T1K_ADDFUNC", "X31_TEST_BASE_BEHAVIOR", "C6");
 		app.getFile(false);
 		app.writeFeatureToFile(false);
 		app.getFile(true);

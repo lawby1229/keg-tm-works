@@ -99,7 +99,7 @@ public class MultiHostToFeatureExtra {
 		}
 		FileWriter fw = null;
 		try {
-			fw = new FileWriter(tableName + "_Feature_" + tag + ".txt");
+			fw = new FileWriter(tableName + "_MobileSet_Base_Host_" + tag + ".txt");
 			while (it.hasNext()) {
 				String rowStr = "";
 				HashMap<Integer, Integer> row = it.next();
@@ -155,28 +155,28 @@ public class MultiHostToFeatureExtra {
 //		app.writeFeatureToFile(true);
 
 		MultiHostToFeatureExtra app = new MultiHostToFeatureExtra(
-				"Z3_TRAIN_ONE_G500T1K_ADDFUNC", "Z31_TEST_BASE_BEHAVIOR", "C3");
+				"Z3_TRAIN_ONE_G500T1K_ADDFUNC", "Z32_TEST_BASE_HOST", "C3");
 		app.loadHostDimension("host", "Z3_TRAIN_ONE_G500T1K_ADDFUNC");
 		app.getFile(false);
 		app.writeFeatureToFile(false);
 		app.getFile(true);
 		app.writeFeatureToFile(true);
 		app = new MultiHostToFeatureExtra(
-				"Z3_TRAIN_ONE_G500T1K_ADDFUNC", "Z31_TEST_BASE_BEHAVIOR", "C4");
+				"Z3_TRAIN_ONE_G500T1K_ADDFUNC", "Z32_TEST_BASE_HOST", "C4");
 		app.loadHostDimension("host", "Z3_TRAIN_ONE_G500T1K_ADDFUNC");
 		app.getFile(false);
 		app.writeFeatureToFile(false);
 		app.getFile(true);
 		app.writeFeatureToFile(true);
 		app = new MultiHostToFeatureExtra(
-				"Z3_TRAIN_ONE_G500T1K_ADDFUNC", "Z31_TEST_BASE_BEHAVIOR", "C5");
+				"Z3_TRAIN_ONE_G500T1K_ADDFUNC", "Z32_TEST_BASE_HOST", "C5");
 		app.loadHostDimension("host", "Z3_TRAIN_ONE_G500T1K_ADDFUNC");
 		app.getFile(false);
 		app.writeFeatureToFile(false);
 		app.getFile(true);
 		app.writeFeatureToFile(true);
 		app = new MultiHostToFeatureExtra(
-				"Z3_TRAIN_ONE_G500T1K_ADDFUNC", "Z31_TEST_BASE_BEHAVIOR", "C6");
+				"Z3_TRAIN_ONE_G500T1K_ADDFUNC", "Z32_TEST_BASE_HOST", "C6");
 		app.loadHostDimension("host", "Z3_TRAIN_ONE_G500T1K_ADDFUNC");
 		app.getFile(false);
 		app.writeFeatureToFile(false);
