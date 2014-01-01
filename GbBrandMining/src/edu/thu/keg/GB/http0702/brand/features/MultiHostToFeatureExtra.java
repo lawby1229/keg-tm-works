@@ -19,9 +19,12 @@ import edu.thu.keg.GB.http0702.brand.iimmfilter.BrandChangeFilter;
  * 
  */
 public class MultiHostToFeatureExtra {
-	final static HashMap<String, Integer> FeatureMap = new HashMap<>();
+	final static HashMap<String, Integer> FeatureMap = new HashMap<>();// 其中值是从1开始的
+	final static int DimensionOfClass=16;
 	String trainTable = "";
 	String testTable = "";
+	int[] trainDis;
+	int[] testDis;
 	String tag;
 	List<HashMap<Integer, Integer>> trainFeatures;
 	List<HashMap<Integer, Integer>> testFeatures;
@@ -31,21 +34,24 @@ public class MultiHostToFeatureExtra {
 		this.trainTable = trainTable;
 		this.testTable = testTable;
 		this.tag = tag;
-		trainFeatures = new ArrayList<HashMap<Integer, Integer>>();
-		testFeatures = new ArrayList<HashMap<Integer, Integer>>();
 
 	}
 
 	public void getFile(boolean isTrainFile) {
 		List<HashMap<Integer, Integer>> Features;
+		int[] Dis;
 		ResultSet rs;
 		if (isTrainFile) {
 			trainFeatures = new ArrayList<HashMap<Integer, Integer>>();
+			trainDis = new int[DimensionOfClass];
 			Features = trainFeatures;
+			Dis = trainDis;
 			rs = getRs(trainTable);
 		} else {
 			testFeatures = new ArrayList<HashMap<Integer, Integer>>();
 			Features = testFeatures;
+			testDis = new int[DimensionOfClass];
+			Dis = testDis;
 			rs = getRs(testTable);
 		}
 		// Features = new ArrayList<int[]>();
@@ -56,8 +62,10 @@ public class MultiHostToFeatureExtra {
 			while (rs.next()) {
 				String imsi = rs.getString("IMSI");
 				String host = rs.getString("HOST");
-				int brandtype = rs.getInt(tag);
+
 				if (!imsiRow.equals(imsi)) {
+					int brandtype = rs.getInt(tag);
+					Dis[brandtype]++;
 					imsiRow = imsi;
 					i++;
 					row = new HashMap<Integer, Integer>();
@@ -90,16 +98,20 @@ public class MultiHostToFeatureExtra {
 	public void writeFeatureToFile(boolean isTrainFile) {
 		String tableName = "";
 		Iterator<HashMap<Integer, Integer>> it;
+		int[] Dis = null;
 		if (isTrainFile) {
 			tableName = trainTable;
+			Dis = trainDis;
 			it = trainFeatures.iterator();
 		} else {
 			tableName = testTable;
+			Dis = testDis;
 			it = testFeatures.iterator();
 		}
 		FileWriter fw = null;
 		try {
-			fw = new FileWriter(tableName + "_MobileSet_Base_Host_" + tag + ".txt");
+			fw = new FileWriter(tableName + "_MobileSet_Base_Host_" + tag
+					+ ".txt");
 			while (it.hasNext()) {
 				String rowStr = "";
 				HashMap<Integer, Integer> row = it.next();
@@ -113,7 +125,14 @@ public class MultiHostToFeatureExtra {
 				fw.write(rowStr + "\n");
 				fw.flush();
 			}
-
+			fw.close();
+			// 写分布文件
+			fw = new FileWriter("Dis_" + tableName
+					+ "_MobileSet_Base_Host_" + tag + ".txt");
+			for (int i = 0; i < Dis.length; i++) {
+				fw.write(i + " " + Dis[i] + "\n");
+			}
+			fw.flush();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -145,14 +164,14 @@ public class MultiHostToFeatureExtra {
 
 	public static void main(String arg[]) {
 		// 对多分类的7种手机数据进行分类和预测的特征抽取
-//		MultiHostToBrandFeatExtra app = new MultiHostToBrandFeatExtra(
-//				"z1_train_one_g500_top1000", "Z21_TEST_HOST_IN_TRAIN");
-//		app.loadHostDimension("host", "Z21_TEST_HOST_IN_TRAIN");
+		// MultiHostToBrandFeatExtra app = new MultiHostToBrandFeatExtra(
+		// "z1_train_one_g500_top1000", "Z21_TEST_HOST_IN_TRAIN");
+		// app.loadHostDimension("host", "Z21_TEST_HOST_IN_TRAIN");
 		// app.getFile(false);
 		// app.writeFeatureToFile(false);
-//		
-//		app.getFile(true);
-//		app.writeFeatureToFile(true);
+		//
+		// app.getFile(true);
+		// app.writeFeatureToFile(true);
 
 		MultiHostToFeatureExtra app = new MultiHostToFeatureExtra(
 				"Z3_TRAIN_ONE_G500T1K_ADDFUNC", "Z32_TEST_BASE_HOST", "C3");
@@ -161,27 +180,27 @@ public class MultiHostToFeatureExtra {
 		app.writeFeatureToFile(false);
 		app.getFile(true);
 		app.writeFeatureToFile(true);
-		app = new MultiHostToFeatureExtra(
-				"Z3_TRAIN_ONE_G500T1K_ADDFUNC", "Z32_TEST_BASE_HOST", "C4");
+		app = new MultiHostToFeatureExtra("Z3_TRAIN_ONE_G500T1K_ADDFUNC",
+				"Z32_TEST_BASE_HOST", "C4");
 		app.loadHostDimension("host", "Z3_TRAIN_ONE_G500T1K_ADDFUNC");
 		app.getFile(false);
 		app.writeFeatureToFile(false);
 		app.getFile(true);
 		app.writeFeatureToFile(true);
-		app = new MultiHostToFeatureExtra(
-				"Z3_TRAIN_ONE_G500T1K_ADDFUNC", "Z32_TEST_BASE_HOST", "C5");
+		app = new MultiHostToFeatureExtra("Z3_TRAIN_ONE_G500T1K_ADDFUNC",
+				"Z32_TEST_BASE_HOST", "C5");
 		app.loadHostDimension("host", "Z3_TRAIN_ONE_G500T1K_ADDFUNC");
 		app.getFile(false);
 		app.writeFeatureToFile(false);
 		app.getFile(true);
 		app.writeFeatureToFile(true);
-		app = new MultiHostToFeatureExtra(
-				"Z3_TRAIN_ONE_G500T1K_ADDFUNC", "Z32_TEST_BASE_HOST", "C6");
+		app = new MultiHostToFeatureExtra("Z3_TRAIN_ONE_G500T1K_ADDFUNC",
+				"Z32_TEST_BASE_HOST", "C6");
 		app.loadHostDimension("host", "Z3_TRAIN_ONE_G500T1K_ADDFUNC");
 		app.getFile(false);
 		app.writeFeatureToFile(false);
 		app.getFile(true);
 		app.writeFeatureToFile(true);
-		
+
 	}
 }

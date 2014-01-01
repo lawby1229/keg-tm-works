@@ -22,12 +22,15 @@ public class MultiBehavirToMobileSetFeatExtra {
 	final static String keys[] = { "查地图", "查消息", "查信息", "管理手机", "逛空间", "看视频",
 			"看新闻", "聊天", "买东西", "拍照", "上人人", "上网", "上微博", "收发邮件", "听音乐", "通信",
 			"玩游戏", "阅读", "照明", "做记录" };
+	final static int DimensionOfClass = 16;
 	final static int Dimension = keys.length;
 	String trainTable = "";
 	String testTable = "";
 	String tag = "";
 	List<int[]> trainFeatures;
 	List<int[]> testFeatures;
+	int[] trainDis;
+	int[] testDis;
 
 	public MultiBehavirToMobileSetFeatExtra(String trainTable,
 			String testTable, String tag) {
@@ -43,14 +46,19 @@ public class MultiBehavirToMobileSetFeatExtra {
 
 	public void getFile(boolean isTrainFile) {
 		List<int[]> Features;
+		int[] Dis;
 		ResultSet rs;
 		if (isTrainFile) {
 			trainFeatures = new ArrayList<int[]>();
 			Features = trainFeatures;
+			trainDis = new int[DimensionOfClass];
+			Dis = trainDis;
 			rs = getRs(trainTable, tag);
 		} else {
 			testFeatures = new ArrayList<int[]>();
 			Features = testFeatures;
+			testDis = new int[DimensionOfClass];
+			Dis = testDis;
 			rs = getRs(testTable, tag);
 		}
 		// Features = new ArrayList<int[]>();
@@ -61,8 +69,9 @@ public class MultiBehavirToMobileSetFeatExtra {
 			while (rs.next()) {
 				String imsi = rs.getString("IMSI");
 				String behavior = rs.getString("BEHAVIOR");
-				int brandtype = rs.getInt(tag);
 				if (!imsiRow.equals(imsi)) {
+					int brandtype = rs.getInt(tag);
+					Dis[brandtype]++;
 					imsiRow = imsi;
 					i++;
 					row = new int[Dimension + 1];
@@ -87,12 +96,15 @@ public class MultiBehavirToMobileSetFeatExtra {
 
 	public void writeFeatureToFile(boolean isTrainFile) {
 		String tableName = "";
+		int[] Dis;
 		Iterator<int[]> it;
 		if (isTrainFile) {
 			tableName = trainTable;
+			Dis = trainDis;
 			it = trainFeatures.iterator();
 		} else {
 			tableName = testTable;
+			Dis = testDis;
 			it = testFeatures.iterator();
 		}
 		FileWriter fw = null;
@@ -111,7 +123,14 @@ public class MultiBehavirToMobileSetFeatExtra {
 				fw.write(rowStr + "\n");
 				fw.flush();
 			}
-
+			fw.close();
+			// 写分布文件
+			fw = new FileWriter("Dis_" + tableName
+					+ "_MobileSet_Base_Behavior_" + tag + ".txt");
+			for (int i = 0; i < Dis.length; i++) {
+				fw.write(i + " " + Dis[i] + "\n");
+			}
+			fw.flush();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -130,30 +149,75 @@ public class MultiBehavirToMobileSetFeatExtra {
 		// MultiBehaviorToBrandFeatExtra app = new
 		// MultiBehaviorToBrandFeatExtra(
 		// "Z0_TRAIN_ONE_G500_TOP1000", "Z0_TEST_CHANGED_EACH_BRAND");
-		MultiBehavirToMobileSetFeatExtra app = new MultiBehavirToMobileSetFeatExtra(
-				"X3_TRAIN_ONE_G500T1K_ADDFUNC", "X31_TEST_BASE_BEHAVIOR", "C3");
-		app.getFile(false);
-		app.writeFeatureToFile(false);
-		app.getFile(true);
-		app.writeFeatureToFile(true);
-		app = new MultiBehavirToMobileSetFeatExtra(
-				"X3_TRAIN_ONE_G500T1K_ADDFUNC", "X31_TEST_BASE_BEHAVIOR", "C4");
-		app.getFile(false);
-		app.writeFeatureToFile(false);
-		app.getFile(true);
-		app.writeFeatureToFile(true);
-		app = new MultiBehavirToMobileSetFeatExtra(
-				"X3_TRAIN_ONE_G500T1K_ADDFUNC", "X31_TEST_BASE_BEHAVIOR", "C5");
-		app.getFile(false);
-		app.writeFeatureToFile(false);
-		app.getFile(true);
-		app.writeFeatureToFile(true);
-		app = new MultiBehavirToMobileSetFeatExtra(
-				"X3_TRAIN_ONE_G500T1K_ADDFUNC", "X31_TEST_BASE_BEHAVIOR", "C6");
-		app.getFile(false);
-		app.writeFeatureToFile(false);
-		app.getFile(true);
-		app.writeFeatureToFile(true);
-
+		MultiBehavirToMobileSetFeatExtra app;
+//		app = new MultiBehavirToMobileSetFeatExtra("X4_TRAIN_ONE_G500_ADDFUNC",
+//				"X41_TEST_BASE_BEHAVIOR", "C6");
+//		app.getFile(false);
+//		app.writeFeatureToFile(false);
+//		app.getFile(true);
+//		app.writeFeatureToFile(true);
+		 app = new
+		 MultiBehavirToMobileSetFeatExtra("X4_TRAIN_ONE_G500_ADDFUNC",
+		 "X41_TEST_BASE_BEHAVIOR", "C7");
+		 app.getFile(false);
+		 app.writeFeatureToFile(false);
+		 app.getFile(true);
+		 app.writeFeatureToFile(true);
+		 app = new
+		 MultiBehavirToMobileSetFeatExtra("X4_TRAIN_ONE_G500_ADDFUNC",
+		 "X41_TEST_BASE_BEHAVIOR", "C8");
+		 app.getFile(false);
+		 app.writeFeatureToFile(false);
+		 app.getFile(true);
+		 app.writeFeatureToFile(true);
+		 app = new
+		 MultiBehavirToMobileSetFeatExtra("X4_TRAIN_ONE_G500_ADDFUNC",
+		 "X41_TEST_BASE_BEHAVIOR", "C9");
+		 app.getFile(false);
+		 app.writeFeatureToFile(false);
+		 app.getFile(true);
+		 app.writeFeatureToFile(true);
+		 app = new
+		 MultiBehavirToMobileSetFeatExtra("X4_TRAIN_ONE_G500_ADDFUNC",
+		 "X41_TEST_BASE_BEHAVIOR", "C10");
+		 app.getFile(false);
+		 app.writeFeatureToFile(false);
+		 app.getFile(true);
+		 app.writeFeatureToFile(true);
+		 app = new
+		 MultiBehavirToMobileSetFeatExtra("X4_TRAIN_ONE_G500_ADDFUNC",
+		 "X41_TEST_BASE_BEHAVIOR", "C11");
+		 app.getFile(false);
+		 app.writeFeatureToFile(false);
+		 app.getFile(true);
+		 app.writeFeatureToFile(true);
+		 app = new
+		 MultiBehavirToMobileSetFeatExtra("X4_TRAIN_ONE_G500_ADDFUNC",
+		 "X41_TEST_BASE_BEHAVIOR", "C12");
+		 app.getFile(false);
+		 app.writeFeatureToFile(false);
+		 app.getFile(true);
+		 app.writeFeatureToFile(true);
+		 app = new
+		 MultiBehavirToMobileSetFeatExtra("X4_TRAIN_ONE_G500_ADDFUNC",
+		 "X41_TEST_BASE_BEHAVIOR", "C13");
+		 app.getFile(false);
+		 app.writeFeatureToFile(false);
+		 app.getFile(true);
+		 app.writeFeatureToFile(true);
+		 app = new
+		 MultiBehavirToMobileSetFeatExtra("X4_TRAIN_ONE_G500_ADDFUNC",
+		 "X41_TEST_BASE_BEHAVIOR", "C14");
+		 app.getFile(false);
+		 app.writeFeatureToFile(false);
+		 app.getFile(true);
+		 app.writeFeatureToFile(true);
+		 app = new
+		 MultiBehavirToMobileSetFeatExtra("X4_TRAIN_ONE_G500_ADDFUNC",
+		 "X41_TEST_BASE_BEHAVIOR", "C15");
+		 app.getFile(false);
+		 app.writeFeatureToFile(false);
+		 app.getFile(true);
+		 app.writeFeatureToFile(true);
 	}
 }
