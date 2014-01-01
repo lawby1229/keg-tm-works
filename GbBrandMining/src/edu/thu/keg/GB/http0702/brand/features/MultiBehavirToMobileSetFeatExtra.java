@@ -156,34 +156,34 @@ public class MultiBehavirToMobileSetFeatExtra {
 //		app.writeFeatureToFile(false);
 //		app.getFile(true);
 //		app.writeFeatureToFile(true);
-		 app = new
-		 MultiBehavirToMobileSetFeatExtra("X4_TRAIN_ONE_G500_ADDFUNC",
-		 "X41_TEST_BASE_BEHAVIOR", "C7");
-		 app.getFile(false);
-		 app.writeFeatureToFile(false);
-		 app.getFile(true);
-		 app.writeFeatureToFile(true);
-		 app = new
-		 MultiBehavirToMobileSetFeatExtra("X4_TRAIN_ONE_G500_ADDFUNC",
-		 "X41_TEST_BASE_BEHAVIOR", "C8");
-		 app.getFile(false);
-		 app.writeFeatureToFile(false);
-		 app.getFile(true);
-		 app.writeFeatureToFile(true);
-		 app = new
-		 MultiBehavirToMobileSetFeatExtra("X4_TRAIN_ONE_G500_ADDFUNC",
-		 "X41_TEST_BASE_BEHAVIOR", "C9");
-		 app.getFile(false);
-		 app.writeFeatureToFile(false);
-		 app.getFile(true);
-		 app.writeFeatureToFile(true);
-		 app = new
-		 MultiBehavirToMobileSetFeatExtra("X4_TRAIN_ONE_G500_ADDFUNC",
-		 "X41_TEST_BASE_BEHAVIOR", "C10");
-		 app.getFile(false);
-		 app.writeFeatureToFile(false);
-		 app.getFile(true);
-		 app.writeFeatureToFile(true);
+//		 app = new
+//		 MultiBehavirToMobileSetFeatExtra("X4_TRAIN_ONE_G500_ADDFUNC",
+//		 "X41_TEST_BASE_BEHAVIOR", "C7");
+//		 app.getFile(false);
+//		 app.writeFeatureToFile(false);
+//		 app.getFile(true);
+//		 app.writeFeatureToFile(true);
+//		 app = new
+//		 MultiBehavirToMobileSetFeatExtra("X4_TRAIN_ONE_G500_ADDFUNC",
+//		 "X41_TEST_BASE_BEHAVIOR", "C8");
+//		 app.getFile(false);
+//		 app.writeFeatureToFile(false);
+//		 app.getFile(true);
+//		 app.writeFeatureToFile(true);
+//		 app = new
+//		 MultiBehavirToMobileSetFeatExtra("X4_TRAIN_ONE_G500_ADDFUNC",
+//		 "X41_TEST_BASE_BEHAVIOR", "C9");
+//		 app.getFile(false);
+//		 app.writeFeatureToFile(false);
+//		 app.getFile(true);
+//		 app.writeFeatureToFile(true);
+//		 app = new
+//		 MultiBehavirToMobileSetFeatExtra("X4_TRAIN_ONE_G500_ADDFUNC",
+//		 "X41_TEST_BASE_BEHAVIOR", "C10");
+//		 app.getFile(false);
+//		 app.writeFeatureToFile(false);
+//		 app.getFile(true);
+//		 app.writeFeatureToFile(true);
 		 app = new
 		 MultiBehavirToMobileSetFeatExtra("X4_TRAIN_ONE_G500_ADDFUNC",
 		 "X41_TEST_BASE_BEHAVIOR", "C11");

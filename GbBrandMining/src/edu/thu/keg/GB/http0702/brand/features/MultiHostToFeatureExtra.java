@@ -174,33 +174,33 @@ public class MultiHostToFeatureExtra {
 		// app.writeFeatureToFile(true);
 
 		MultiHostToFeatureExtra app = new MultiHostToFeatureExtra(
-				"Z3_TRAIN_ONE_G500T1K_ADDFUNC", "Z32_TEST_BASE_HOST", "C3");
-		app.loadHostDimension("host", "Z3_TRAIN_ONE_G500T1K_ADDFUNC");
+				"X4_TRAIN_ONE_G500_ADDFUNC", "X42_TEST_BASE_HOST", "C11");
+		app.loadHostDimension("host", "X4_TRAIN_ONE_G500_ADDFUNC");
 		app.getFile(false);
 		app.writeFeatureToFile(false);
 		app.getFile(true);
 		app.writeFeatureToFile(true);
-		app = new MultiHostToFeatureExtra("Z3_TRAIN_ONE_G500T1K_ADDFUNC",
-				"Z32_TEST_BASE_HOST", "C4");
-		app.loadHostDimension("host", "Z3_TRAIN_ONE_G500T1K_ADDFUNC");
-		app.getFile(false);
-		app.writeFeatureToFile(false);
-		app.getFile(true);
-		app.writeFeatureToFile(true);
-		app = new MultiHostToFeatureExtra("Z3_TRAIN_ONE_G500T1K_ADDFUNC",
-				"Z32_TEST_BASE_HOST", "C5");
-		app.loadHostDimension("host", "Z3_TRAIN_ONE_G500T1K_ADDFUNC");
-		app.getFile(false);
-		app.writeFeatureToFile(false);
-		app.getFile(true);
-		app.writeFeatureToFile(true);
-		app = new MultiHostToFeatureExtra("Z3_TRAIN_ONE_G500T1K_ADDFUNC",
-				"Z32_TEST_BASE_HOST", "C6");
-		app.loadHostDimension("host", "Z3_TRAIN_ONE_G500T1K_ADDFUNC");
-		app.getFile(false);
-		app.writeFeatureToFile(false);
-		app.getFile(true);
-		app.writeFeatureToFile(true);
+//		app = new MultiHostToFeatureExtra("Z3_TRAIN_ONE_G500T1K_ADDFUNC",
+//				"Z32_TEST_BASE_HOST", "C4");
+//		app.loadHostDimension("host", "Z3_TRAIN_ONE_G500T1K_ADDFUNC");
+//		app.getFile(false);
+//		app.writeFeatureToFile(false);
+//		app.getFile(true);
+//		app.writeFeatureToFile(true);
+//		app = new MultiHostToFeatureExtra("Z3_TRAIN_ONE_G500T1K_ADDFUNC",
+//				"Z32_TEST_BASE_HOST", "C5");
+//		app.loadHostDimension("host", "Z3_TRAIN_ONE_G500T1K_ADDFUNC");
+//		app.getFile(false);
+//		app.writeFeatureToFile(false);
+//		app.getFile(true);
+//		app.writeFeatureToFile(true);
+//		app = new MultiHostToFeatureExtra("Z3_TRAIN_ONE_G500T1K_ADDFUNC",
+//				"Z32_TEST_BASE_HOST", "C6");
+//		app.loadHostDimension("host", "Z3_TRAIN_ONE_G500T1K_ADDFUNC");
+//		app.getFile(false);
+//		app.writeFeatureToFile(false);
+//		app.getFile(true);
+//		app.writeFeatureToFile(true);
 
 	}
 }
