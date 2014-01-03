@@ -20,10 +20,10 @@ import edu.thu.keg.GB.http0702.brand.iimmfilter.BrandChangeFilter;
  */
 public class MultiHostToFeatureExtra {
 	final static HashMap<String, Integer> FeatureMap2Int = new HashMap<>();// 其中值是从1开始的
-	final static HashMap<Integer, String> IntMap2Feature = new HashMap<>();// 其中值是从1开始的
+	// 其中值是从1开始的
 
 	final static HashMap<String, Integer> VersionMap = new HashMap<>();// 其中值是从1开始的
-	HashMap<String, Integer> FeatureSumMap = new HashMap<>();// 键值代表维度和全文出现总数总数
+	HashMap<Integer, Integer> FeatureSumMap = new HashMap<>();// 键值代表维度和全文出现总数总数
 	List<Integer> lineSumList = new ArrayList<Integer>();// 每行是单词总数
 	int DimensionOfClass = 16;
 	String trainTable = "";
@@ -91,7 +91,7 @@ public class MultiHostToFeatureExtra {
 					row = new HashMap<Integer, Integer>();
 					row.put(0, brandtype);
 					Features.add(row);
-					System.out.println(i);
+					System.out.print(i + ",");
 				}
 				if (!FeatureMap2Int.containsKey(host))
 					continue;
@@ -102,6 +102,7 @@ public class MultiHostToFeatureExtra {
 				}
 				row.put(iKey, iValue);
 			}
+			System.out.print("\n");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -191,7 +192,7 @@ public class MultiHostToFeatureExtra {
 						continue;
 					rowStr = rowStr + " " + keys[i] + ":" + row.get(keys[i]);
 				}
-				System.out.println(rowStr);
+				// System.out.println(rowStr);
 				fw.write(rowStr + "\n");
 				fw.flush();
 			}
@@ -247,7 +248,6 @@ public class MultiHostToFeatureExtra {
 		try {
 			int i = 1;
 			while (rs.next()) {
-				IntMap2Feature.put(i, rs.getString(1));
 				FeatureMap2Int.put(rs.getString(1), i);
 				i++;
 			}
@@ -299,10 +299,9 @@ public class MultiHostToFeatureExtra {
 			while (itHost.hasNext()) {
 				int hostId = itHost.next();
 				sumLine += row.get(hostId);
-				String host = IntMap2Feature.get(hostId);
-				if (!FeatureSumMap.containsKey(host))
-					FeatureSumMap.put(host, 1);
-				FeatureSumMap.put(host, FeatureSumMap.get(host) + 1);
+				if (!FeatureSumMap.containsKey(hostId))
+					FeatureSumMap.put(hostId, 0);
+				FeatureSumMap.put(hostId, FeatureSumMap.get(hostId) + 1);
 			}
 			lineSumList.add(sumLine);
 		}
@@ -318,12 +317,14 @@ public class MultiHostToFeatureExtra {
 					rowNew.put(0, row.get(0) + 0.0);
 					continue;
 				}
-				tf = row.get(hostId) / lineSumList.get(i);
-				if (FeatureSumMap.get(IntMap2Feature.get(hostId)) == 0)
+				tf = (double) row.get(hostId) / lineSumList.get(i);
+				if (FeatureSumMap.get(hostId) == 0)
 					idf = 1;
 				else
-					idf = Math.log(lineSumList.size()
-							/ FeatureSumMap.get(IntMap2Feature.get(hostId)));
+					idf = Math.log((double) lineSumList.size()
+							/ FeatureSumMap.get(hostId));
+				System.out.print("tf:" + tf);
+				System.out.print("idf:" + idf + "\n");
 				rowNew.put(hostId, tf * idf);
 			}
 			result.add(rowNew);
@@ -344,12 +345,17 @@ public class MultiHostToFeatureExtra {
 
 		MultiHostToFeatureExtra app = new MultiHostToFeatureExtra(
 				"X4_TRAIN_ONE_G500_ADDFUNC", "X42_TEST_BASE_HOST", "version");
+		System.out.println("1");
 		app.loadHostDimension("host", "X4_TRAIN_ONE_G500_ADDFUNC");
+		System.out.println("2");
 		app.loadVersionDimension("version", "X4_TRAIN_ONE_G500_ADDFUNC");
+		System.out.println("3");
 		app.getFile(false);
+		System.out.println("4");
 		app.writeTfIdfFeatureToFile(false);
 		app.getFile(true);
 		app.writeTfIdfFeatureToFile(true);
+
 		// app = new MultiHostToFeatureExtra("Z3_TRAIN_ONE_G500T1K_ADDFUNC",
 		// "Z32_TEST_BASE_HOST", "C4");
 		// app.loadHostDimension("host", "Z3_TRAIN_ONE_G500T1K_ADDFUNC");
