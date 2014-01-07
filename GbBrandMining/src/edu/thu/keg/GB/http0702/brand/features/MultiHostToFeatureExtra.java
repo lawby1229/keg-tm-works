@@ -292,11 +292,11 @@ public class MultiHostToFeatureExtra {
 	 */
 	private List<HashMap<Integer, Double>> getTfIdfFeature(
 			List<HashMap<Integer, Integer>> feature) {
-		for (int i = 0; i < feature.size(); i++) {
+		for (int i = 0; i < feature.size(); i++) {//每一行的feature
 			HashMap<Integer, Integer> row = feature.get(i);
 			Iterator<Integer> itHost = row.keySet().iterator();
 			int sumLine = 0;
-			while (itHost.hasNext()) {
+			while (itHost.hasNext()) {//一行中的每一个
 				int hostId = itHost.next();
 				sumLine += row.get(hostId);
 				if (!FeatureSumMap.containsKey(hostId))
@@ -344,11 +344,11 @@ public class MultiHostToFeatureExtra {
 		// app.writeFeatureToFile(true);
 
 		MultiHostToFeatureExtra app = new MultiHostToFeatureExtra(
-				"X4_TRAIN_ONE_G500_ADDFUNC", "X42_TEST_BASE_HOST", "version");
+				"X4_TRAIN_ONE_G500_ADDFUNC", "X42_TEST_BASE_HOST", "C11");
 		System.out.println("1");
 		app.loadHostDimension("host", "X4_TRAIN_ONE_G500_ADDFUNC");
-		System.out.println("2");
-		app.loadVersionDimension("version", "X4_TRAIN_ONE_G500_ADDFUNC");
+//		System.out.println("2");
+//		app.loadVersionDimension("version", "X4_TRAIN_ONE_G500_ADDFUNC");
 		System.out.println("3");
 		app.getFile(false);
 		System.out.println("4");
