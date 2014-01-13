@@ -1,0 +1,252 @@
+@relation 导出-手机型号包含Z1train2k和Z2test
+
+@attribute 手机型号 {'nokia n900','nokia c1-01','sony ericsson x10a xperia','htc a510s g13 wildfire s','motorola milestone 2 a953','sony xperia v lt25i','motorola mb860 / me860 atrix 4g','htc 710e g14 sensation','xiaomi m2','palm treo 850','rim blackberry 9780 bold','samsung gt-n7000 / i9220 galaxy note','samsung  gt-i8700 omnia 7','htc touch hd2 (t8585)','nokia 2610','samsung gt-i9000 galaxy s','nokia e5-00','nokia 1661 / 1662','nokia 6630','nokia 6303 classic','nokia n81','samsung gt-i9100 galaxy s ii','nokia 6500 classic','nokia n8-00','nokia e52','nokia n72','sony lt22i xperia p','samsung sgh-f480 / f488','nokia lumia 520','samsung gt-s7500 galaxy ace plus','samsung sgh-d608','htc g7 wildfire (a3333)',nokia,'htc s510b rhyme','rim blackberry 9900 bold','sony lt26w xperia acro s','nokia lumia 610','motorola xt702 milestone','vinus vs4000','nokia 5800i xpressmusic','oppo x909','samsung gt-i9003 galaxy s','nokia e63','nokia n78','rim blackberry bold 9900','nokia e71','nokia e66','nokia n80','samsung gt-i9220 / n700 galaxy s iii / galaxy note','nokia 5320','samsung gt-i9003 galaxy s / sl','nokia 5228 / 5233','samsung gt-n7100 galaxy note ii','nokia e90','htc s510e desire s','sony ericsson e16i w8 walkman','nokia 5230','sony ericsson mt11i xperia neo v','samsung gt-s5830i galaxy ace','htc 7 mozart t8698','nokia c6-01','samsung sgh-e720','sony st26i xperia j','nokia n76','sony ericsson e15i xperia x8','n/a fake imei','htc hero','htc s710e g11 incredible s','nokia 5250','htc c720e one x','sony ericsson st15i xperia mini','htc one s','htc z715e (g18) sensation xe','nokia lumia 800','rim blackberry q10','samsung gt-i9103 galaxy s ii','sony ericsson j220','sony ericsson lt26i xperia s','htc z710e / z715e (g14 / g18) sensation xe','sony mt25i xperia neo l','sony lt26i xperia s','sony lt26i','htc g16 chacha (a810e)','rim blackberry 9520 storm ii','nokia 1200','samsung gt-i5800 galaxy 3','nokia 6600','samsung gt-i9300 galaxy s iii','nokia c5-03','nokia n86','htc hd2 t8585','htc desire hd (a9191)','samsung gt-s5830 galaxy ace','sony ericsson lt15i xperia arc','lenovo k860','nokia lumia 900','motorola q 9h','samsung gt-s5670 galaxy fit','htc one v','htc touch hd (t8282)','nokia n95','nokia e65','nokia lumia 820','nokia e50','nokia c6-00','tcl mobile tcl3688','samsung gt-i9070 galaxy s advance','nokia 500','samsung gt-i9001 galaxy s plus','rim blackberry curve 8520','nokia n97','samsung gt--i9100 galaxy s ii','motorola mb525 defy','lg e510','htc s510e desire s (saga)','vinus v6','nokia 5235','samsung sgh-c406','htc desire hd a9191','nokia 5320 xpressmusic','sony lt28h','htc legend (a6363)','sony c2105 xperia l','motorola mb860 / mb861 / me860 atrix 4g','motorola xt910 droid razr','sony ericsson r800i xperia play z1i','sony ericsson wt19i live with walkman','htc s510e / g12 desire s','motorola mb525+','nokia 6300','samsung gt-p1000 galaxy tab','nokia 5300','htc a510e g13 wildfire s','nokia 5233','motorola me865 atrix 2','apple iphone 4s','sony lt29i xperia tx','sony ericsson lt18i xperia arc s','nokia e6-00','htc google nexus one','htc a8181 desire','samsung gt-s5660 galaxy gio','nokia c2-01','lg p920 optimus 3d','nokia lumia 920','sony ericsson k750','htc a9191 desire hd','htc z710e/z715e (g14/g18) sensation xe','sony st27i xperia go','nokia n9','samsung gt i9300 galaxy s iii','samsung sgh-t959','i9100 gt-i9100 galaxy s ii','samsung gt-i8160 galaxy ace ii','meizu mx2','nokia 6720 classic','nokia 5800 xpressmusic','nokia n97 / n97i','samsung gt-i9220 / n7000 galaxy note','samsung gt-i9000 galaxy','htc desire s s510e','nokia c5-00','htc desire g7 (a8181)','nokia c7-00','htc x710e raider 4g velocity','htc g7 desire z (a7272)','rim blackberry bold 9780 onyx','apple iphone4s','samsung gt-n7100 galaxy note 2','sony ericsson mt15i xperia neo','lg p880 optimus 4x hd','sony lt26ii xperia sl','samsung gt-i9100g galaxy s ii','nokia 6120 classic','rim blackberry 8800','samsung gt-s5360 galaxy y','nokia n97-4 mini','htc s710d droid incredible 2','lg e960','htc c510e g15 salsa / weike','nokia lumia 710','rim blackberry bold 9700','nokia 5530 xpressmusic','nokia e72','htc g6 legend (a6363)','samsung gt-i9023 nexus s','sony ericsson st18i xperia ray','palm treo 650','htc s720e one x (g23)','motorola me525 defy','htc s710e incredible s','sony ericsson sk17i xperia mini pro','htc g11 / s710e incredible s','nokia x6-00','nokia x6','htc g7 desire (a8181)','htc z710e g14 sensation','nokia x7-00','samsung gt-i9505 galaxy s iv','lg p970 optimus black','motorola mb300 / me600 (backflip / enzo / motus)','htc x315e sensation xl','sony mt27i xperia sola','samsung sgh-i997 infuse 4g','rim blackberry 9790 bold','nokia n8','samsung gt-i9250 galaxy nexus','htc amaze 4g','nokia 6650','nokia 2730 classic','nokia n73','nokia 6085','nokia 3110 classic','nokia 5700 xpressmusic','nokia n85','samsung gt-i9082 galaxy grand duos','nokia e75','sony l36h / c6602 xperia z','nokia 5230 xpressmusic','htc evo 3d x515m','htc g8 wildfire (a3333)','nokia n97 mini','nokia 6210 slide','samsung gt-s8500 wave','sony st25i xperia u','motorola mb860 atrix 4g','samsung gt-i9500 galaxy s4','samyang gt-s5570 galaxy mini','htc t328d desire vc','sony l36h / c6603 xperia z','nokia lumia 620','rim blackberry bold 9780 onyx 2','htc s720e one x','htc g13 wildfire s (a510e)','nokia 500 fate','samsung gt-s5360'}
+@attribute 网络模式 {'2G 3G',2G,3G,'3G 4G'}
+@attribute 电池容量 {中,底,高}
+@attribute 后置摄像 {底,中,高}
+@attribute 外观设计 {直板,滑盖,翻盖}
+@attribute 操作系统 {symbian,android,'windows mobile',blackberry,'windows phone',asha,flyme,palm}
+@attribute 网络类型 {单卡双模,双卡单模,双卡双模,单卡多模,双卡双模双通}
+@attribute CPU厂家 {arm,高通,德州仪器,nvidia,三星,arm11,st-ericsson,联发科,marvell,arm9,苹果,arm6,mx5s,博通bcm28155}
+@attribute CPU性能 {底,中,高}
+@attribute 主屏分辨率 {中,底,高}
+@attribute 主屏尺寸 {中,小,大}
+@attribute 色彩度 {底}
+
+@data
+'nokia n900','2G 3G',中,底,?,?,单卡双模,arm,底,中,中,?
+'nokia c1-01',2G,底,底,?,symbian,?,?,?,底,小,?
+'sony ericsson x10a xperia','2G 3G',?,中,?,android,单卡双模,高通,底,中,大,?
+'htc a510s g13 wildfire s','2G 3G',底,底,?,?,单卡双模,高通,底,中,中,?
+'motorola milestone 2 a953','2G 3G',?,中,?,android,单卡双模,德州仪器,中,高,大,?
+'sony xperia v lt25i',3G,中,高,?,?,单卡双模,高通,高,高,大,?
+'motorola mb860 / me860 atrix 4g','3G 4G',中,底,?,?,单卡双模,nvidia,中,高,大,?
+'htc 710e g14 sensation','2G 3G',中,中,?,?,单卡双模,高通,中,高,大,?
+'xiaomi m2','3G 4G',高,中,?,?,单卡双模,高通,高,高,大,?
+'palm treo 850',?,中,底,?,'windows mobile',?,?,底,?,?,?
+'rim blackberry 9780 bold','2G 3G',底,底,?,?,单卡双模,高通,底,中,小,?
+'samsung gt-n7000 / i9220 galaxy note','2G 3G',高,中,?,?,单卡双模,三星,高,高,大,?
+'samsung  gt-i8700 omnia 7','2G 3G',中,底,?,?,单卡双模,高通,底,中,大,?
+'htc touch hd2 (t8585)','2G 3G',底,底,?,?,单卡双模,高通,底,中,大,?
+'nokia 2610',2G,?,?,直板,symbian,?,?,?,?,?,?
+'samsung gt-i9000 galaxy s',2G,?,底,?,android,双卡单模,?,?,中,中,?
+'nokia e5-00','2G 3G',底,底,?,?,单卡双模,arm11,底,底,小,?
+'nokia 1661 / 1662',2G,底,?,?,symbian,?,?,?,底,小,?
+'nokia 6630',?,?,底,直板,symbian,?,?,?,底,?,?
+'nokia 6303 classic',2G,底,底,?,symbian,?,?,?,底,小,?
+'nokia n81','2G 3G',底,底,?,symbian,?,arm11,底,底,小,?
+'samsung gt-i9100 galaxy s ii','2G 3G',中,底,?,android,双卡双模,?,中,中,大,?
+'nokia 6500 classic',2G,底,底,?,symbian,?,?,?,底,小,?
+'nokia n8-00','2G 3G',?,?,?,symbian,?,?,底,?,?,?
+'nokia e52','2G 3G',中,底,?,?,单卡双模,arm11,底,底,小,?
+'nokia n72',2G,底,底,?,symbian,?,?,?,底,小,?
+'sony lt22i xperia p','3G 4G',中,中,?,?,单卡双模,st-ericsson,中,高,大,?
+'samsung sgh-f480 / f488',2G,底,底,?,?,?,?,?,底,中,?
+'nokia lumia 520',3G,高,高,?,?,单卡多模,高通,高,高,大,?
+'samsung gt-s7500 galaxy ace plus','2G 3G',底,底,?,?,单卡双模,高通,底,中,中,?
+'samsung sgh-d608',2G,?,底,滑盖,?,?,?,?,?,?,?
+'htc g7 wildfire (a3333)','2G 3G',底,底,?,?,单卡双模,高通,底,底,中,?
+nokia,3G,高,高,?,?,单卡多模,高通,高,高,大,?
+'htc s510b rhyme','2G 3G',中,底,?,?,单卡双模,高通,底,中,中,?
+'rim blackberry 9900 bold','2G 3G',底,底,?,blackberry,?,高通,中,中,中,?
+'sony lt26w xperia acro s','3G 4G',中,高,?,?,单卡双模,高通,高,高,大,?
+'nokia lumia 610',3G,高,高,?,?,单卡多模,高通,高,高,大,?
+'motorola xt702 milestone','2G 3G',中,中,?,?,单卡双模,arm,底,中,中,?
+'vinus vs4000',2G,中,底,?,?,双卡单模,联发科,高,中,中,?
+'nokia 5800i xpressmusic','2G 3G',中,底,?,symbian,?,arm11,底,中,中,?
+'oppo x909','2G 3G',高,高,?,?,单卡双模,高通,高,高,大,?
+'samsung gt-i9003 galaxy s','2G 3G',中,底,?,?,单卡双模,德州仪器,底,中,大,?
+'nokia e63','2G 3G',中,底,?,?,单卡双模,arm11,底,底,小,?
+'nokia n78','2G 3G',底,底,?,symbian,?,arm11,底,底,小,?
+'rim blackberry bold 9900','3G 4G',底,底,?,?,单卡双模,高通,中,中,中,?
+'nokia e71','2G 3G',中,底,?,symbian,?,arm11,底,底,小,?
+'nokia e66','2G 3G',底,底,?,symbian,?,arm11,底,底,小,?
+'nokia n80',3G,?,底,?,symbian,?,?,?,?,?,?
+'samsung gt-i9220 / n700 galaxy s iii / galaxy note','2G 3G',高,中,?,?,单卡双模,三星,高,高,大,?
+'nokia 5320','2G 3G',底,底,?,symbian,?,arm11,底,底,小,?
+'samsung gt-i9003 galaxy s / sl','2G 3G',中,底,?,?,单卡双模,德州仪器,底,中,大,?
+'nokia 5228 / 5233',2G,中,底,?,symbian,?,arm11,底,中,中,?
+'samsung gt-n7100 galaxy note ii',3G,高,中,?,?,单卡多模,三星,高,高,大,?
+'nokia e90','2G 3G',中,底,?,symbian,?,arm11,底,中,大,?
+'htc s510e desire s','2G 3G',中,底,?,?,单卡双模,高通,底,中,中,?
+'sony ericsson e16i w8 walkman','2G 3G',底,底,?,?,单卡双模,高通,底,中,中,?
+'nokia 5230','2G 3G',中,底,?,?,单卡双模,arm11,底,中,中,?
+'sony ericsson mt11i xperia neo v','2G 3G',中,底,?,?,单卡双模,高通,底,中,中,?
+'samsung gt-s5830i galaxy ace','2G 3G',中,底,?,?,单卡双模,高通,底,中,中,?
+'htc 7 mozart t8698','2G 3G',底,中,?,?,单卡双模,高通,底,中,中,?
+'nokia c6-01','2G 3G',底,中,?,?,单卡双模,arm11,底,中,中,?
+'samsung sgh-e720',2G,底,底,翻盖,?,?,?,?,?,?,?
+'sony st26i xperia j','2G 3G',中,底,?,?,单卡双模,高通,底,中,大,?
+'nokia n76',2G,底,底,?,symbian,?,arm11,底,底,小,?
+'sony ericsson e15i xperia x8','2G 3G',底,底,?,?,单卡双模,高通,底,中,中,?
+'n/a fake imei','2G 3G',高,中,?,?,双卡双模,联发科,高,高,大,?
+'htc hero','2G 3G',中,底,?,android,?,高通,底,中,中,?
+'htc s710e g11 incredible s','2G 3G',中,中,?,?,单卡双模,高通,底,中,大,?
+'nokia 5250',2G,底,底,?,symbian,?,arm11,底,中,中,?
+'htc c720e one x','2G 3G',中,中,?,?,单卡双模,nvidia,高,高,大,?
+'sony ericsson st15i xperia mini','2G 3G',底,底,?,?,单卡双模,高通,底,中,中,?
+'htc one s',3G,中,中,?,?,单卡双模,nvidia,高,高,大,?
+'htc z715e (g18) sensation xe','2G 3G',中,中,?,?,单卡双模,高通,高,高,大,?
+'nokia lumia 800',3G,高,高,?,?,单卡多模,高通,高,高,大,?
+'rim blackberry q10',3G,高,中,?,blackberry,单卡多模,?,高,高,中,?
+'samsung gt-i9103 galaxy s ii','2G 3G',中,底,?,android,双卡双模,?,中,中,大,?
+'sony ericsson j220','2G 3G',中,中,?,?,单卡双模,高通,中,中,大,?
+'sony ericsson lt26i xperia s','2G 3G',中,高,?,?,单卡双模,高通,高,高,大,?
+'htc z710e / z715e (g14 / g18) sensation xe','2G 3G',中,中,?,?,单卡双模,高通,高,高,大,?
+'sony mt25i xperia neo l','2G 3G',中,底,?,?,单卡双模,高通,底,中,大,?
+'sony lt26i xperia s','2G 3G',中,高,?,?,单卡双模,高通,高,高,大,?
+'sony lt26i','2G 3G',中,高,?,?,单卡双模,高通,高,高,大,?
+'htc g16 chacha (a810e)','2G 3G',底,底,?,?,单卡双模,高通,底,中,中,?
+'rim blackberry 9520 storm ii','2G 3G',中,底,?,?,单卡双模,marvell,底,中,中,?
+'nokia 1200',2G,底,?,直板,?,?,?,?,底,?,?
+'samsung gt-i5800 galaxy 3','2G 3G',中,底,?,android,单卡双模,?,底,底,中,?
+'nokia 6600',2G,?,底,?,symbian,?,?,?,底,小,?
+'samsung gt-i9300 galaxy s iii','2G 3G',高,中,?,?,单卡双模,三星,高,高,大,?
+'nokia c5-03','2G 3G',底,底,?,?,单卡双模,arm11,底,中,中,?
+'nokia n86','2G 3G',底,中,?,symbian,?,arm11,底,底,中,?
+'htc hd2 t8585','2G 3G',底,底,?,?,单卡双模,高通,底,中,大,?
+'htc desire hd (a9191)','2G 3G',底,中,?,?,单卡双模,高通,底,中,大,?
+'samsung gt-s5830 galaxy ace','2G 3G',中,底,?,?,单卡双模,st-ericsson,底,中,中,?
+'sony ericsson lt15i xperia arc','2G 3G',?,中,?,android,单卡双模,高通,底,中,大,?
+'lenovo k860','2G 3G',高,中,?,?,单卡双模,三星,高,高,大,?
+'nokia lumia 900',3G,高,中,?,?,单卡多模,高通,高,高,大,?
+'motorola q 9h',?,中,中,?,?,单卡多模,高通,高,高,大,?
+'samsung gt-s5670 galaxy fit','2G 3G',中,底,?,android,单卡双模,?,底,底,中,?
+'htc one v','2G 3G',中,底,?,?,单卡双模,高通,底,中,中,?
+'htc touch hd (t8282)','2G 3G',中,底,?,?,单卡双模,高通,底,中,中,?
+'nokia n95','2G 3G',底,底,?,symbian,?,arm11,底,底,中,?
+'nokia e65','2G 3G',底,底,?,symbian,?,arm9,底,?,?,?
+'nokia lumia 820',?,?,?,直板,'windows phone',?,?,?,?,?,?
+'nokia e50',2G,?,底,?,symbian,?,?,?,?,?,?
+'nokia c6-00','2G 3G',底,底,?,?,单卡双模,arm11,底,中,中,?
+'tcl mobile tcl3688',2G,?,?,?,?,?,?,?,?,?,底
+'samsung gt-i9070 galaxy s advance','2G 3G',中,底,?,?,单卡双模,st-ericsson,中,中,大,?
+'nokia 500',2G,底,底,?,asha,双卡单模,?,?,底,中,?
+'samsung gt-i9001 galaxy s plus','2G 3G',中,底,?,?,单卡双模,高通,中,中,大,?
+'rim blackberry curve 8520',2G,中,底,?,blackberry,?,?,?,?,?,?
+'nokia n97','2G 3G',中,底,?,symbian,?,arm11,底,中,中,?
+'samsung gt--i9100 galaxy s ii','2G 3G',中,底,?,android,双卡双模,?,中,中,大,?
+'motorola mb525 defy','2G 3G',中,底,?,?,单卡双模,德州仪器,底,中,中,?
+'lg e510','2G 3G',中,底,?,?,单卡双模,高通,底,中,中,?
+'htc s510e desire s (saga)','2G 3G',中,底,?,?,单卡双模,高通,底,中,中,?
+'vinus v6',2G,中,底,?,?,双卡单模,联发科,底,高,中,?
+'nokia 5235','2G 3G',中,底,?,?,单卡双模,arm11,底,中,中,?
+'samsung sgh-c406',2G,?,底,?,?,?,?,?,底,小,?
+'htc desire hd a9191','2G 3G',底,中,?,?,单卡双模,高通,底,中,大,?
+'nokia 5320 xpressmusic','2G 3G',底,底,?,symbian,?,arm11,底,底,小,?
+'sony lt28h','2G 3G',中,高,?,?,单卡多模,高通,高,高,大,?
+'htc legend (a6363)','2G 3G',底,底,?,?,单卡双模,高通,底,中,中,?
+'sony c2105 xperia l','2G 3G',中,底,?,?,单卡双模,高通,底,中,大,?
+'motorola mb860 / mb861 / me860 atrix 4g','3G 4G',中,底,?,?,单卡双模,nvidia,中,高,大,?
+'motorola xt910 droid razr',3G,中,中,?,?,单卡多模,德州仪器,中,高,大,?
+'sony ericsson r800i xperia play z1i','2G 3G',中,中,?,?,单卡双模,高通,底,中,大,?
+'sony ericsson wt19i live with walkman','2G 3G',底,底,?,?,单卡双模,高通,底,中,中,?
+'htc s510e / g12 desire s','2G 3G',中,底,?,?,单卡双模,高通,底,中,中,?
+'motorola mb525+','2G 3G',中,底,?,?,单卡双模,德州仪器,底,中,中,?
+'nokia 6300',2G,底,底,?,symbian,?,?,?,底,小,?
+'samsung gt-p1000 galaxy tab','2G 3G',高,底,?,android,单卡双模,?,高,高,大,?
+'nokia 5300',2G,?,底,?,symbian,?,?,?,底,小,?
+'htc a510e g13 wildfire s','2G 3G',底,底,?,?,单卡双模,高通,底,中,中,?
+'nokia 5233',2G,中,底,?,symbian,?,arm11,底,中,中,?
+'motorola me865 atrix 2','2G 3G',中,中,?,?,单卡双模,德州仪器,中,高,大,?
+'apple iphone 4s','2G 3G',中,中,?,?,单卡多模,苹果,底,高,中,?
+'sony lt29i xperia tx','2G 3G',中,高,?,?,单卡双模,高通,高,高,大,?
+'sony ericsson lt18i xperia arc s','2G 3G',中,中,?,?,单卡双模,高通,中,中,大,?
+'nokia e6-00','2G 3G',底,底,?,?,单卡双模,arm11,底,中,中,?
+'htc google nexus one','2G 3G',中,底,?,?,单卡双模,高通,底,中,中,?
+'htc a8181 desire','2G 3G',底,中,?,?,单卡双模,高通,底,中,大,?
+'samsung gt-s5660 galaxy gio','2G 3G',中,底,?,?,单卡双模,arm6,底,中,中,?
+'nokia c2-01','2G 3G',底,底,?,symbian,单卡双模,?,?,底,小,?
+'lg p920 optimus 3d','2G 3G',中,底,?,?,单卡双模,德州仪器,中,中,大,?
+'nokia lumia 920',3G,高,中,?,?,单卡多模,高通,高,高,大,?
+'sony ericsson k750','2G 3G',中,中,?,?,单卡双模,高通,中,中,大,?
+'htc a9191 desire hd','2G 3G',底,中,?,?,单卡双模,高通,底,中,大,?
+'htc z710e/z715e (g14/g18) sensation xe','2G 3G',中,中,?,?,单卡双模,高通,高,高,大,?
+'sony st27i xperia go','2G 3G',中,底,?,?,单卡双模,st-ericsson,中,中,中,?
+'nokia n9','2G 3G',中,中,?,?,单卡双模,德州仪器,底,中,中,?
+'samsung gt i9300 galaxy s iii','2G 3G',高,中,?,?,单卡双模,三星,高,高,大,?
+'samsung sgh-t959',2G,?,底,滑盖,?,?,?,?,?,?,?
+'i9100 gt-i9100 galaxy s ii','2G 3G',中,中,?,?,单卡双模,三星,中,中,大,?
+'samsung gt-i8160 galaxy ace ii','2G 3G',中,底,?,?,单卡双模,st-ericsson,底,中,中,?
+'meizu mx2','2G 3G',中,中,?,flyme,?,mx5s,高,高,大,?
+'nokia 6720 classic','2G 3G',底,底,?,symbian,?,arm11,底,底,小,?
+'nokia 5800 xpressmusic','2G 3G',中,底,?,symbian,?,arm11,底,中,中,?
+'nokia n97 / n97i','2G 3G',底,底,?,?,单卡双模,arm11,底,中,中,?
+'samsung gt-i9220 / n7000 galaxy note','2G 3G',高,中,?,?,单卡双模,三星,高,高,大,?
+'samsung gt-i9000 galaxy',2G,?,底,?,android,双卡单模,?,?,中,中,?
+'htc desire s s510e','2G 3G',中,底,?,?,单卡双模,高通,底,中,中,?
+'nokia c5-00','2G 3G',底,底,?,?,单卡双模,arm11,底,底,小,?
+'htc desire g7 (a8181)','2G 3G',中,底,?,?,单卡双模,高通,底,中,中,?
+'nokia c7-00','2G 3G',底,中,?,symbian,单卡双模,?,?,中,中,?
+'htc x710e raider 4g velocity','3G 4G',中,中,?,?,单卡多模,高通,高,高,大,?
+'htc g7 desire z (a7272)','2G 3G',底,底,?,?,单卡双模,高通,底,中,中,?
+'rim blackberry bold 9780 onyx','2G 3G',中,底,?,blackberry,单卡双模,?,底,中,小,?
+'apple iphone4s','2G 3G',中,中,?,?,单卡多模,苹果,底,高,中,?
+'samsung gt-n7100 galaxy note 2','3G 4G',高,中,?,?,双卡双模双通,三星,高,高,大,?
+'sony ericsson mt15i xperia neo','2G 3G',中,中,?,?,单卡双模,高通,底,中,中,?
+'lg p880 optimus 4x hd','2G 3G',高,中,?,?,单卡双模,nvidia,高,高,大,?
+'sony lt26ii xperia sl','2G 3G',中,高,?,?,单卡双模,高通,高,高,大,?
+'samsung gt-i9100g galaxy s ii','2G 3G',中,中,?,?,单卡双模,三星,中,中,大,?
+'nokia 6120 classic','2G 3G',底,底,?,symbian,?,arm11,底,底,小,?
+'rim blackberry 8800',2G,?,?,?,blackberry,?,marvell,底,底,小,?
+'samsung gt-s5360 galaxy y','2G 3G',底,底,?,android,单卡双模,?,底,底,中,?
+'nokia n97-4 mini','2G 3G',底,底,?,?,单卡双模,arm11,底,中,中,?
+'htc s710d droid incredible 2','2G 3G',中,中,?,?,单卡多模,高通,底,中,大,?
+'lg e960','3G 4G',高,中,?,?,单卡双模,高通,高,高,大,?
+'htc c510e g15 salsa / weike','2G 3G',中,底,?,?,单卡双模,高通,底,中,中,?
+'nokia lumia 710',3G,高,高,?,?,单卡多模,高通,高,高,大,?
+'rim blackberry bold 9700','2G 3G',底,底,?,?,单卡双模,高通,底,中,小,?
+'nokia 5530 xpressmusic',2G,底,底,?,symbian,?,arm11,底,中,中,?
+'nokia e72','2G 3G',中,底,?,?,单卡双模,arm11,底,底,小,?
+'htc g6 legend (a6363)','2G 3G',底,底,?,?,单卡双模,高通,底,中,中,?
+'samsung gt-i9023 nexus s','2G 3G',中,底,?,android,单卡双模,?,底,中,大,?
+'sony ericsson st18i xperia ray','2G 3G',中,中,?,?,单卡双模,高通,底,中,中,?
+'palm treo 650',2G,?,底,?,palm,?,marvell,底,?,?,?
+'htc s720e one x (g23)','2G 3G',中,中,?,?,单卡双模,nvidia,高,高,大,?
+'motorola me525 defy','2G 3G',中,底,?,?,单卡双模,德州仪器,底,中,中,?
+'htc s710e incredible s','2G 3G',中,中,?,?,单卡双模,高通,底,中,大,?
+'sony ericsson sk17i xperia mini pro','2G 3G',底,底,?,?,单卡双模,高通,底,中,中,?
+'htc g11 / s710e incredible s','2G 3G',中,中,?,?,单卡双模,高通,底,中,大,?
+'nokia x6-00','2G 3G',底,底,?,?,单卡双模,arm11,底,中,中,?
+'nokia x6','2G 3G',中,底,?,symbian,?,arm11,底,中,中,?
+'htc g7 desire (a8181)',?,中,底,?,android,?,高通,底,中,中,?
+'htc z710e g14 sensation',3G,中,中,?,?,单卡双模,高通,中,高,大,?
+'nokia x7-00','2G 3G',底,中,?,symbian,单卡双模,?,?,中,中,?
+'samsung gt-i9505 galaxy s iv','3G 4G',高,高,?,?,单卡多模,高通,高,高,大,?
+'lg p970 optimus black','2G 3G',中,底,?,?,单卡双模,德州仪器,底,中,大,?
+'motorola mb300 / me600 (backflip / enzo / motus)','2G 3G',中,底,?,?,单卡双模,高通,底,中,中,?
+'htc x315e sensation xl','2G 3G',中,中,?,?,单卡双模,高通,高,中,大,?
+'sony mt27i xperia sola','2G 3G',底,底,?,?,单卡双模,st-ericsson,中,中,中,?
+'samsung sgh-i997 infuse 4g','2G 3G',中,中,?,?,单卡多模,arm,中,中,大,?
+'rim blackberry 9790 bold','2G 3G',底,底,?,?,单卡双模,高通,底,中,小,?
+'nokia n8','2G 3G',底,高,?,?,单卡双模,arm11,底,中,中,?
+'samsung gt-i9250 galaxy nexus','2G 3G',中,底,?,?,单卡双模,德州仪器,中,高,大,?
+'htc amaze 4g','2G 3G',中,中,?,?,单卡双模,高通,高,高,大,?
+'nokia 6650','2G 3G',中,底,?,symbian,?,?,底,底,小,?
+'nokia 2730 classic','2G 3G',底,底,?,symbian,单卡双模,?,?,底,小,?
+'nokia n73','2G 3G',底,底,?,symbian,?,arm9,底,底,小,?
+'nokia 6085',2G,?,底,翻盖,?,?,?,?,底,小,?
+'nokia 3110 classic',2G,底,底,?,?,?,?,?,底,小,?
+'nokia 5700 xpressmusic',2G,底,底,?,symbian,?,?,?,底,小,?
+'nokia n85','2G 3G',底,底,?,symbian,?,arm11,底,底,中,?
+'samsung gt-i9082 galaxy grand duos','2G 3G',高,中,?,?,双卡双模,博通bcm28155,中,中,大,?
+'nokia e75','2G 3G',底,底,?,symbian,?,arm11,底,底,小,?
+'sony l36h / c6602 xperia z',?,高,高,?,?,单卡双模,高通,高,高,大,?
+'nokia 5230 xpressmusic','2G 3G',中,底,?,symbian,?,arm11,底,中,中,?
+'htc evo 3d x515m','2G 3G',中,底,?,?,单卡双模,高通,中,高,大,?
+'htc g8 wildfire (a3333)','2G 3G',底,底,?,?,单卡双模,高通,底,底,中,?
+'nokia n97 mini','2G 3G',底,底,?,?,单卡双模,arm11,底,中,中,?
+'nokia 6210 slide','2G 3G',底,底,?,symbian,?,?,?,底,小,?
+'samsung gt-s8500 wave','2G 3G',中,底,?,?,单卡双模,arm,底,中,中,?
+'sony st25i xperia u','2G 3G',底,底,?,?,单卡双模,st-ericsson,中,中,中,?
+'motorola mb860 atrix 4g','3G 4G',中,中,?,?,单卡多模,高通,高,高,大,?
+'samsung gt-i9500 galaxy s4','2G 3G',高,高,?,?,单卡双模,三星,高,高,大,?
+'samyang gt-s5570 galaxy mini','2G 3G',底,底,?,?,单卡双模,高通,底,底,中,?
+'htc t328d desire vc',2G,中,底,?,?,双卡双模双通,高通,底,中,大,?
+'sony l36h / c6603 xperia z',?,高,高,?,?,单卡双模,高通,高,高,大,?
+'nokia lumia 620',3G,高,高,?,?,单卡多模,高通,高,高,大,?
+'rim blackberry bold 9780 onyx 2','2G 3G',中,底,?,blackberry,单卡双模,?,底,中,小,?
+'htc s720e one x','2G 3G',中,中,?,?,单卡双模,nvidia,高,高,大,?
+'htc g13 wildfire s (a510e)','2G 3G',底,底,?,?,单卡双模,高通,底,中,中,?
+'nokia 500 fate','2G 3G',底,底,?,symbian,单卡双模,?,底,中,中,?
+'samsung gt-s5360','2G 3G',底,底,?,android,单卡双模,?,底,底,中,?

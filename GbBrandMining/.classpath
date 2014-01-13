@@ -10,5 +10,6 @@
 	<classpathentry kind="lib" path="libs/commons-lang-2.6.jar"/>
 	<classpathentry kind="lib" path="libs/commons-logging-1.0.4.jar"/>
 	<classpathentry kind="lib" path="libs/ezmorph-1.0.4.jar"/>
+	<classpathentry kind="lib" path="libs/weka.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
