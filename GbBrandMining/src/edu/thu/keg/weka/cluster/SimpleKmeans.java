@@ -1,8 +1,11 @@
 package edu.thu.keg.weka.cluster;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import weka.clusterers.SimpleKMeans;
 import weka.core.Instance;
@@ -10,18 +13,25 @@ import weka.core.Instances;
 import weka.core.converters.ArffLoader;
 
 public class SimpleKmeans {
-	public static void KMeans(String fileName, int numOfCluster) {
+	public static ClusterDetail KMeans(String fileName, int numOfCluster) {
+		ClusterDetail result = new ClusterDetail();
 		// 实例
-		Instances insts = null;
+		Instances insts = null, oldInsts;
 		// 算法
 		SimpleKMeans skm = new SimpleKMeans();
 		File file = new File(fileName);
 		ArffLoader loader = new ArffLoader();
 		try {
 			loader.setFile(file);
-
 			insts = loader.getDataSet();
-			// 第0个属性不要
+			result.setNumOfCluster(numOfCluster);
+			result.setLabel(new String[insts.numInstances()]);
+			result.setClassIdentify(new int[insts.numInstances()]);
+			for (int i = 0; i < insts.numInstances(); i++) {
+				result.getLabel()[i] = insts.instance(i).toString(0);
+			}
+
+			// 第0个属性不要-------------------------------------------------------------
 			insts.deleteAttributeAt(0);
 			// 聚类个数
 			skm.setNumClusters(numOfCluster);
@@ -42,17 +52,143 @@ public class SimpleKmeans {
 			// 再分类
 
 			for (int i = 0; i < insts.numInstances(); i++) {
-				System.out.println(i + ":"
-						+ skm.clusterInstance(insts.instance(i)));
 
+				result.getClassIdentify()[i] = skm.clusterInstance(insts
+						.instance(i));
+				// System.out.println(i + ":"
+				// + skm.clusterInstance(insts.instance(i)));
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return result;
+	}
+
+	public static void saveReToFile(List<ClusterDetail> listRe,
+			String fileProffix) {
+		FileWriter fw = null;
+		String fileName = fileProffix;
+		try {
+
+			for (int i = 0; i < listRe.get(0).getLabel().length; i++) {
+				String line = "";
+				if (i == 0) {
+					line = "PHONE_VERSION";
+					for (int j = 0; j < listRe.size(); j++) {
+						fileName = fileName + "_" + "C"
+								+ listRe.get(j).getNumOfCluster();
+						line = line + "," + "CLASS"
+								+ listRe.get(j).getNumOfCluster();
+					}
+
+					fw = new FileWriter(fileName + ".csv");
+					fw.write(line + "\n");
+					fw.flush();
+				}
+				line = listRe.get(0).getLabel()[i];// 把品牌信息添加到行中，第一个String[][]的第一列
+				for (int j = 0; j < listRe.size(); j++) {
+
+					line = line + "," + listRe.get(j).getClassIdentify()[i];
+				}
+				fw.write(line + "\n");
+				fw.flush();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				fw.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public static void main(String arg[]) {
-		SimpleKmeans.KMeans("mobile_function_train2k_test1k.arff", 10);
+		ClusterDetail cd = null;
+		ArrayList listRe = new ArrayList();
+		cd = SimpleKmeans.KMeans("253手机配置(all)_经过过滤.arff", 5);
+		listRe.add(cd);
+		cd = SimpleKmeans.KMeans("253手机配置(all)_经过过滤.arff", 6);
+		listRe.add(cd);
+		cd = SimpleKmeans.KMeans("253手机配置(all)_经过过滤.arff", 7);
+		listRe.add(cd);
+		cd = SimpleKmeans.KMeans("253手机配置(all)_经过过滤.arff", 8);
+		listRe.add(cd);
+		cd = SimpleKmeans.KMeans("253手机配置(all)_经过过滤.arff", 9);
+		listRe.add(cd);
+		cd = SimpleKmeans.KMeans("253手机配置(all)_经过过滤.arff", 10);
+		listRe.add(cd);
+		cd = SimpleKmeans.KMeans("253手机配置(all)_经过过滤.arff", 11);
+		listRe.add(cd);
+		cd = SimpleKmeans.KMeans("253手机配置(all)_经过过滤.arff", 12);
+		listRe.add(cd);
+		cd = SimpleKmeans.KMeans("253手机配置(all)_经过过滤.arff", 13);
+		listRe.add(cd);
+		cd = SimpleKmeans.KMeans("253手机配置(all)_经过过滤.arff", 14);
+		listRe.add(cd);
+		cd = SimpleKmeans.KMeans("253手机配置(all)_经过过滤.arff", 15);
+		listRe.add(cd);
+		SimpleKmeans.saveReToFile(listRe, "CClustar");
+		System.out.print(cd.getLabel()[3]);
 	}
+
+}
+
+class ClusterDetail {
+	String[] label;
+	int[] classIdentify;
+	int numOfCluster;
+
+	ClusterDetail() {
+
+	}
+
+	/**
+	 * @return the label
+	 */
+	public String[] getLabel() {
+		return label;
+	}
+
+	/**
+	 * @param label
+	 *            the label to set
+	 */
+	public void setLabel(String[] label) {
+		this.label = label;
+	}
+
+	/**
+	 * @return the classIdentify
+	 */
+	public int[] getClassIdentify() {
+		return classIdentify;
+	}
+
+	/**
+	 * @param classIdentify
+	 *            the classIdentify to set
+	 */
+	public void setClassIdentify(int[] classIdentify) {
+		this.classIdentify = classIdentify;
+	}
+
+	/**
+	 * @return the classesNum
+	 */
+	public int getNumOfCluster() {
+		return numOfCluster;
+	}
+
+	/**
+	 * @param classesNum
+	 *            the classesNum to set
+	 */
+	public void setNumOfCluster(int numOfCluster) {
+		this.numOfCluster = numOfCluster;
+	}
+
 }
