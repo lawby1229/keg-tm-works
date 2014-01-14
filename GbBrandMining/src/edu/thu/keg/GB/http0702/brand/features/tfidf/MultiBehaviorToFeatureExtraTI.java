@@ -19,10 +19,9 @@ import edu.thu.keg.GB.http0702.brand.iimmfilter.BrandChangeFilter;
  * 
  */
 public class MultiBehaviorToFeatureExtraTI {
-	final static HashMap<String, Integer> FeatureMap2Int = new HashMap<>();// 其中值是从1开始的
-	// 其中值是从1开始的
+	HashMap<String, Integer> FeatureMap2Int = new HashMap<>();// 其中值是从1开始的，其中值是从1开始的,记录每个标签对应的唯一编号
+	HashMap<String, Integer> VersionMap = new HashMap<>();// 其中值是从1开始的
 
-	final static HashMap<String, Integer> VersionMap = new HashMap<>();// 其中值是从1开始的
 	HashMap<Integer, Integer> FeatureSumMap = new HashMap<>();// 键值代表维度和全文出现总数总数
 	List<Integer> lineSumList = new ArrayList<Integer>();// 每行是单词总数
 	int DimensionOfClass = 16;
@@ -44,12 +43,21 @@ public class MultiBehaviorToFeatureExtraTI {
 		this.isVersionAsTag = false;
 	}
 
+	public void getTrainTestFiles() {
+		// 得到训练数据集
+		getFile(true);
+		// 加载测试数据集
+		getFile(false);
+		// 加载所有标签出现的文章数
+		setFeatureSumMap();
+	}
+
 	/**
 	 * 根据isTrainFile 更新trainFeature或者testFesture 如果加載過version就得到的是version当标签的
 	 * 
 	 * @param isTrainFile
 	 */
-	public void getFile(boolean isTrainFile) {
+	private void getFile(boolean isTrainFile) {
 		List<HashMap<Integer, Integer>> Features;
 		int[] Dis;
 		ResultSet rs;
@@ -73,8 +81,8 @@ public class MultiBehaviorToFeatureExtraTI {
 		try {
 			while (rs.next()) {
 				String imsi = rs.getString("IMSI");
-				String host = rs.getString("HOST");
-
+				String behavior = rs.getString("BEHAVIOR");
+				// 遇到一个新用户建立一个新的row
 				if (!imsiRow.equals(imsi)) {
 					int brandtype;
 					if (!isVersionAsTag)
@@ -91,18 +99,16 @@ public class MultiBehaviorToFeatureExtraTI {
 					row = new HashMap<Integer, Integer>();
 					row.put(0, brandtype);
 					Features.add(row);
-					System.out.print(i + ",");
 				}
-				if (!FeatureMap2Int.containsKey(host))
+				if (!FeatureMap2Int.containsKey(behavior))
 					continue;
-				int iKey = (int) FeatureMap2Int.get(host);
+				int iKey = (int) FeatureMap2Int.get(behavior);
 				int iValue = 1;
 				if (row.containsKey(iKey)) {
 					iValue = row.get(iKey).intValue() + 1;
 				}
 				row.put(iKey, iValue);
 			}
-			System.out.print("\n");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -111,7 +117,7 @@ public class MultiBehaviorToFeatureExtraTI {
 
 	private ResultSet getRs(String tableName) {
 		BrandChangeFilter bcf = new BrandChangeFilter();
-		ResultSet rs = bcf.runsql("select imsi, host, " + tag + " from "
+		ResultSet rs = bcf.runsql("select imsi, behavior, " + tag + " from "
 				+ tableName + " order by imsi");
 		return rs;
 	}
@@ -133,7 +139,7 @@ public class MultiBehaviorToFeatureExtraTI {
 		}
 		FileWriter fw = null;
 		try {
-			fw = new FileWriter(tableName + "_MobileSet_Base_Host_" + tag
+			fw = new FileWriter(tableName + "_MobileSet_Base_Behavior_" + tag
 					+ ".txt");
 			while (it.hasNext()) {
 				String rowStr = "";
@@ -179,14 +185,14 @@ public class MultiBehaviorToFeatureExtraTI {
 		}
 		FileWriter fw = null;
 		try {
-			fw = new FileWriter(tableName + "_MobileSet_Base_Host_TFIDF_" + tag
-					+ ".txt");
+			fw = new FileWriter(tableName + "_MobileSet_Base_Behavoir_TFIDF_"
+					+ tag + ".txt");
 			while (it.hasNext()) {
 				String rowStr = "";
 				HashMap<Integer, Double> row = it.next();
 				Integer[] keys = row.keySet().toArray(new Integer[0]);
 				Arrays.sort(keys);
-				rowStr = row.get(0) + "";
+				rowStr = "C" + row.get(0).intValue();
 				for (int i = 0; i < keys.length; i++) {
 					if (keys[i] == 0)
 						continue;
@@ -241,19 +247,13 @@ public class MultiBehaviorToFeatureExtraTI {
 
 	}
 
-	public void loadHostDimension(String field, String tableName) {
-		BrandChangeFilter bcf = new BrandChangeFilter();
-		ResultSet rs = bcf.runsql("select distinct(" + field + ")" + " from "
-				+ tableName);
-		try {
-			int i = 1;
-			while (rs.next()) {
-				FeatureMap2Int.put(rs.getString(1), i);
-				i++;
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public void loadBehaviorDimension() {
+		String keys[] = { "查地图", "查消息", "查信息", "管理手机", "逛空间", "看视频", "看新闻",
+				"聊天", "买东西", "拍照", "上人人", "上网", "上微博", "收发邮件", "听音乐", "通信",
+				"玩游戏", "阅读", "照明", "做记录" };
+
+		for (int i = 0; i < keys.length; i++) {
+			FeatureMap2Int.put(keys[i], i + 1);
 		}
 
 	}
@@ -284,6 +284,22 @@ public class MultiBehaviorToFeatureExtraTI {
 
 	}
 
+	private void setFeatureSumMap() {
+		ArrayList<HashMap<Integer, Integer>> feature = new ArrayList<>();
+		feature.addAll(trainFeatures);
+		feature.addAll(testFeatures);
+		for (int i = 0; i < feature.size(); i++) {// 每一行的feature
+			HashMap<Integer, Integer> row = feature.get(i);
+			Iterator<Integer> itHost = row.keySet().iterator();
+			while (itHost.hasNext()) {// 一行中的每一个
+				int hostId = itHost.next();
+				if (!FeatureSumMap.containsKey(hostId))
+					FeatureSumMap.put(hostId, 0);
+				FeatureSumMap.put(hostId, FeatureSumMap.get(hostId) + 1);
+			}
+		}
+	}
+
 	/**
 	 * 讲feature转换成tfidf的feature
 	 * 
@@ -292,6 +308,7 @@ public class MultiBehaviorToFeatureExtraTI {
 	 */
 	private List<HashMap<Integer, Double>> getTfIdfFeature(
 			List<HashMap<Integer, Integer>> feature) {
+		lineSumList = new ArrayList<>();
 		for (int i = 0; i < feature.size(); i++) {// 每一行的feature
 			HashMap<Integer, Integer> row = feature.get(i);
 			Iterator<Integer> itHost = row.keySet().iterator();
@@ -299,9 +316,6 @@ public class MultiBehaviorToFeatureExtraTI {
 			while (itHost.hasNext()) {// 一行中的每一个
 				int hostId = itHost.next();
 				sumLine += row.get(hostId);
-				if (!FeatureSumMap.containsKey(hostId))
-					FeatureSumMap.put(hostId, 0);
-				FeatureSumMap.put(hostId, FeatureSumMap.get(hostId) + 1);
 			}
 			lineSumList.add(sumLine);
 		}
@@ -343,18 +357,15 @@ public class MultiBehaviorToFeatureExtraTI {
 		// app.getFile(true);
 		// app.writeFeatureToFile(true);
 
-		MultiHostToFeatureExtraTI app = new MultiHostToFeatureExtraTI(
-				"X5_TRAIN_ONE_G500_ADDFUNC", "X51_TEST_BASE_BEHAVIOR", "C11");
+		MultiBehaviorToFeatureExtraTI app = new MultiBehaviorToFeatureExtraTI(
+				"X5_TRAIN_ONE_G500_ADDFUNC", "X51_TEST_BASE_BEHAVIOR", "C5");
 		System.out.println("1");
-		app.loadHostDimension("host", "X4_TRAIN_ONE_G500_ADDFUNC");
-		// System.out.println("2");
-		// app.loadVersionDimension("version", "X4_TRAIN_ONE_G500_ADDFUNC");
+		app.loadBehaviorDimension();
 		System.out.println("3");
-		app.getFile(false);
+		app.getTrainTestFiles();
+		app.writeTfIdfFeatureToFile(true);
 		System.out.println("4");
 		app.writeTfIdfFeatureToFile(false);
-		app.getFile(true);
-		app.writeTfIdfFeatureToFile(true);
 
 		// app = new MultiHostToFeatureExtra("Z3_TRAIN_ONE_G500T1K_ADDFUNC",
 		// "Z32_TEST_BASE_HOST", "C4");

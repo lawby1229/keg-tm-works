@@ -1,5 +1,7 @@
 package edu.thu.keg.weka.cluster;
-
+/**
+ * Kmeans 聚类现有手机
+ */
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
