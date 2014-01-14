@@ -1,4 +1,4 @@
-package edu.thu.keg.GB.http0702.brand.features;
+package edu.thu.keg.GB.http0702.brand.features.tfidf;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,7 +18,7 @@ import edu.thu.keg.GB.http0702.brand.iimmfilter.BrandChangeFilter;
  * @author Law
  * 
  */
-public class MultiHostToFeatureExtra {
+public class MultiBehaviorToFeatureExtraTI {
 	final static HashMap<String, Integer> FeatureMap2Int = new HashMap<>();// 其中值是从1开始的
 	// 其中值是从1开始的
 
@@ -36,7 +36,7 @@ public class MultiHostToFeatureExtra {
 	boolean isVersionAsTag;
 	String folder;
 
-	public MultiHostToFeatureExtra(String trainTable, String testTable,
+	public MultiBehaviorToFeatureExtraTI(String trainTable, String testTable,
 			String tag) {
 		this.trainTable = trainTable;
 		this.testTable = testTable;
@@ -292,11 +292,11 @@ public class MultiHostToFeatureExtra {
 	 */
 	private List<HashMap<Integer, Double>> getTfIdfFeature(
 			List<HashMap<Integer, Integer>> feature) {
-		for (int i = 0; i < feature.size(); i++) {//每一行的feature
+		for (int i = 0; i < feature.size(); i++) {// 每一行的feature
 			HashMap<Integer, Integer> row = feature.get(i);
 			Iterator<Integer> itHost = row.keySet().iterator();
 			int sumLine = 0;
-			while (itHost.hasNext()) {//一行中的每一个
+			while (itHost.hasNext()) {// 一行中的每一个
 				int hostId = itHost.next();
 				sumLine += row.get(hostId);
 				if (!FeatureSumMap.containsKey(hostId))
@@ -343,12 +343,12 @@ public class MultiHostToFeatureExtra {
 		// app.getFile(true);
 		// app.writeFeatureToFile(true);
 
-		MultiHostToFeatureExtra app = new MultiHostToFeatureExtra(
-				"X4_TRAIN_ONE_G500_ADDFUNC", "X42_TEST_BASE_HOST", "C11");
+		MultiHostToFeatureExtraTI app = new MultiHostToFeatureExtraTI(
+				"X5_TRAIN_ONE_G500_ADDFUNC", "X51_TEST_BASE_BEHAVIOR", "C11");
 		System.out.println("1");
 		app.loadHostDimension("host", "X4_TRAIN_ONE_G500_ADDFUNC");
-//		System.out.println("2");
-//		app.loadVersionDimension("version", "X4_TRAIN_ONE_G500_ADDFUNC");
+		// System.out.println("2");
+		// app.loadVersionDimension("version", "X4_TRAIN_ONE_G500_ADDFUNC");
 		System.out.println("3");
 		app.getFile(false);
 		System.out.println("4");
