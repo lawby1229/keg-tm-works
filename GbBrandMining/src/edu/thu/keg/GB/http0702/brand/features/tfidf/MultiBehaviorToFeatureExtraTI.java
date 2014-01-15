@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.lang.ArrayUtils;
+
 import edu.thu.keg.GB.http0702.brand.iimmfilter.BrandChangeFilter;
 
 /**
@@ -45,8 +47,10 @@ public class MultiBehaviorToFeatureExtraTI {
 
 	public void getTrainTestFiles() {
 		// 得到训练数据集
+		System.out.println("get train file.");
 		getFile(true);
 		// 加载测试数据集
+		System.out.println("get test file.");
 		getFile(false);
 		// 加载所有标签出现的文章数
 		setFeatureSumMap();
@@ -150,7 +154,7 @@ public class MultiBehaviorToFeatureExtraTI {
 				for (int i = 1; i < keys.length; i++) {
 					rowStr = rowStr + " " + keys[i] + ":" + row.get(keys[i]);
 				}
-				System.out.println(rowStr);
+				// System.out.println(rowStr);
 				fw.write(rowStr + "\n");
 				fw.flush();
 			}
@@ -216,6 +220,48 @@ public class MultiBehaviorToFeatureExtraTI {
 		writeDisFile(isTrainFile);
 	}
 
+	public void writeTfIdfFeatureToFileForWeka() {
+		String tableName = "";
+		Iterator<HashMap<Integer, Double>> it;
+		tableName = trainTable + "";
+		List<HashMap<Integer, Integer>> allFeatures = new ArrayList<>();
+		allFeatures.addAll(trainFeatures);
+		allFeatures.addAll(testFeatures);
+
+		it = getTfIdfFeature(allFeatures).iterator();
+		FileWriter fw = null;
+		try {
+			fw = new FileWriter(tableName
+					+ "_MobileSet_Base_Behavoir_TFIDF_WEKA_" + tag + ".txt");
+			while (it.hasNext()) {
+				String rowStr = "";
+				HashMap<Integer, Double> row = it.next();
+				Integer[] keys = row.keySet().toArray(new Integer[0]);
+				Arrays.sort(keys);
+				rowStr = "C" + row.get(0).intValue();
+				for (int i = 0; i < keys.length; i++) {
+					if (keys[i] == 0)
+						continue;
+					rowStr = rowStr + " " + keys[i] + ":" + row.get(keys[i]);
+				}
+				// System.out.println(rowStr);
+				fw.write(rowStr + "\n");
+				fw.flush();
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				fw.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		writeDisFile();
+	}
+
 	/**
 	 * 写分部文件，每次写文件后会调用
 	 * 
@@ -235,6 +281,31 @@ public class MultiBehaviorToFeatureExtraTI {
 		try {
 			fw = new FileWriter("Dis_" + tableName + "_MobileSet_Base_Host_"
 					+ tag + ".txt");
+			for (int i = 0; i < Dis.length; i++) {
+				fw.write(i + " " + Dis[i] + "\n");
+			}
+			fw.flush();
+			fw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	private void writeDisFile() {
+		int[] Dis = new int[trainDis.length];
+		String tableName = "";
+
+		tableName = trainTable;
+		for (int i = 0; i < Dis.length; i++) {
+			Dis[i] = trainDis[i] + testDis[i];
+		}
+
+		FileWriter fw;
+		try {
+			fw = new FileWriter("Dis_" + tableName
+					+ "_MobileSet_Base_Host_WEKA_" + tag + ".txt");
 			for (int i = 0; i < Dis.length; i++) {
 				fw.write(i + " " + Dis[i] + "\n");
 			}
@@ -337,8 +408,8 @@ public class MultiBehaviorToFeatureExtraTI {
 				else
 					idf = Math.log((double) lineSumList.size()
 							/ FeatureSumMap.get(hostId));
-				System.out.print("tf:" + tf);
-				System.out.print("idf:" + idf + "\n");
+				// System.out.print("tf:" + tf);
+				// System.out.print("idf:" + idf + "\n");
 				rowNew.put(hostId, tf * idf);
 			}
 			result.add(rowNew);
@@ -347,47 +418,16 @@ public class MultiBehaviorToFeatureExtraTI {
 	}
 
 	public static void main(String arg[]) {
-		// 对多分类的7种手机数据进行分类和预测的特征抽取
-		// MultiHostToBrandFeatExtra app = new MultiHostToBrandFeatExtra(
-		// "z1_train_one_g500_top1000", "Z21_TEST_HOST_IN_TRAIN");
-		// app.loadHostDimension("host", "Z21_TEST_HOST_IN_TRAIN");
-		// app.getFile(false);
-		// app.writeFeatureToFile(false);
-		//
-		// app.getFile(true);
-		// app.writeFeatureToFile(true);
-
-		MultiBehaviorToFeatureExtraTI app = new MultiBehaviorToFeatureExtraTI(
-				"X5_TRAIN_ONE_G500_ADDFUNC", "X51_TEST_BASE_BEHAVIOR", "C5");
-		System.out.println("1");
-		app.loadBehaviorDimension();
-		System.out.println("3");
-		app.getTrainTestFiles();
-		app.writeTfIdfFeatureToFile(true);
-		System.out.println("4");
-		app.writeTfIdfFeatureToFile(false);
-
-		// app = new MultiHostToFeatureExtra("Z3_TRAIN_ONE_G500T1K_ADDFUNC",
-		// "Z32_TEST_BASE_HOST", "C4");
-		// app.loadHostDimension("host", "Z3_TRAIN_ONE_G500T1K_ADDFUNC");
-		// app.getFile(false);
-		// app.writeFeatureToFile(false);
-		// app.getFile(true);
-		// app.writeFeatureToFile(true);
-		// app = new MultiHostToFeatureExtra("Z3_TRAIN_ONE_G500T1K_ADDFUNC",
-		// "Z32_TEST_BASE_HOST", "C5");
-		// app.loadHostDimension("host", "Z3_TRAIN_ONE_G500T1K_ADDFUNC");
-		// app.getFile(false);
-		// app.writeFeatureToFile(false);
-		// app.getFile(true);
-		// app.writeFeatureToFile(true);
-		// app = new MultiHostToFeatureExtra("Z3_TRAIN_ONE_G500T1K_ADDFUNC",
-		// "Z32_TEST_BASE_HOST", "C6");
-		// app.loadHostDimension("host", "Z3_TRAIN_ONE_G500T1K_ADDFUNC");
-		// app.getFile(false);
-		// app.writeFeatureToFile(false);
-		// app.getFile(true);
-		// app.writeFeatureToFile(true);
+		MultiBehaviorToFeatureExtraTI app = null;
+		for (int i = 6; i <= 6; i++) {
+			app = new MultiBehaviorToFeatureExtraTI(
+					"X5_TRAIN_ONE_G500_ADDFUNC", "X51_TEST_BASE_BEHAVIOR", "C"
+							+ i);
+			System.out.println(i);
+			app.loadBehaviorDimension();
+			app.getTrainTestFiles();
+			app.writeTfIdfFeatureToFileForWeka();
+		}
 
 	}
 }
