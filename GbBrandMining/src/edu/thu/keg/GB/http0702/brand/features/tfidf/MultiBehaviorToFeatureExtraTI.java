@@ -45,6 +45,9 @@ public class MultiBehaviorToFeatureExtraTI {
 		this.isVersionAsTag = false;
 	}
 
+	/**
+	 * 通过读去数据库表格数据，将testTable和trainTable保存到相应的testFeature和trainFeature中
+	 */
 	public void getTrainTestFiles() {
 		// 得到训练数据集
 		System.out.println("get train file.");
@@ -196,7 +199,7 @@ public class MultiBehaviorToFeatureExtraTI {
 				HashMap<Integer, Double> row = it.next();
 				Integer[] keys = row.keySet().toArray(new Integer[0]);
 				Arrays.sort(keys);
-				rowStr = "C" + row.get(0).intValue();
+				rowStr = row.get(0).intValue() + "";
 				for (int i = 0; i < keys.length; i++) {
 					if (keys[i] == 0)
 						continue;
@@ -227,18 +230,20 @@ public class MultiBehaviorToFeatureExtraTI {
 		List<HashMap<Integer, Integer>> allFeatures = new ArrayList<>();
 		allFeatures.addAll(trainFeatures);
 		allFeatures.addAll(testFeatures);
-
+		// 得到所有的allFeature的特征TFIDF的向量空间
 		it = getTfIdfFeature(allFeatures).iterator();
 		FileWriter fw = null;
 		try {
 			fw = new FileWriter(tableName
-					+ "_MobileSet_Base_Behavoir_TFIDF_WEKA_" + tag + ".txt");
+					+ "_MobileSet_Base_Behavoir_TFIDF_WEKA_" + tag + ".libsvm");
 			while (it.hasNext()) {
 				String rowStr = "";
 				HashMap<Integer, Double> row = it.next();
 				Integer[] keys = row.keySet().toArray(new Integer[0]);
 				Arrays.sort(keys);
-				rowStr = "C" + row.get(0).intValue();
+				if (row.get(0).intValue() == 1)
+					continue;
+				rowStr = row.get(0).intValue() + "";
 				for (int i = 0; i < keys.length; i++) {
 					if (keys[i] == 0)
 						continue;
@@ -419,12 +424,13 @@ public class MultiBehaviorToFeatureExtraTI {
 
 	public static void main(String arg[]) {
 		MultiBehaviorToFeatureExtraTI app = null;
-		for (int i = 6; i <= 6; i++) {
+		for (int i = 9; i <= 13; i++) {
 			app = new MultiBehaviorToFeatureExtraTI(
 					"X5_TRAIN_ONE_G500_ADDFUNC", "X51_TEST_BASE_BEHAVIOR", "C"
 							+ i);
 			System.out.println(i);
 			app.loadBehaviorDimension();
+			// 每次都得调用，读取训练和测试表中的数据
 			app.getTrainTestFiles();
 			app.writeTfIdfFeatureToFileForWeka();
 		}
