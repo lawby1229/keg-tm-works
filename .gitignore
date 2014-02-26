@@ -1,1 +1,4 @@
 GbBrandMining/bin/
+*.libsvm
+*.arff
+*.txt
