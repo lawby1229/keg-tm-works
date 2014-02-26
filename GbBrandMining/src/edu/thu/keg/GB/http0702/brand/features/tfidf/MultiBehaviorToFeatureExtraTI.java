@@ -21,6 +21,21 @@ import edu.thu.keg.GB.http0702.brand.iimmfilter.BrandChangeFilter;
  * 
  */
 public class MultiBehaviorToFeatureExtraTI {
+	/**
+	 * @return the partitionNum
+	 */
+	public int getPartitionNum() {
+		return partitionNum;
+	}
+
+	/**
+	 * @param partitionNum
+	 *            the partitionNum to set
+	 */
+	public void setPartitionNum(int partitionNum) {
+		this.partitionNum = partitionNum;
+	}
+
 	HashMap<String, Integer> FeatureMap2Int = new HashMap<>();// 其中值是从1开始的，其中值是从1开始的,记录每个标签对应的唯一编号
 	HashMap<String, Integer> VersionMap = new HashMap<>();// 其中值是从1开始的
 
@@ -36,6 +51,7 @@ public class MultiBehaviorToFeatureExtraTI {
 	List<HashMap<Integer, Integer>> testFeatures;
 	boolean isVersionAsTag;
 	String folder;
+	int partitionNum = 200;
 
 	public MultiBehaviorToFeatureExtraTI(String trainTable, String testTable,
 			String tag) {
@@ -50,11 +66,20 @@ public class MultiBehaviorToFeatureExtraTI {
 	 */
 	public void getTrainTestFiles() {
 		// 得到训练数据集
-		System.out.println("get train file.");
+		System.out.println("get train file...");
 		getFile(true);
 		// 加载测试数据集
-		System.out.println("get test file.");
+		System.out.println("get test file...");
 		getFile(false);
+		// 加载所有标签出现的文章数
+		setFeatureSumMap();
+	}
+
+	public void getSingleFiles(boolean isTrainFile) {
+		// 得到训练数据集
+		System.out.println("get " + ((isTrainFile) ? "train" : "test")
+				+ " file...");
+		getFile(isTrainFile);
 		// 加载所有标签出现的文章数
 		setFeatureSumMap();
 	}
@@ -73,13 +98,15 @@ public class MultiBehaviorToFeatureExtraTI {
 			trainDis = new int[DimensionOfClass];
 			Features = trainFeatures;
 			Dis = trainDis;
-			rs = getRs(trainTable);
+			// rs = getRs(trainTable);
+			rs = getRsPartion(trainTable, partitionNum);
 		} else {
 			testFeatures = new ArrayList<HashMap<Integer, Integer>>();
 			Features = testFeatures;
 			testDis = new int[DimensionOfClass];
 			Dis = testDis;
-			rs = getRs(testTable);
+			// rs = getRs(testTable);
+			rs = getRsPartion(testTable, partitionNum);
 		}
 		// Features = new ArrayList<int[]>();
 		String imsiRow = "";
@@ -126,6 +153,23 @@ public class MultiBehaviorToFeatureExtraTI {
 		BrandChangeFilter bcf = new BrandChangeFilter();
 		ResultSet rs = bcf.runsql("select imsi, behavior, " + tag + " from "
 				+ tableName + " order by imsi");
+		return rs;
+	}
+
+	private ResultSet getRsPartion(String tableName, int partitionNum) {
+		BrandChangeFilter bcf = new BrandChangeFilter();
+		ResultSet rs = bcf.runsql("select imsi,behavior, " + tag + " from "
+				+ tableName + " where imsi in" + " (select imsi from "
+				+ "(select imsi," + tag + ",row_number() over (partition by "
+				+ tag + " order by count(*) desc) row_number from " + tableName
+				+ " group by imsi," + tag + ") where row_number<"
+				+ partitionNum + ")" + " order by " + tag + ",imsi");
+		// select * from X61_TEST_BASE_BEHAVIOR_nb where imsi in
+		// (select imsi from (select imsi ,c5,row_number() over (partition by c5
+		// order by count(*) desc) row_number --根据brandtype分组,logcnt排名
+		// from X61_TEST_BASE_BEHAVIOR_nb group by imsi,c5) where row_number<10)
+		// order by c5, imsi;
+
 		return rs;
 	}
 
@@ -193,7 +237,7 @@ public class MultiBehaviorToFeatureExtraTI {
 		FileWriter fw = null;
 		try {
 			fw = new FileWriter(tableName + "_MobileSet_Base_Behavoir_TFIDF_"
-					+ tag + ".txt");
+					+ tag + "_top" + partitionNum + ".libsvm");
 			while (it.hasNext()) {
 				String rowStr = "";
 				HashMap<Integer, Double> row = it.next();
@@ -235,14 +279,16 @@ public class MultiBehaviorToFeatureExtraTI {
 		FileWriter fw = null;
 		try {
 			fw = new FileWriter(tableName
-					+ "_MobileSet_Base_Behavoir_TFIDF_WEKA_" + tag + ".libsvm");
+					+ "_MobileSet_Base_Behavoir_TFIDF_WEKA_" + tag + "_top"
+					+ partitionNum + ".libsvm");
 			while (it.hasNext()) {
 				String rowStr = "";
 				HashMap<Integer, Double> row = it.next();
 				Integer[] keys = row.keySet().toArray(new Integer[0]);
 				Arrays.sort(keys);
-				if (row.get(0).intValue() == 1)
-					continue;
+				// 删除某一列
+				// if (row.get(0).intValue() == 1)
+				// continue;
 				rowStr = row.get(0).intValue() + "";
 				for (int i = 0; i < keys.length; i++) {
 					if (keys[i] == 0)
@@ -362,8 +408,10 @@ public class MultiBehaviorToFeatureExtraTI {
 
 	private void setFeatureSumMap() {
 		ArrayList<HashMap<Integer, Integer>> feature = new ArrayList<>();
-		feature.addAll(trainFeatures);
-		feature.addAll(testFeatures);
+		if (trainFeatures != null)
+			feature.addAll(trainFeatures);
+		if (testFeatures != null)
+			feature.addAll(testFeatures);
 		for (int i = 0; i < feature.size(); i++) {// 每一行的feature
 			HashMap<Integer, Integer> row = feature.get(i);
 			Iterator<Integer> itHost = row.keySet().iterator();
@@ -424,15 +472,22 @@ public class MultiBehaviorToFeatureExtraTI {
 
 	public static void main(String arg[]) {
 		MultiBehaviorToFeatureExtraTI app = null;
-		for (int i = 9; i <= 13; i++) {
+
+		for (int i = 5; i <= 15; i++) {
+			// train和test分开的2k
+			// app = new MultiBehaviorToFeatureExtraTI(
+			// "X7_TRAIN_ONE_G500_ADDFUNC_nbq",
+			// "X71_TEST_BASE_BEHAVIOR_nbq", "C" + i);
 			app = new MultiBehaviorToFeatureExtraTI(
-					"X5_TRAIN_ONE_G500_ADDFUNC", "X51_TEST_BASE_BEHAVIOR", "C"
-							+ i);
+					"X8_ONE_G500_ADDFUNC_NBQ_G5_T3K",
+					"//X71_TEST_BASE_BEHAVIOR_nbq", "C" + i);
 			System.out.println(i);
+			app.setPartitionNum(150 - (i - 4) * 10);
 			app.loadBehaviorDimension();
 			// 每次都得调用，读取训练和测试表中的数据
-			app.getTrainTestFiles();
-			app.writeTfIdfFeatureToFileForWeka();
+			// app.getTrainTestFiles();
+			app.getSingleFiles(true);
+			app.writeTfIdfFeatureToFile(true);
 		}
 
 	}
