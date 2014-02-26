@@ -1,4 +1,5 @@
 package edu.thu.keg.weka.cluster;
+
 /**
  * Kmeans 聚类现有手机
  */
@@ -34,6 +35,7 @@ public class SimpleKmeans {
 			}
 
 			// 第0个属性不要-------------------------------------------------------------
+
 			insts.deleteAttributeAt(0);
 			// 聚类个数
 			skm.setNumClusters(numOfCluster);
@@ -110,30 +112,33 @@ public class SimpleKmeans {
 
 	public static void main(String arg[]) {
 		ClusterDetail cd = null;
+		String fileName="253手机配置(all)_经过过滤_noQ.arff";
 		ArrayList listRe = new ArrayList();
-		cd = SimpleKmeans.KMeans("253手机配置(all)_经过过滤.arff", 5);
+		cd = SimpleKmeans.KMeans(fileName, 4);
 		listRe.add(cd);
-		cd = SimpleKmeans.KMeans("253手机配置(all)_经过过滤.arff", 6);
+		cd = SimpleKmeans.KMeans(fileName, 5);
 		listRe.add(cd);
-		cd = SimpleKmeans.KMeans("253手机配置(all)_经过过滤.arff", 7);
+		cd = SimpleKmeans.KMeans(fileName, 6);
 		listRe.add(cd);
-		cd = SimpleKmeans.KMeans("253手机配置(all)_经过过滤.arff", 8);
+		cd = SimpleKmeans.KMeans(fileName, 7);
 		listRe.add(cd);
-		cd = SimpleKmeans.KMeans("253手机配置(all)_经过过滤.arff", 9);
+		cd = SimpleKmeans.KMeans(fileName, 8);
 		listRe.add(cd);
-		cd = SimpleKmeans.KMeans("253手机配置(all)_经过过滤.arff", 10);
+		cd = SimpleKmeans.KMeans(fileName, 9);
 		listRe.add(cd);
-		cd = SimpleKmeans.KMeans("253手机配置(all)_经过过滤.arff", 11);
+		cd = SimpleKmeans.KMeans(fileName, 10);
 		listRe.add(cd);
-		cd = SimpleKmeans.KMeans("253手机配置(all)_经过过滤.arff", 12);
+		cd = SimpleKmeans.KMeans(fileName, 11);
 		listRe.add(cd);
-		cd = SimpleKmeans.KMeans("253手机配置(all)_经过过滤.arff", 13);
+		cd = SimpleKmeans.KMeans(fileName, 12);
 		listRe.add(cd);
-		cd = SimpleKmeans.KMeans("253手机配置(all)_经过过滤.arff", 14);
+		cd = SimpleKmeans.KMeans(fileName, 13);
 		listRe.add(cd);
-		cd = SimpleKmeans.KMeans("253手机配置(all)_经过过滤.arff", 15);
+		cd = SimpleKmeans.KMeans(fileName, 14);
 		listRe.add(cd);
-		SimpleKmeans.saveReToFile(listRe, "CClustar");
+		cd = SimpleKmeans.KMeans(fileName, 15);
+		listRe.add(cd);
+		SimpleKmeans.saveReToFile(listRe, "CClustar_NoQ");
 		System.out.print(cd.getLabel()[3]);
 	}
 
