@@ -1,0 +1,235 @@
+手机型号,手机品牌,是否gsm,是否cdma,网络类型,电池容量,电池拆卸,后置摄像,外观设计,是否触屏,操作系统,CPU性能,主屏尺寸,分辨率,是否有无线
+samsung gt-n7000 / i9220 galaxy note,samsung,是,是,单卡双模,2500,是,800,直板,触屏,android,1433,5.3,1024000,是
+samsung  gt-i8700 omnia 7,samsung,是,是,单卡双模,1500,是,500,直板,触屏,windows,1024,4,384000,是
+htc touch hd2 (t8585),htc,是,是,单卡双模,1230,是,500,直板,触屏,windows,1024,4.3,384000,是
+nokia 2610,nokia,是,否,单卡单模,970,是,0,直板,否,symbian,?,?,16384,否
+samsung gt-i9000 galaxy s,samsung,是,是,双卡单模,1500,是,500,直板,触屏,android,1024,4,384000,是
+nokia e5-00,nokia,是,是,单卡双模,1200,是,500,直板,否,symbian,600,2.36,76800,是
+nokia 1661 / 1662,nokia,是,否,单卡单模,720,是,0,直板,否,symbian,?,1.8,20480,否
+nokia 6630,nokia,是,否,单卡单模,900,是,123,直板,否,symbian,?,?,36608,否
+nokia 6303 classic,nokia,是,否,单卡单模,1050,是,320,直板,否,symbian,?,2.2,76800,否
+nokia n81,nokia,是,是,单卡双模,1050,是,200,滑盖,否,symbian,369,2.4,76800,是
+samsung gt-i9100 galaxy s ii,samsung,是,是,单卡双模,1650,是,800,直板,触屏,android,1228,4.3,384000,是
+nokia 6500 classic,nokia,是,否,单卡单模,830,是,200,直板,否,symbian,?,2,76800,否
+nokia n8-00,nokia,是,是,单卡双模,1200,否,1200,直板,否,symbian,680,3.5,230400,是
+nokia e52,nokia,是,是,单卡双模,1500,是,320,直板,否,symbian,600,2.4,76800,是
+nokia n72,nokia,是,否,单卡单模,970,是,200,直板,否,symbian,?,2.1,36608,否
+sony lt22i xperia p,sony,是,是,单卡双模,1305,否,800,直板,触屏,android,1024,4,518400,是
+samsung sgh-f480 / f488,samsung,是,是,单卡双模,1000,是,500,直板,触屏,嵌入式,?,2.8,76800,否
+nokia lumia 520,nokia,是,是,单卡双模,1430,是,500,直板,触屏,windows,1024,4,384000,是
+samsung gt-s7500 galaxy ace plus,samsung,是,是,单卡双模,1300,是,500,直板,触屏,android,1024,3.65,153600,是
+samsung sgh-d608,samsung,是,否,单卡单模,900,是,200,滑盖,否,嵌入式,?,?,76800,否
+sony lt26w xperia acro s,sony,是,是,单卡双模,1840,否,1210,直板,触屏,android,1536,4.3,921600,是
+nokia lumia 610,nokia,是,是,单卡双模,1300,是,500,直板,触屏,windows,800,3.7,384000,是
+motorola xt702 milestone,motorola,是,是,单卡双模,1390,是,500,滑盖,触屏,android,550,3.7,409920,是
+vinus vs4000,vinus,是,否,双卡单模,1450,是,30,直板,触屏,嵌入式,1536,3.2,153600,是
+nokia 5800i xpressmusic,nokia,是,是,单卡双模,1320,是,320,直板,触屏,symbian,434,3.2,230400,否
+oppo x909,oppo,是,是,单卡双模,2500,否,1300,直板,触屏,android,1536,5,2073600,是
+htc g7 wildfire (a3333),htc,是,是,单卡双模,1400,是,500,直板,触屏,android,1024,3.7,384000,是
+htc s510b rhyme,htc,是,是,单卡双模,1600,否,500,直板,触屏,android,1024,3.7,384000,是
+rim blackberry 9900 bold,blackberry,是,是,单卡双模,1230,是,500,直板,否,blackberry,1228,2.8,307200,是
+nokia c1-01,nokia,是,否,单卡单模,800,是,30,直板,否,symbian,?,1.8,20480,否
+sony ericsson x10a xperia,sony,是,是,单卡双模,1500,是,810,直板,触屏,android,1024,4,409920,是
+htc a510s g13 wildfire s,htc,是,是,单卡双模,1230,是,500,直板,触屏,android,600,3.2,153600,是
+motorola milestone 2 a953,motorola,是,是,单卡双模,1390,是,500,滑盖,触屏,android,1024,3.7,409920,是
+sony xperia v lt25i,sony,是,是,单卡双模,1750,是,1300,直板,触屏,android,1536,4.3,921600,是
+motorola mb860 / me860 atrix 4g,motorola,是,是,单卡双模,1880,是,500,直板,触屏,android,1024,4,518400,是
+htc 710e g14 sensation,htc,是,是,单卡双模,1520,是,800,直板,触屏,android,1228,4.3,518400,是
+xiaomi m2,xiaomi,是,是,单卡双模,2000,是,800,直板,触屏,miui,1536,4.3,921600,是
+palm treo 850,palm,是,否,单卡单模,1500,是,200,直板,否,windows,400,?,102400,否
+rim blackberry 9780 bold,blackberry,是,是,单卡双模,1450,是,500,直板,否,blackberry,624,2.44,172800,是
+motorola mb525+,motorola,是,是,单卡双模,1650,是,500,直板,触屏,android,1024,3.7,409920,是
+samsung gt-i9003 galaxy s,samsung,是,是,单卡双模,1650,是,500,直板,触屏,android,1024,4,384000,是
+nokia e63,nokia,是,是,单卡双模,1500,是,200,直板,否,symbian,369,2.36,76800,否
+nokia n78,nokia,是,是,单卡单模,1200,是,320,直板,否,symbian,369,2.4,76800,否
+rim blackberry bold 9900,blackberry,是,是,单卡双模,1230,是,500,直板,否,blackberry,1228,2.8,307200,是
+nokia e71,nokia,是,是,单卡双模,1500,是,320,直板,否,symbian,369,2.36,76800,否
+nokia e66,nokia,是,是,单卡单模,1000,是,320,滑盖,否,symbian,369,2.4,76800,否
+nokia n80,nokia,否,是,单卡单模,890,是,320,滑盖,否,symbian,?,?,146432,否
+samsung gt-i9220 / n700 galaxy s iii / galaxy note,samsung,是,是,单卡双模,2500,是,800,直板,触屏,android,1433,5.3,1024000,是
+nokia 5320,nokia,是,是,单卡单模,890,是,200,直板,否,symbian,369,2,76800,否
+samsung gt-i9003 galaxy s / sl,samsung,是,是,单卡双模,1650,是,500,直板,触屏,android,1024,4,384000,是
+nokia 5228 / 5233,nokia,是,否,单卡单模,1320,是,200,直板,单触屏,symbian,434,3.2,230400,否
+samsung gt-n7100 galaxy note ii,samsung,是,是,单卡双模,3100,是,800,直板,触屏,android,1638,5.5,921600,是
+nokia e90,nokia,是,是,单卡双模,1500,是,320,翻盖,否,symbian,332,4,281600,否
+htc s510e desire s,htc,是,是,单卡双模,1450,是,500,直板,触屏,android,1024,3.7,384000,是
+sony ericsson e16i w8 walkman,sony,是,是,单卡双模,1200,是,320,直板,单触屏,android,600,3,153600,是
+nokia 5230,nokia,是,是,单卡双模,1320,是,200,直板,单触屏,symbian,434,3.2,230400,否
+sony ericsson mt11i xperia neo v,sony,是,是,单卡双模,1500,是,500,直板,触屏,android,1024,3.7,409920,是
+nokia n900,nokia,是,是,单卡双模,1320,是,500,滑盖,单触屏,maemo,600,3.5,384000,是
+nokia 6300,nokia,是,否,单卡单模,760,是,200,直板,否,symbian,?,2,76800,否
+samsung gt-p1000 galaxy tab,samsung,否,是,单卡双模,4000,否,300,平板,触屏,android,800,7,614400,是
+nokia 5300,nokia,是,否,单卡单模,890,是,130,滑盖,否,symbian,?,2,76800,否
+htc a510e g13 wildfire s,htc,是,是,单卡双模,1230,是,500,直板,触屏,android,600,3.2,153600,是
+nokia 5233,nokia,是,否,单卡单模,1320,是,200,直板,单触屏,symbian,434,3.2,230400,否
+motorola me865 atrix 2,motorola,是,是,单卡双模,1735,是,800,直板,触屏,android,1024,4.3,518400,是
+apple iphone 4s,apple,是,是,单卡双模,1420,否,800,直板,触屏,ios,800,3.5,614400,是
+sony lt29i xperia tx,sony,是,是,单卡双模,1700,是,1300,直板,触屏,android,1536,4.6,921600,是
+sony ericsson lt18i xperia arc s,sony,是,是,单卡双模,1500,是,810,直板,触屏,android,1433,4.2,409920,是
+nokia e6-00,nokia,是,是,单卡双模,1200,是,500,滑盖,单触屏,symbian,434,3.2,230400,是
+htc google nexus one,htc,是,是,单卡双模,1400,是,500,直板,触屏,android,1024,3.7,384000,是
+htc a8181 desire,htc,是,是,单卡双模,1400,是,500,直板,触屏,android,1024,3.7,384000,是
+samsung gt-s5660 galaxy gio,samsung,是,是,单卡双模,1350,是,300,直板,触屏,android,800,3.2,153600,是
+nokia c2-01,nokia,是,是,单卡双模,1020,是,320,直板,否,symbian,?,2,76800,否
+lg p920 optimus 3d,lg,是,是,单卡双模,1500,是,500,直板,触屏,android,1024,4.3,384000,是
+nokia lumia 920,nokia,是,是,单卡多模,2000,否,870,直板,触屏,windows,1536,4.5,983040,是
+samsung gt i9300 galaxy s iii,samsung,是,是,单卡双模,2100,是,800,直板,触屏,android,1433,4.8,921600,是
+samsung sgh-t959,samsung,是,是,单卡双模,1500,是,500,直板,触屏,android,4024,4,384000,是
+i9100 gt-i9100 galaxy s ii,samsung,是,是,单卡双模,1650,是,800,直板,触屏,android,1228,4.3,384000,是
+samsung gt-i8160 galaxy ace ii,samsung,是,是,单卡双模,1500,是,500,直板,触屏,android,800,3.8,384000,是
+meizu mx2,meizu,是,是,单卡双模,1900,否,800,直板,触屏,android,1638,4.4,1024000,是
+nokia 6720 classic,nokia,是,是,单卡双模,1050,是,500,直板,否,symbian,600,2.2,76800,否
+nokia 5800 xpressmusic,nokia,是,是,单卡单模,1320,是,320,直板,单触屏,symbian,369,3.2,230400,是
+nokia n97 / n97i,nokia,是,是,单卡双模,1500,是,500,滑盖,单触屏,symbian,434,3.5,230400,是
+samsung gt-i9220 / n7000 galaxy note,samsung,是,是,单卡双模,2500,是,800,直板,触屏,android,1433,5.3,1024000,是
+samsung gt-i9000 galaxy,samsung,是,是,单卡双模,1500,是,500,直板,触屏,android,1024,4,384000,是
+htc desire s s510e,htc,是,是,单卡双模,1450,是,500,直板,触屏,android,1024,3.7,384000,是
+nokia c5-00,nokia,是,是,单卡双模,1050,是,320,直板,否,symbian,600,2.2,76800,否
+sony ericsson k750,sony,是,否,单卡单模,900,是,200,直板,否,嵌入式,?,?,38720,否
+htc a9191 desire hd,htc,是,是,单卡双模,1230,是,800,直板,触屏,android,1024,4.3,384000,是
+htc z710e/z715e (g14/g18) sensation xe,htc,是,是,单卡双模,1730,是,800,直板,触屏,android,1536,4.3,518400,是
+sony st27i xperia go,sony,是,是,单卡双模,1305,否,500,直板,触屏,android,1024,3.5,153600,是
+nokia n9,nokia,是,是,单卡双模,1450,否,800,直板,触屏,meego,1024,3.9,409920,是
+htc hd2 t8585,htc,是,是,单卡双模,1230,是,500,直板,触屏,windows,1024,4.3,384000,是
+htc desire hd (a9191),htc,是,是,单卡双模,1230,是,800,直板,触屏,android,1024,4.3,384000,是
+samsung gt-s5830 galaxy ace,samsung,是,是,单卡双模,1350,是,500,直板,触屏,android,800,3.5,153600,是
+sony ericsson lt15i xperia arc,sony,是,是,单卡双模,1500,是,810,直板,触屏,android,1024,4.2,409920,是
+lenovo k860,lenovo,是,是,单卡双模,2250,是,800,直板,触屏,android,1433,5,921600,是
+nokia lumia 900,nokia,是,是,单卡双模,1830,否,800,直板,触屏,windows,1433,4.3,384000,是
+motorola q 9h,motorola,是,否,单卡单模,1170,是,200,直板,否,windows,?,2.4,76800,否
+samsung gt-s5670 galaxy fit,samsung,是,是,单卡双模,1350,是,500,直板,触屏,android,600,3.31,76800,是
+htc one v,htc,是,是,单卡双模,1500,否,500,直板,触屏,android,1024,3.7,384000,是
+htc touch hd (t8282),htc,是,是,单卡双模,1350,是,500,直板,否,windows,528,3.8,384000,是
+samsung gt--i9100 galaxy s ii,samsung,是,是,单卡双模,1650,是,800,直板,触屏,android,1228,4.3,384000,是
+motorola mb525 defy,motorola,是,是,单卡双模,1500,是,500,直板,触屏,android,800,3.7,409920,是
+samsung gt-s5830i galaxy ace,samsung,是,是,单卡双模,1350,是,500,直板,触屏,android,832,3.5,153600,是
+htc 7 mozart t8698,htc,是,是,单卡双模,1300,是,800,直板,触屏,windows,1024,3.7,384000,是
+nokia c6-01,nokia,是,是,单卡双模,1050,是,800,直板,触屏,symbian,680,3.2,230400,是
+samsung sgh-e720,samsung,是,否,单卡单模,820,是,130,翻盖,否,嵌入式,?,?,38720,否
+sony st26i xperia j,sony,是,是,单卡双模,1700,是,500,直板,触屏,android,1024,4,409920,是
+nokia n76,nokia,是,否,单卡单模,700,是,200,翻盖,否,symbian,369,2.4,76800,否
+sony ericsson e15i xperia x8,sony,是,是,单卡双模,1200,是,320,直板,触屏,android,600,3,153600,是
+htc hero,htc,是,是,单卡双模,1350,是,500,直板,触屏,android,528,3.2,153600,是
+htc s710e g11 incredible s,htc,是,是,单卡双模,1450,是,800,直板,触屏,android,1024,4,384000,是
+nokia 5250,nokia,是,否,单卡单模,1000,是,200,直板,触屏,symbian,434,2.8,230400,否
+htc c720e one x,htc,是,是,单卡双模,1800,否,800,直板,触屏,android,1536,4.7,921600,是
+sony ericsson st15i xperia mini,sony,是,是,单卡双模,1200,是,500,直板,触屏,android,1024,3,153600,是
+htc one s,htc,是,是,单卡双模,1650,否,800,直板,触屏,android,1536,4.3,518400,是
+htc z715e (g18) sensation xe,htc,是,是,单卡双模,1730,是,800,直板,触屏,android,1536,4.3,518400,是
+nokia lumia 800,nokia,是,是,单卡双模,1450,否,800,直板,触屏,windows,1433,3.7,384000,是
+rim blackberry q10,blackberry,是,是,单卡双模,2100,是,800,直板,触屏,blackberry,1536,3.1,518400,是
+samsung gt-i9103 galaxy s ii,samsung,是,是,单卡双模,1650,是,500,直板,触屏,android,1024,4.19,384000,是
+sony ericsson j220,sony,是,否,单卡单模,?,是,0,直板,否,嵌入式,?,?,16384,否
+sony ericsson lt26i xperia s,sony,是,是,单卡双模,1750,否,1200,直板,触屏,android,1536,4.3,921600,是
+htc z710e / z715e (g14 / g18) sensation xe,htc,是,是,单卡双模,1730,是,800,直板,触屏,android,1536,4.3,518400,是
+sony mt25i xperia neo l,sony,是,是,单卡双模,1500,是,500,直板,触屏,android,1024,4,409920,是
+sony lt26i xperia s,sony,是,是,单卡双模,1750,否,1200,直板,触屏,android,1536,4.3,921600,是
+sony lt26i,sony,是,是,单卡双模,1750,否,1200,直板,触屏,android,1536,4.3,921600,是
+htc g16 chacha (a810e),htc,是,是,单卡双模,1250,是,500,直板,触屏,android,800,2.6,153600,是
+rim blackberry 9520 storm ii,blackberry,是,是,单卡双模,1400,是,320,直板,触屏,blackberry,624,3.25,172800,是
+nokia 1200,nokia,是,否,单卡单模,700,是,0,直板,否,嵌入式,?,?,6528,否
+samsung gt-i5800 galaxy 3,samsung,是,是,单卡双模,1500,是,320,直板,触屏,android,667,3.2,96000,是
+nokia 6600,nokia,是,否,单卡单模,960,是,30,直板,否,symbian,?,2.1,36608,否
+samsung gt-i9300 galaxy s iii,samsung,是,是,单卡双模,2100,是,800,直板,触屏,android,1433,4.8,921600,是
+nokia c5-03,nokia,是,是,单卡双模,1000,是,500,直板,单触屏,symbian,600,3.2,230400,是
+nokia n86,nokia,是,是,单卡双模,1200,是,800,滑盖,否,symbian,434,2.6,76800,是
+lg e510,lg,是,是,单卡双模,1500,是,500,直板,触屏,android,800,3.5,153600,是
+htc s510e desire s (saga),htc,是,是,单卡双模,1450,是,500,直板,触屏,android,1024,3.7,384000,是
+vinus v6,vinus,是,否,双卡单模,1500,是,200,直板,触屏,android,1024,3.54,614400,是
+nokia 5235,nokia,是,是,单卡双模,1320,是,200,直板,单触屏,symbian,434,3.2,230400,否
+samsung sgh-c406,samsung,是,否,单卡单模,750,是,30,翻盖,否,嵌入式,?,2,0,否
+htc desire hd a9191,htc,是,是,单卡双模,1230,是,800,直板,触屏,android,1024,4.3,384000,是
+nokia 5320 xpressmusic,nokia,是,是,单卡双模,890,是,200,直板,否,symbian,369,2,76800,否
+sony lt28h,sony,是,是,单卡双模,1900,否,1200,直板,触屏,android,1536,4.6,921600,是
+htc legend (a6363),htc,是,是,单卡双模,1300,是,500,直板,触屏,android,600,3.2,153600,是
+sony c2105 xperia l,sony,是,是,单卡双模,1700,是,800,直板,触屏,android,1024,4.3,409920,是
+motorola mb860 / mb861 / me860 atrix 4g,motorola,是,是,单卡双模,1880,是,500,直板,触屏,android,1024,4,518400,是
+motorola xt910 droid razr,motorola,是,是,单卡双模,1780,否,800,直板,触屏,android,1228,4.3,518400,是
+sony ericsson r800i xperia play z1i,sony,是,是,单卡双模,1500,是,510,滑盖,触屏,android,1024,4,409920,是
+sony ericsson wt19i live with walkman,sony,是,是,单卡双模,1200,是,500,直板,触屏,android,1024,3.2,153600,是
+htc s510e / g12 desire s,htc,是,是,单卡双模,1450,是,500,直板,触屏,android,1024,3.7,384000,是
+nokia e50,nokia,是,否,单卡单模,970,是,130,直板,否,symbian,?,?,76800,是
+nokia c6-00,nokia,是,是,单卡双模,1200,是,500,滑盖,单触屏,symbian,434,3.2,230400,是
+tcl mobile tcl3688,tcl,是,否,单卡单模,800,是,0,翻盖,否,嵌入式,?,?,2500,否
+samsung gt-i9070 galaxy s advance,samsung,是,是,单卡双模,1500,是,500,直板,触屏,android,1024,4,384000,是
+nokia 500,nokia,是,是,单卡双模,1000,是,500,直板,触屏,symbian,1024,3.2,230400,是
+samsung gt-i9001 galaxy s plus,samsung,是,是,单卡双模,1650,是,500,直板,触屏,android,1433,4,384000,是
+rim blackberry curve 8520,blackberry,是,否,单卡双模,1150,是,200,直板,否,blackberry,?,2.4,76800,否
+nokia n97,nokia,是,是,单卡双模,1500,是,500,滑盖,单触屏,symbian,434,3.5,230400,否
+htc desire g7 (a8181),htc,是,是,单卡双模,1400,是,500,直板,触屏,android,1024,3.7,384000,是
+nokia c7-00,nokia,是,是,单卡双模,1200,是,800,直板,触屏,symbian,680,3.5,230400,是
+htc x710e raider 4g velocity,htc,是,是,单卡双模,1620,是,800,直板,触屏,android,1536,4.5,518400,是
+htc g7 desire z (a7272),htc,是,是,单卡双模,1300,是,500,滑盖,否,android,800,3.7,384000,是
+rim blackberry bold 9780 onyx,blackberry,是,是,单卡双模,1450,是,500,直板,否,blackberry,624,2.44,172800,是
+apple iphone4s,apple,是,是,单卡双模,1420,否,800,直板,触屏,ios,800,3.5,614400,是
+samsung gt-n7100 galaxy note 2,samsung,是,是,单卡双模,3100,是,800,直板,触屏,android,1638,5.5,921600,是
+sony ericsson mt15i xperia neo,sony,是,是,单卡双模,1500,是,810,直板,触屏,android,1024,3.7,409920,是
+lg p880 optimus 4x hd,lg,是,是,单卡双模,2150,是,800,直板,触屏,android,1536,4.7,921600,是
+sony lt26ii xperia sl,sony,是,是,单卡双模,1750,否,1210,直板,触屏,android,1741,4.3,921600,是
+samsung gt-i9100g galaxy s ii,samsung,是,是,单卡双模,1650,是,800,直板,触屏,android,1228,4.3,384000,是
+nokia n95,nokia,是,是,单卡双模,950,是,500,直板,否,symbian,332,2.6,76800,是
+nokia e65,nokia,是,是,单卡双模,1100,是,200,滑盖,否,symbian,220,?,76800,否
+nokia lumia 820,nokia,是,是,单卡双模,1650,是,800,直板,触屏,windows,1536,4.3,384000,是
+sony l36h / c6603 xperia z,sony,是,是,单卡双模,2330,否,1310,直板,触屏,android,1536,5,2073600,是
+nokia lumia 620,nokia,是,是,单卡多模,1300,是,500,直板,触屏,windows,1024,3.8,384000,是
+rim blackberry bold 9780 onyx 2,blackberry,是,是,单卡双模,1450,是,500,直板,否,blackberry,624,2.44,172800,是
+htc s720e one x,htc,是,是,单卡双模,1800,否,800,直板,触屏,android,1536,4.7,921600,是
+htc g13 wildfire s (a510e),htc,是,是,单卡双模,1230,是,500,直板,触屏,android,600,3.2,153600,是
+nokia 500 fate,nokia,是,是,单卡双模,1000,是,500,直板,触屏,symbian,1024,3.2,230400,是
+samsung gt-s5360,samsung,是,是,单卡双模,1200,是,200,直板,触屏,android,832,3,76800,是
+nokia 6120 classic,nokia,是,是,单卡双模,890,是,200,直板,否,symbian,369,2,76800,否
+rim blackberry 8800,blackberry,是,否,单卡单模,1150,是,0,直板,否,blackberry,312,2.5,76800,否
+samsung gt-s5360 galaxy y,samsung,是,是,单卡双模,1200,是,200,直板,单触屏,android,832,3,76800,是
+nokia n97-4 mini,nokia,是,是,单卡双模,1200,是,500,滑盖,单触屏,symbian,434,3.2,230400,是
+htc s710d droid incredible 2,htc,是,是,单卡双模,1450,是,800,直板,触屏,android,1024,4,384000,是
+lg e960,lg,是,是,单卡双模,2100,否,800,直板,触屏,android,1536,4.7,983040,是
+nokia n8,nokia,是,是,单卡双模,1200,否,1200,直板,触屏,symbian,680,3.5,230400,是
+samsung gt-i9250 galaxy nexus,samsung,是,是,单卡双模,1750,是,500,直板,触屏,android,1228,4.65,921600,是
+htc amaze 4g,htc,是,是,单卡双模,1730,是,800,直板,触屏,android,1536,4.3,518400,是
+nokia 6650,nokia,是,是,单卡双模,1500,是,200,翻盖,否,symbian,369,2.2,76800,否
+nokia 2730 classic,nokia,是,是,单卡双模,1020,是,200,直板,单触屏,symbian,?,2,76800,否
+nokia n73,nokia,是,是,单卡双模,1100,是,320,直板,否,symbian,220,2.4,76800,否
+nokia 6085,nokia,是,否,单卡单模,970,是,30,翻盖,否,嵌入式,?,1.8,20480,否
+nokia 3110 classic,nokia,是,否,单卡单模,1020,是,130,直板,否,symbian,?,1.8,20480,否
+nokia 5700 xpressmusic,nokia,是,否,单卡单模,900,是,200,直板,否,symbian,?,2.2,76800,否
+nokia n85,nokia,是,是,单卡双模,1200,是,500,滑盖,否,symbian,369,2.6,76800,否
+samsung gt-i9082 galaxy grand duos,samsung,是,是,双卡双模,2100,是,800,直板,触屏,android,1228,5,384000,是
+nokia e75,nokia,是,是,单卡双模,1000,是,320,滑盖,否,symbian,369,2.4,76800,是
+sony l36h / c6602 xperia z,sony,是,是,单卡双模,2330,否,1310,直板,触屏,android,1536,5,2073600,是
+nokia 5230 xpressmusic,nokia,是,是,单卡双模,1320,是,200,直板,单触屏,symbian,434,3.2,230400,否
+htc evo 3d x515m,htc,是,是,单卡双模,1730,是,500,直板,触屏,android,1228,4.3,518400,是
+htc g8 wildfire (a3333),htc,是,是,单卡双模,1300,是,500,直板,触屏,android,528,3.2,76800,是
+nokia n97 mini,nokia,是,是,单卡双模,1200,是,500,滑盖,单触屏,symbian,434,3.2,230400,是
+nokia 6210 slide,nokia,是,是,单卡双模,950,是,320,滑盖,否,symbian,369,2.4,76800,否
+samsung gt-s8500 wave,samsung,是,是,单卡双模,1500,是,500,直板,触屏,bada,1024,3.3,384000,是
+sony st25i xperia u,sony,是,是,单卡双模,1290,是,500,直板,触屏,android,1024,3.5,409920,是
+motorola mb860 atrix 4g,motorola,是,是,单卡双模,1780,是,500,直板,触屏,android,1024,4,518400,是
+samsung gt-i9500 galaxy s4,samsung,是,是,单卡双模,2600,是,1300,直板,触屏,android,1638,5,2073600,是
+samyang gt-s5570 galaxy mini,samyang,是,是,单卡双模,1200,是,300,直板,触屏,android,600,3.14,76800,是
+htc t328d desire vc,htc,是,是,双卡双模,1650,是,500,直板,触屏,android,1024,4,384000,是
+htc c510e g15 salsa / weike,htc,是,是,单卡双模,1520,是,500,直板,触屏,android,800,3.4,153600,是
+nokia lumia 710,nokia,是,是,单卡双模,1300,是,500,直板,触屏,windows,1433,3.7,384000,是
+rim blackberry bold 9700,blackberry,是,是,单卡双模,1450,是,320,直板,否,blackberry,624,2.4,172800,是
+nokia 5530 xpressmusic,nokia,是,否,单卡单模,1000,是,320,直板,单触屏,symbian,434,2.9,230400,是
+nokia e72,nokia,是,是,单卡双模,1500,是,500,直板,否,symbian,600,2.36,76800,是
+htc g6 legend (a6363),htc,是,是,单卡双模,1300,是,500,直板,触屏,android,600,3.2,153600,是
+samsung gt-i9023 nexus s,samsung,是,是,单卡双模,1500,是,500,直板,触屏,android,1024,4,384000,是
+sony ericsson st18i xperia ray,sony,是,是,单卡双模,1500,是,810,直板,触屏,android,1024,3.3,409920,是
+palm treo 650,palm,是,否,单卡单模,1800,是,30,直板,否,palm,312,?,102400,否
+htc s720e one x (g23),htc,是,是,单卡双模,1800,否,800,直板,触屏,android,1536,4.7,921600,是
+nokia x6-00,nokia,是,是,单卡双模,1320,是,500,直板,触屏,symbian,434,3.2,230400,是
+motorola mb300 / me600 (backflip / enzo / motus),motorola,是,是,单卡双模,1380,是,500,直板,单触屏,android,528,3.1,153600,是
+htc x315e sensation xl,htc,是,是,单卡双模,1600,是,800,直板,触屏,android,1536,4.7,384000,是
+sony mt27i xperia sola,sony,是,是,单卡双模,1265,否,500,直板,触屏,android,1024,3.7,409920,是
+samsung sgh-i997 infuse 4g,samsung,是,是,单卡双模,1750,是,800,直板,触屏,android,1228,4.5,384000,是
+rim blackberry 9790 bold,blackberry,是,是,单卡双模,1280,是,500,直板,否,blackberry,1024,2.4,172800,是
+motorola me525 defy,motorola,是,是,单卡双模,1500,是,500,直板,触屏,android,800,3.7,409920,是
+htc s710e incredible s,htc,是,是,单卡双模,1450,是,800,直板,触屏,android,1024,4,384000,是
+sony ericsson sk17i xperia mini pro,sony,是,是,单卡双模,1200,是,500,滑盖,触屏,android,1024,3,153600,是
+htc g11 / s710e incredible s,htc,是,是,单卡双模,1450,是,800,直板,触屏,android,1024,4,384000,是
+nokia x6,nokia,是,是,单卡双模,1320,是,500,直板,触屏,symbian,434,3.2,230400,是
+htc g7 desire (a8181),htc,是,是,单卡双模,1400,是,500,直板,触屏,android,1024,3.7,384000,是
+htc z710e g14 sensation,htc,是,是,单卡双模,1520,是,800,直板,触屏,android,1024,4.3,518400,是
+nokia x7-00,nokia,是,是,单卡双模,1200,否,800,直板,触屏,symbian,680,4,230400,是
+samsung gt-i9505 galaxy s iv,samsung,是,是,单卡双模,2600,是,1300,直板,触屏,android,1946,5,2073600,是
+lg p970 optimus black,lg,是,是,单卡双模,1500,是,500,直板,触屏,android,1024,4,384000,是
