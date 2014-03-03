@@ -20,7 +20,7 @@ import edu.thu.keg.GB.http0702.brand.iimmfilter.BrandChangeFilter;
  * @author Law
  * 
  */
-public class MultiBehaviorToFeatureExtraTI {
+public class MultiBehaviorToFeatureExtraTI implements IBrandTools {
 	/**
 	 * @return the partitionNum
 	 */
@@ -89,7 +89,7 @@ public class MultiBehaviorToFeatureExtraTI {
 	 * 
 	 * @param isTrainFile
 	 */
-	private void getFile(boolean isTrainFile) {
+	public void getFile(boolean isTrainFile) {
 		List<HashMap<Integer, Integer>> Features;
 		int[] Dis;
 		ResultSet rs;
@@ -149,7 +149,7 @@ public class MultiBehaviorToFeatureExtraTI {
 		}
 	}
 
-	private ResultSet getRs(String tableName) {
+	public ResultSet getRs(String tableName, String tag) {
 		BrandChangeFilter bcf = new BrandChangeFilter();
 		ResultSet rs = bcf.runsql("select imsi, behavior, " + tag + " from "
 				+ tableName + " order by imsi");

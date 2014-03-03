@@ -35,6 +35,22 @@ public class MultiHostToFeatureExtraTI {
 	List<HashMap<Integer, Integer>> testFeatures;
 	boolean isVersionAsTag;
 	String folder;
+	int partitionNum = 200;
+
+	/**
+	 * @return the partitionNum
+	 */
+	public int getPartitionNum() {
+		return partitionNum;
+	}
+
+	/**
+	 * @param partitionNum
+	 *            the partitionNum to set
+	 */
+	public void setPartitionNum(int partitionNum) {
+		this.partitionNum = partitionNum;
+	}
 
 	public MultiHostToFeatureExtraTI(String trainTable, String testTable,
 			String tag) {
@@ -49,7 +65,7 @@ public class MultiHostToFeatureExtraTI {
 	 * 
 	 * @param isTrainFile
 	 */
-	public void getFile(boolean isTrainFile) {
+	public void getFile(boolean isTrainFile, boolean isUsePartition) {
 		List<HashMap<Integer, Integer>> Features;
 		int[] Dis;
 		ResultSet rs;
@@ -58,13 +74,19 @@ public class MultiHostToFeatureExtraTI {
 			trainDis = new int[DimensionOfClass];
 			Features = trainFeatures;
 			Dis = trainDis;
-			rs = getRs(trainTable);
+			if (!isUsePartition)
+				rs = getRs(trainTable);
+			else
+				rs = getRsPartion(trainTable, partitionNum);
 		} else {
 			testFeatures = new ArrayList<HashMap<Integer, Integer>>();
 			Features = testFeatures;
 			testDis = new int[DimensionOfClass];
 			Dis = testDis;
-			rs = getRs(testTable);
+			if (!isUsePartition)
+				rs = getRs(testTable);
+			else
+				rs = getRsPartion(testTable, partitionNum);
 		}
 		// Features = new ArrayList<int[]>();
 		String imsiRow = "";
@@ -91,7 +113,7 @@ public class MultiHostToFeatureExtraTI {
 					row = new HashMap<Integer, Integer>();
 					row.put(0, brandtype);
 					Features.add(row);
-					System.out.print(i + ",");
+					// System.out.print(i + ",");
 				}
 				if (!FeatureMap2Int.containsKey(host))
 					continue;
@@ -113,6 +135,23 @@ public class MultiHostToFeatureExtraTI {
 		BrandChangeFilter bcf = new BrandChangeFilter();
 		ResultSet rs = bcf.runsql("select imsi, host, " + tag + " from "
 				+ tableName + " order by imsi");
+		return rs;
+	}
+
+	private ResultSet getRsPartion(String tableName, int partitionNum) {
+		BrandChangeFilter bcf = new BrandChangeFilter();
+		ResultSet rs = bcf.runsql("select imsi,host, " + tag + " from "
+				+ tableName + " where imsi in" + " (select imsi from "
+				+ "(select imsi," + tag + ",row_number() over (partition by "
+				+ tag + " order by count(*) desc) row_number from " + tableName
+				+ " group by imsi," + tag + ") where row_number<"
+				+ partitionNum + ")" + " order by " + tag + ",imsi");
+		// select * from X61_TEST_BASE_BEHAVIOR_nb where imsi in
+		// (select imsi from (select imsi ,c5,row_number() over (partition by c5
+		// order by count(*) desc) row_number --根据brandtype分组,logcnt排名
+		// from X61_TEST_BASE_BEHAVIOR_nb group by imsi,c5) where row_number<10)
+		// order by c5, imsi;
+
 		return rs;
 	}
 
@@ -180,7 +219,7 @@ public class MultiHostToFeatureExtraTI {
 		FileWriter fw = null;
 		try {
 			fw = new FileWriter(tableName + "_MobileSet_Base_Host_TFIDF_" + tag
-					+ ".txt");
+					+ ".libsvm");
 			while (it.hasNext()) {
 				String rowStr = "";
 				HashMap<Integer, Double> row = it.next();
@@ -292,11 +331,11 @@ public class MultiHostToFeatureExtraTI {
 	 */
 	private List<HashMap<Integer, Double>> getTfIdfFeature(
 			List<HashMap<Integer, Integer>> feature) {
-		for (int i = 0; i < feature.size(); i++) {//每一行的feature
+		for (int i = 0; i < feature.size(); i++) {// 每一行的feature
 			HashMap<Integer, Integer> row = feature.get(i);
 			Iterator<Integer> itHost = row.keySet().iterator();
 			int sumLine = 0;
-			while (itHost.hasNext()) {//一行中的每一个
+			while (itHost.hasNext()) {// 一行中的每一个
 				int hostId = itHost.next();
 				sumLine += row.get(hostId);
 				if (!FeatureSumMap.containsKey(hostId))
@@ -323,8 +362,8 @@ public class MultiHostToFeatureExtraTI {
 				else
 					idf = Math.log((double) lineSumList.size()
 							/ FeatureSumMap.get(hostId));
-				System.out.print("tf:" + tf);
-				System.out.print("idf:" + idf + "\n");
+//				System.out.print("tf:" + tf);
+//				System.out.print("idf:" + idf + "\n");
 				rowNew.put(hostId, tf * idf);
 			}
 			result.add(rowNew);
@@ -342,20 +381,22 @@ public class MultiHostToFeatureExtraTI {
 		//
 		// app.getFile(true);
 		// app.writeFeatureToFile(true);
-
-		MultiHostToFeatureExtraTI app = new MultiHostToFeatureExtraTI(
-				"X5_TRAIN_ONE_G500_ADDFUNC", "X51_TEST_BASE_BEHAVIOR", "C11");
-		System.out.println("1");
-		app.loadHostDimension("host", "X4_TRAIN_ONE_G500_ADDFUNC");
-//		System.out.println("2");
-//		app.loadVersionDimension("version", "X4_TRAIN_ONE_G500_ADDFUNC");
-		System.out.println("3");
-		app.getFile(false);
-		System.out.println("4");
-		app.writeTfIdfFeatureToFile(false);
-		app.getFile(true);
-		app.writeTfIdfFeatureToFile(true);
-
+		for (int i = 4; i <= 15; i++) {
+			MultiHostToFeatureExtraTI app = new MultiHostToFeatureExtraTI(
+					"X8_ONE_G500_ADDFUNC_NBQ_G5_T3K",
+					"//X51_TEST_BASE_BEHAVIOR", "C" + i);
+			System.out.println("1");
+			app.loadHostDimension("host", "X8_ONE_G500_ADDFUNC_NBQ_G5_T3K");
+			// System.out.println("2");
+			// app.loadVersionDimension("version", "X4_TRAIN_ONE_G500_ADDFUNC");
+			// System.out.println("3");
+			// app.getFile(false);
+			// System.out.println("4");
+			// app.writeTfIdfFeatureToFile(false);
+			app.setPartitionNum(150 - (i - 4) * 10);
+			app.getFile(true, true);
+			app.writeTfIdfFeatureToFile(true);
+		}
 		// app = new MultiHostToFeatureExtra("Z3_TRAIN_ONE_G500T1K_ADDFUNC",
 		// "Z32_TEST_BASE_HOST", "C4");
 		// app.loadHostDimension("host", "Z3_TRAIN_ONE_G500T1K_ADDFUNC");
