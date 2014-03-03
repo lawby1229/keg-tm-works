@@ -1,9 +1,13 @@
 package edu.thu.keg.GB.http0702.brand.features.tfidf;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import edu.thu.keg.GB.http0702.brand.iimmfilter.BrandChangeFilter;
@@ -15,8 +19,9 @@ import edu.thu.keg.GB.http0702.brand.iimmfilter.BrandChangeFilter;
  * 
  */
 public class HostToMobileBrandLDA implements IBrandTools {
-	HashMap<String, Integer> FeatureMap2Int = new HashMap<>();// 其中值是从1开始的，其中值是从1开始的,记录每个标签对应的唯一编号
-	HashMap<String, Integer> VersionMap = new HashMap<>();// 其中值是从1开始的
+	// HashMap<String, Integer> FeatureMap2Int = new HashMap<>();//
+	// 其中值是从1开始的，其中值是从1开始的,记录每个标签对应的唯一编号
+	// HashMap<String, Integer> VersionMap = new HashMap<>();// 其中值是从1开始的
 
 	// HashMap<Integer, Integer> FeatureSumMap = new HashMap<>();//
 	// 键值代表维度和全文出现总数总数
@@ -27,8 +32,8 @@ public class HostToMobileBrandLDA implements IBrandTools {
 	int[] trainDis;
 	int[] testDis;
 	String tag;
-	List<HashMap<Integer, Integer>> trainFeatures;
-	List<HashMap<Integer, Integer>> testFeatures;
+	List<List<String>> trainFeatures;
+	List<List<String>> testFeatures;
 	boolean isVersionAsTag;
 	String folder;
 
@@ -50,28 +55,27 @@ public class HostToMobileBrandLDA implements IBrandTools {
 	@Override
 	public void getFile(boolean isTrainFile) {
 
-		List<HashMap<Integer, Integer>> Features;
+		List<List<String>> Features;
 		int[] Dis;
 		ResultSet rs;
 		if (isTrainFile) {
-			trainFeatures = new ArrayList<HashMap<Integer, Integer>>();
+			trainFeatures = new ArrayList<List<String>>();
 			trainDis = new int[DimensionOfClass];
 			Features = trainFeatures;
 			Dis = trainDis;
 			// rs = getRs(trainTable);
-			rs = getRs(trainTable, tag);
+			rs = getRs(trainTable, "");
 		} else {
-			testFeatures = new ArrayList<HashMap<Integer, Integer>>();
+			testFeatures = new ArrayList<List<String>>();
 			Features = testFeatures;
 			testDis = new int[DimensionOfClass];
 			Dis = testDis;
 			// rs = getRs(testTable);
-			rs = getRs(testTable, tag);
+			rs = getRs(testTable, "");
 		}
 		// Features = new ArrayList<int[]>();
 		String versionRow = "";
-		int i = -1;
-		HashMap<Integer, Integer> row = null;
+		ArrayList<String> row = null;
 		try {
 			while (rs.next()) {
 				String host = rs.getString("host");
@@ -79,22 +83,12 @@ public class HostToMobileBrandLDA implements IBrandTools {
 				String behavior = rs.getString("behavior");
 				// 遇到一个新用户建立一个新的row
 				if (!versionRow.equals(version)) {
-					int hostKey;
-					hostKey = FeatureMap2Int.get(host);
 					versionRow = version;
-					i++;
-					row = new HashMap<Integer, Integer>();
-					row.put(hostKey, 1);
+					row = new ArrayList<String>();
+					row.add(host);
 					Features.add(row);
 				}
-				if (!FeatureMap2Int.containsKey(behavior))
-					continue;
-				int iKey = (int) FeatureMap2Int.get(host);
-				int iValue = 1;
-				if (row.containsKey(iKey)) {
-					iValue = row.get(iKey).intValue() + 1;
-				}
-				row.put(iKey, iValue);
+				row.add(host);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -102,19 +96,41 @@ public class HostToMobileBrandLDA implements IBrandTools {
 		}
 	}
 
-	public void loadHostDimension(String field, String tableName) {
-		BrandChangeFilter bcf = new BrandChangeFilter();
-		ResultSet rs = bcf.runsql("select distinct(" + field + ")" + " from "
-				+ tableName);
+	public void writeFeatureToFileLDA(boolean isTrainFile) {
+		String tableName = "";
+		List<List<String>> list;
+		if (isTrainFile) {
+			tableName = trainTable;
+			list = trainFeatures;
+		} else {
+			tableName = testTable;
+			list = testFeatures;
+		}
+		FileWriter fw = null;
 		try {
-			int i = 1;
-			while (rs.next()) {
-				FeatureMap2Int.put(rs.getString(1), i);
-				i++;
+			fw = new FileWriter(tableName + "_MobileSet_Base_Host_LDA" + ".txt");
+			fw.write(list.size() + "\n");
+			for (int i = 0; i < list.size(); i++) {
+				String rowStr = "";
+				List<String> row = list.get(i);
+				rowStr = row.get(0) + "";
+				for (int j = 1; j < row.size(); j++) {
+					rowStr = rowStr + " " + row.get(j);
+				}
+				// System.out.println(rowStr);
+				fw.write(rowStr + "\n");
+				fw.flush();
 			}
-		} catch (SQLException e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				fw.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 	}
@@ -123,6 +139,7 @@ public class HostToMobileBrandLDA implements IBrandTools {
 		HostToMobileBrandLDA app = null;
 		app = new HostToMobileBrandLDA("X8_ONE_G500_ADDFUNC_NBQ_G5_T3K",
 				"//X71_TEST_BASE_BEHAVIOR_nbq", "");
-		app.loadHostDimension("host", "X8_ONE_G500_ADDFUNC_NBQ_G5_T3K");
+		app.getFile(true);
+		app.writeFeatureToFileLDA(true);
 	}
 }
