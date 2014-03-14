@@ -36,19 +36,14 @@ public class HostToMobileBrandLDA implements IBrandTools {
 	List<String> EolList = new ArrayList<String>();
 	int DimensionOfClass = 16;
 	String trainTable = "";
-	String testTable = "";
 	int[] trainDis;
-	int[] testDis;
-	String tag;
 	// List<List<String>> trainFeatures;
 	// List<List<String>> testFeatures;
 	boolean isVersionAsTag;
 	String folder;
 
-	public HostToMobileBrandLDA(String trainTable, String testTable, String tag) {
+	public HostToMobileBrandLDA(String trainTable) {
 		this.trainTable = trainTable;
-		this.testTable = testTable;
-		this.tag = tag;
 		this.isVersionAsTag = false;
 	}
 
@@ -67,23 +62,8 @@ public class HostToMobileBrandLDA implements IBrandTools {
 		int[] Dis;
 		ResultSet rs;
 		FileWriter fw = null;
+		rs = getRs(trainTable, "");
 
-		if (isTrainFile) {
-			// trainFeatures = new ArrayList<List<String>>();
-			trainDis = new int[DimensionOfClass];
-			// Features = trainFeatures;
-			Dis = trainDis;
-			// rs = getRs(trainTable);
-			rs = getRs(trainTable, "");
-		} else {
-			// testFeatures = new ArrayList<List<String>>();
-			// Features = testFeatures;
-			testDis = new int[DimensionOfClass];
-			Dis = testDis;
-			// rs = getRs(testTable);
-			rs = getRs(testTable, "");
-		}
-		// Features = new ArrayList<int[]>();
 		String versionRow = "";
 		ArrayList<String> row = null;
 		int i = 0;
@@ -96,6 +76,8 @@ public class HostToMobileBrandLDA implements IBrandTools {
 				String samaName = rs.getString("统一名称");
 				String price = rs.getString("价位");
 				String eol = rs.getString("是否停产");
+				if (behavior.equals("上网"))
+					continue;
 				if (!versionRow.equals(samaName)) {
 					if (VersionList.size() == 0)
 						fw.write(hostBehavior);
@@ -107,10 +89,7 @@ public class HostToMobileBrandLDA implements IBrandTools {
 					EolList.add(eol);
 					versionRow = samaName;
 					row = new ArrayList<String>();
-					// row.add(host + "_" + behavior);
-					// Features.add(row);
 				} else
-					// row.add(host);
 					fw.write(" " + hostBehavior);
 				fw.flush();
 
@@ -129,21 +108,16 @@ public class HostToMobileBrandLDA implements IBrandTools {
 		}
 	}
 
-	public void writeFeatureToFileLDA(boolean isTrainFile) {
-		String tableName = "";
+	public void writeFeatureToFileLDA(String fileName) {
+		String tableName = trainTable;
+		if (fileName.equals(""))
+			fileName = tableName + "_LDA" + ".txt";
 		List<List<String>> list;
-		if (isTrainFile) {
-			tableName = trainTable;
-			// list = trainFeatures;
-		} else {
-			tableName = testTable;
-			// list = testFeatures;
-		}
 		FileWriter fw = null;
 		LineNumberReader lnr = null;
 		try {
 			lnr = new LineNumberReader(new FileReader("temp.dat"));
-			fw = new FileWriter(tableName + "_LDA" + ".txt");
+			fw = new FileWriter(fileName);
 			fw.write(VersionList.size() + "\n");
 			String line = lnr.readLine();
 			while (line != null) {
@@ -167,17 +141,13 @@ public class HostToMobileBrandLDA implements IBrandTools {
 
 	}
 
-	public void writeVersionToFileLDA(boolean isTrainFile) {
+	public void writeVersionToFileLDA(String fileName) {
 		FileWriter fw = null;
-		String tableName = "";
-		if (isTrainFile) {
-			tableName = trainTable;
-
-		} else {
-			tableName = testTable;
-		}
+		String tableName = trainTable;
+		if (fileName.equals(""))
+			fileName = tableName + "_LDA_Version" + ".txt";
 		try {
-			fw = new FileWriter(tableName + "_LDA_Version" + ".txt");
+			fw = new FileWriter(fileName);
 			for (int i = 0; i < VersionList.size(); i++) {
 				fw.write(VersionList.get(i) + "," + PriceList.get(i) + ","
 						+ EolList.get(i) + "\n");
@@ -202,14 +172,13 @@ public class HostToMobileBrandLDA implements IBrandTools {
 	public static void main(String arg[]) {
 		HostToMobileBrandLDA app = null;
 
-		app = new HostToMobileBrandLDA("z151_g500_t2k_f_z15_praice",
-				"//Z12_TRAIN_ONE_G500_BEH_VER_T2K", "");
+		app = new HostToMobileBrandLDA("z152_g500_t2k_z151_pri_up10");
 		System.out.println("read oracle...");
 		app.getFile(true);
 		System.out.println("output lda file...");
-		app.writeFeatureToFileLDA(true);
+		app.writeFeatureToFileLDA("LdaInputFile_noInternet.txt");
 		System.out.println("output versiong...");
-		app.writeVersionToFileLDA(true);
+		app.writeVersionToFileLDA("LdaUsersVersion_noInternet.txt");
 
 	}
 }

@@ -70,9 +70,11 @@ public class ReadUserHostBehaviorLDA implements IBrandTools {
 			while (rs.next()) {
 				String imei = rs.getString("imei");
 				String samaName = rs.getString("统一名称");
-				String host = rs.getString("host");
+				String host = rs.getString("host").replaceAll(" ", "");
 				String behavior = rs.getString("behavior");
 				hostBehavior = host + "_" + behavior;
+				if (behavior.equals("上网"))
+					continue;
 				if (!imei.equals(imeiRow)) {
 					System.out.println(++i);
 					if (row.size() > 0) {
@@ -117,7 +119,7 @@ public class ReadUserHostBehaviorLDA implements IBrandTools {
 
 	public static void main(String arg[]) {
 		ReadUserHostBehaviorLDA rubl = new ReadUserHostBehaviorLDA(
-				"z151_g500_t2k_f_z15_praice");
+				"z152_g500_t2k_z151_pri_up10");
 		rubl.readHostbehavior2Id("C:\\Users\\ybz\\GitHub\\Law-LDA-jGibbLDA\\JGibbLDA-v.1.0\\wordmap.txt");
 		rubl.getFile(true);
 	}
